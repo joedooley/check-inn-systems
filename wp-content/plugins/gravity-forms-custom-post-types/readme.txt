@@ -77,6 +77,10 @@ When populating a Drop Down field with a post type, you may wish to set the sele
 
 == Changelog ==
 
+= 3.1.6 =
+
+* Added support for displaying term label on Entry Detail view (rather than term ID)
+
 = 3.1.5 =
 
 * Fixed issue with populating Drop Down & Multi Selects
