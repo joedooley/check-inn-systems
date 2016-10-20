@@ -1,0 +1,1 @@
+jQuery(document).ready(function(e){jQuery(".beaver-tunnels-content .bt-template-overlay").click(function(){jQuery(jQuery(this).parent().find("> a")).on("click",FLBuilder._headerLinkClicked),jQuery(jQuery(this).parent().find("> a")).trigger("click")})});
