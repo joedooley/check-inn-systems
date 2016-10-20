@@ -30,11 +30,7 @@
  *
  * @since 1.9.0
  *
- * @uses genesis_html5() Check for HTML5 support.
- * @uses genesis_attr()  Contextual attributes.
- *
  * @param array $args Array of arguments.
- *
  * @return string Markup.
  */
 function genesis_markup( $args = array() ) {
@@ -43,34 +39,91 @@ function genesis_markup( $args = array() ) {
 		'html5'   => '',
 		'xhtml'   => '',
 		'context' => '',
+		'open'    => '',
+		'close'   => '',
+		'content' => '',
 		'echo'    => true,
 	);
 
 	$args = wp_parse_args( $args, $defaults );
 
-	//* Short circuit filter
+	// Short circuit filter.
 	$pre = apply_filters( "genesis_markup_{$args['context']}", false, $args );
-	if ( false !== $pre )
-		return $pre;
+	if ( false !== $pre ) {
 
-	if ( ! $args['html5'] || ! $args['xhtml'] )
-		return '';
+		if ( ! $args['echo'] ) {
+			return $pre;
+		}
 
-	//* If HTML5, return HTML5 tag. Maybe add attributes. Else XHTML.
-	if ( genesis_html5() ) {
-		$tag = $args['context'] ? sprintf( $args['html5'], genesis_attr( $args['context'] ) ) : $args['html5'];
-	}
-	else {
-		$tag = $args['xhtml'];
+		echo $pre;
+		return;
+
 	}
 
-	//* Contextual filter
-	$tag = $args['context'] ? apply_filters( "genesis_markup_{$args['context']}_output", $tag, $args ) : $tag;
+	if ( $args['html5'] || $args['xhtml'] ) {
 
-	if ( $args['echo'] )
+		// If HTML5, return HTML5 tag. Maybe add attributes. Else XHTML.
+		if ( genesis_html5() ) {
+			$tag = $args['context'] ? sprintf( $args['html5'], genesis_attr( $args['context'] ) ) : $args['html5'];
+		} else {
+			$tag = $args['xhtml'];
+		}
+
+		// Contextual filter.
+		$tag = $args['context'] ? apply_filters( "genesis_markup_{$args['context']}_output", $tag, $args ) : $tag;
+
+		if ( ! $args['echo'] ) {
+			return $tag;
+		}
+
 		echo $tag;
-	else
-		return $tag;
+		return;
+
+	}
+
+	// Add attributes to open tag.
+	if ( $args['context'] ) {
+
+		$open = sprintf( $args['open'], genesis_attr( $args['context'] ) );
+		$open = apply_filters( "genesis_markup_{$args['context']}_open", $open, $args );
+		$close = apply_filters( "genesis_markup_{$args['context']}_close", $args['close'], $args );
+
+	} else {
+
+		$open = $args['open'];
+		$close = $args['close'];
+
+	}
+
+	if ( $args['content'] || $open ) {
+		$open = apply_filters( 'genesis_markup_open', $open, $args );
+	}
+
+	if ( $args['content'] || $close ) {
+		$close = apply_filters( 'genesis_markup_close', $close, $args );
+	}
+
+	if ( $args['echo'] ) {
+		echo $open . $args['content'] . $close;
+	} else {
+		return $open . $args['content'] . $close;
+	}
+
+}
+
+add_action( 'after_setup_theme', 'genesis_xhtml_check' );
+/**
+ * Conditionally load xhtml markup.
+ *
+ * @since 2.4.0
+ */
+function genesis_xhtml_check() {
+
+	if ( ! genesis_html5() ) {
+		require_once( GENESIS_STRUCTURE_DIR . '/xhtml.php' );
+
+		_genesis_builtin_sidebar_params();
+	}
 
 }
 
@@ -81,9 +134,8 @@ function genesis_markup( $args = array() ) {
  *
  * @since 2.0.0
  *
- * @param  string $context    The context, to build filter name.
- * @param  array  $attributes Optional. Extra attributes to merge with defaults.
- *
+ * @param string $context    The context, to build filter name.
+ * @param array  $attributes Optional. Extra attributes to merge with defaults.
  * @return array Merged and filtered attributes.
  */
 function genesis_parse_attr( $context, $attributes = array() ) {
@@ -94,7 +146,7 @@ function genesis_parse_attr( $context, $attributes = array() ) {
 
     $attributes = wp_parse_args( $attributes, $defaults );
 
-    //* Contextual filter
+    // Contextual filter.
     return apply_filters( "genesis_attr_{$context}", $attributes, $context );
 
 }
@@ -106,29 +158,91 @@ function genesis_parse_attr( $context, $attributes = array() ) {
  *
  * @since 2.0.0
  *
- * @uses genesis_parse_attr() Merge array of attributes with defaults, and apply contextual filter on array.
- *
- * @param  string $context    The context, to build filter name.
- * @param  array  $attributes Optional. Extra attributes to merge with defaults.
- *
+ * @param string $context    The context, to build filter name.
+ * @param array  $attributes Optional. Extra attributes to merge with defaults.
  * @return string String of HTML attributes and values.
  */
 function genesis_attr( $context, $attributes = array() ) {
 
-    $attributes = genesis_parse_attr( $context, $attributes );
+	$attributes = genesis_parse_attr( $context, $attributes );
 
-    $output = '';
+	$output = '';
 
-    //* Cycle through attributes, build tag attribute string
+	// Cycle through attributes, build tag attribute string.
     foreach ( $attributes as $key => $value ) {
-        if ( ! $value )
-            continue;
-        $output .= sprintf( '%s="%s" ', esc_html( $key ), esc_attr( $value ) );
+
+		if ( ! $value ) {
+			continue;
+		}
+
+		if ( true === $value ) {
+			$output .= esc_html( $key ) . ' ';
+		} else {
+			$output .= sprintf( '%s="%s" ', esc_html( $key ), esc_attr( $value ) );
+		}
+
     }
 
     $output = apply_filters( "genesis_attr_{$context}_output", $output, $attributes, $context );
 
     return trim( $output );
+
+}
+
+/**
+ * Helper function for use as a filter for when you want to prevent a class from being automatically
+ * generated and output on an element that is passed through the markup API.
+ *
+ * @since 2.2.1
+ *
+ * @param array $attributes Existing attributes.
+ * @return array Attributes with `class` set to empty string.
+ */
+function genesis_attributes_empty_class( $attributes ) {
+
+	$attributes['class'] = '';
+
+	return $attributes;
+
+}
+
+/**
+ * Helper function for use as a filter for when you want to add screen-reader-text class to an element.
+ *
+ * @since 2.2.1
+ *
+ * @param array $attributes Existing attributes.
+ * @return array Attributes with `screen-reader-text` added to classes
+ */
+function genesis_attributes_screen_reader_class( $attributes ) {
+
+	$attributes['class'] .= ' screen-reader-text';
+
+	return $attributes;
+
+}
+
+add_filter( 'genesis_attr_head', 'genesis_attributes_head' );
+/**
+ * Add attributes for head element.
+ *
+ * @since 2.2.0
+ *
+ * @param array $attributes Existing attributes for `head` element.
+ * @return array Amended attributes for `head` element.
+ */
+ function genesis_attributes_head( $attributes ) {
+
+ 	$attributes['class'] = '';
+
+	if ( ! is_front_page() ) {
+		return $attributes;
+	}
+
+	$attributes['itemscope'] = true;
+	$attributes['itemtype']  = 'http://schema.org/WebSite';
+
+	return $attributes;
 
 }
 
@@ -138,15 +252,19 @@ add_filter( 'genesis_attr_body', 'genesis_attributes_body' );
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for `body` element.
+ * @return array Amended attributes for `body` element.
  */
 function genesis_attributes_body( $attributes ) {
 
 	$attributes['class']     = join( ' ', get_body_class() );
-	$attributes['itemscope'] = 'itemscope';
+	$attributes['itemscope'] = true;
 	$attributes['itemtype']  = 'http://schema.org/WebPage';
+
+	// Search results pages.
+	if ( is_search() ) {
+		$attributes['itemtype'] = 'http://schema.org/SearchResultsPage';
+	}
 
 	return $attributes;
 
@@ -158,14 +276,12 @@ add_filter( 'genesis_attr_site-header', 'genesis_attributes_header' );
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for site header element.
+ * @return array Amended attributes for site header element.
  */
 function genesis_attributes_header( $attributes ) {
 
-	$attributes['role']      = 'banner';
-	$attributes['itemscope'] = 'itemscope';
+	$attributes['itemscope'] = true;
 	$attributes['itemtype']  = 'http://schema.org/WPHeader';
 
 	return $attributes;
@@ -178,9 +294,8 @@ add_filter( 'genesis_attr_site-title', 'genesis_attributes_site_title' );
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for site title element.
+ * @return array Amended attributes for site title element.
  */
 function genesis_attributes_site_title( $attributes ) {
 
@@ -196,9 +311,8 @@ add_filter( 'genesis_attr_site-description', 'genesis_attributes_site_descriptio
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for site description element.
+ * @return array Amended attributes for site description element.
  */
 function genesis_attributes_site_description( $attributes ) {
 
@@ -214,13 +328,77 @@ add_filter( 'genesis_attr_header-widget-area', 'genesis_attributes_header_widget
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for header widget area element.
+ * @return array Amended attributes for header widget area element.
  */
 function genesis_attributes_header_widget_area( $attributes ) {
 
 	$attributes['class'] = 'widget-area header-widget-area';
+
+	return $attributes;
+
+}
+
+add_filter( 'genesis_attr_breadcrumb', 'genesis_attributes_breadcrumb' );
+/**
+ * Add attributes for breadcrumbs wrapper.
+ *
+ * @since 2.2.0
+ *
+ * @param array $attributes Existing attributes for breadcrumbs wrapper element.
+ * @return array Amended attributes for breadcrumbs wrapper element.
+ */
+function genesis_attributes_breadcrumb( $attributes ) {
+
+	$attributes['itemprop']  = 'breadcrumb';
+	$attributes['itemscope'] = true;
+	$attributes['itemtype']  = 'http://schema.org/BreadcrumbList';
+
+	// Breadcrumb itemprop not valid on blog.
+	if ( is_singular( 'post' ) || is_archive() || is_home() || is_page_template( 'page_blog.php' ) ) {
+		unset( $attributes['itemprop'] );
+	}
+
+	return $attributes;
+
+}
+
+add_filter( 'genesis_attr_breadcrumb-link-wrap', 'genesis_attributes_breadcrumb_link_wrap' );
+/**
+ * Add attributes for breadcrumb item element.
+ *
+ * @since 2.2.0
+ *
+ * @param array $attributes Existing attributes for breadcrumb item element.
+ * @return array Amended attributes for breadcrumb item element.
+ */
+function genesis_attributes_breadcrumb_link_wrap( $attributes ) {
+
+	$attributes['itemprop']  = 'itemListElement';
+	$attributes['itemscope'] = true;
+	$attributes['itemtype']  = 'http://schema.org/ListItem';
+
+	return $attributes;
+
+}
+
+add_filter( 'genesis_attr_search-form', 'genesis_attributes_search_form' );
+/**
+ * Add attributes for search form.
+ *
+ * @since 2.2.0
+ *
+ * @param array $attributes Existing attributes for search form element.
+ * @return array Amended attributes for search form element.
+ */
+function genesis_attributes_search_form( $attributes ) {
+
+	$attributes['itemprop']  = 'potentialAction';
+	$attributes['itemscope'] = true;
+	$attributes['itemtype']  = 'http://schema.org/SearchAction';
+	$attributes['method']    = 'get';
+	$attributes['action']    = home_url( '/' );
+	$attributes['role']      = 'search';
 
 	return $attributes;
 
@@ -236,15 +414,55 @@ add_filter( 'genesis_attr_nav-header', 'genesis_attributes_nav' );
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for navigation elements.
+ * @return array Amended attributes for navigation elements.
  */
 function genesis_attributes_nav( $attributes ) {
 
-	$attributes['role']      = 'navigation';
-	$attributes['itemscope'] = 'itemscope';
+	$attributes['itemscope'] = true;
 	$attributes['itemtype']  = 'http://schema.org/SiteNavigationElement';
+
+	return $attributes;
+
+}
+
+add_filter( 'genesis_attr_nav-link-wrap', 'genesis_attributes_nav_link_wrap' );
+/**
+ * Add attributes for the span wrap around navigation item links.
+ *
+ * @since 2.2.0
+ *
+ * @param array $attributes Existing attributes for span wrap around navigation item links.
+ * @return array Amended attributes for span wrap around navigation item links.
+ */
+function genesis_attributes_nav_link_wrap( $attributes ) {
+
+	$attributes['class'] = '';
+	$attributes['itemprop'] = 'name';
+
+	return $attributes;
+
+}
+
+add_filter( 'genesis_attr_nav-link', 'genesis_attributes_nav_link' );
+/**
+ * Add attributes for the navigation item links.
+ *
+ * Since we're utilizing a filter that plugins might also want to filter, don't overwrite class here.
+ *
+ * @since 2.2.0
+ *
+ * @link https://github.com/copyblogger/genesis/issues/1226
+ *
+ * @param array $attributes Existing attributes for navigation item links.
+ * @return array Amended attributes for navigation item links.
+ */
+function genesis_attributes_nav_link( $attributes ) {
+
+	$class = str_replace( 'nav-link', '', $attributes['class'] );
+
+	$attributes['class']    = $class;
+	$attributes['itemprop'] = 'url';
 
 	return $attributes;
 
@@ -252,13 +470,12 @@ function genesis_attributes_nav( $attributes ) {
 
 add_filter( 'genesis_attr_structural-wrap', 'genesis_attributes_structural_wrap' );
 /**
- * Add attributes for structural wrap element.
+ * Add attributes for structural wrap elements.
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for structural wrap elements.
+ * @return array Amended attributes for structural wrap elements.
  */
 function genesis_attributes_structural_wrap( $attributes ) {
 
@@ -274,26 +491,112 @@ add_filter( 'genesis_attr_content', 'genesis_attributes_content' );
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for `main` element.
+ * @return array Attributes for `main` element.
  */
 function genesis_attributes_content( $attributes ) {
 
-	$attributes['role']     = 'main';
-	$attributes['itemprop'] = 'mainContentOfPage';
+	return $attributes;
 
-	//* Blog microdata
-	if ( is_singular( 'post' ) || is_archive() || is_home() || is_page_template( 'page_blog.php' ) ) {
-		$attributes['itemscope'] = 'itemscope';
-		$attributes['itemtype']  = 'http://schema.org/Blog';
-	}
+}
 
-	//* Search results pages
-	if ( is_search() ) {
-		$attributes['itemscope'] = 'itemscope';
-		$attributes['itemtype'] = 'http://schema.org/SearchResultsPage';
-	}
+add_filter( 'genesis_attr_taxonomy-archive-description', 'genesis_attributes_taxonomy_archive_description' );
+/**
+ * Add attributes for taxonomy archive description element.
+ *
+ * @since 2.2.1
+ *
+ * @param array $attributes Existing attributes for taxonomy archive description element.
+ * @return array Amended attributes for taxonomy archive description element.
+ */
+function genesis_attributes_taxonomy_archive_description( $attributes ) {
+
+	$attributes['class'] = 'archive-description taxonomy-archive-description taxonomy-description';
+
+	return $attributes;
+
+}
+
+add_filter( 'genesis_attr_author-archive-description', 'genesis_attributes_author_archive_description' );
+/**
+ * Add attributes for author archive description element.
+ *
+ * @since 2.2.1
+ *
+ * @param array $attributes Existing attributes for author archive description element.
+ * @return array Amended attributes for author archive description element.
+ */
+function genesis_attributes_author_archive_description( $attributes ) {
+
+	$attributes['class'] = 'archive-description author-archive-description author-description';
+
+	return $attributes;
+
+}
+
+add_filter( 'genesis_attr_cpt-archive-description', 'genesis_attributes_cpt_archive_description' );
+/**
+ * Add attributes for CPT archive description element.
+ *
+ * @since 2.2.1
+ *
+ * @param array $attributes Existing attributes for CPT archive description element.
+ * @return array Amended attributes for CPT archive description element.
+ */
+function genesis_attributes_cpt_archive_description( $attributes ) {
+
+	$attributes['class'] = 'archive-description cpt-archive-description';
+
+	return $attributes;
+
+}
+
+add_filter( 'genesis_attr_date-archive-description', 'genesis_attributes_date_archive_description' );
+/**
+ * Add attributes for date archive description element.
+ *
+ * @since 2.2.1
+ *
+ * @param array $attributes Existing attributes for date archive description element.
+ * @return array Amended attributes for date archive description element.
+ */
+function genesis_attributes_date_archive_description( $attributes ) {
+
+	$attributes['class'] = 'archive-description date-archive-description archive-date';
+
+	return $attributes;
+
+}
+
+add_filter( 'genesis_attr_blog-template-description', 'genesis_attributes_blog_template_description' );
+/**
+ * Add attributes for blog template description element.
+ *
+ * @since 2.2.1
+ *
+ * @param array $attributes Existing attributes for blog template description element.
+ * @return array Amended attributes for blog template description element.
+ */
+function genesis_attributes_blog_template_description( $attributes ) {
+
+	$attributes['class'] = 'archive-description blog-template-description';
+
+	return $attributes;
+
+}
+
+add_filter( 'genesis_attr_posts-page-description', 'genesis_attributes_posts_page_description' );
+/**
+ * Add attributes for posts page description element.
+ *
+ * @since 2.2.1
+ *
+ * @param array $attributes Existing attributes for posts page description element.
+ * @return array Amended attributes for posts page description element.
+ */
+function genesis_attributes_posts_page_description( $attributes ) {
+
+	$attributes['class'] = 'archive-description posts-page-description';
 
 	return $attributes;
 
@@ -305,26 +608,19 @@ add_filter( 'genesis_attr_entry', 'genesis_attributes_entry' );
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for entry element.
+ * @return array Amended attributes for entry element.
  */
 function genesis_attributes_entry( $attributes ) {
 
-	$attributes['class']     = join( ' ', get_post_class() );
-	$attributes['itemscope'] = 'itemscope';
-	$attributes['itemtype']  = 'http://schema.org/CreativeWork';
+	$attributes['class'] = join( ' ', get_post_class() );
 
-	//* Blog posts microdata
-	if ( 'post' === get_post_type() ) {
-
-		$attributes['itemtype']  = 'http://schema.org/BlogPosting';
-
-		//* If main query,
-		if ( is_main_query() )
-			$attributes['itemprop']  = 'blogPost';
-
+	if ( ! is_main_query() && ! genesis_is_blog_template() ) {
+		return $attributes;
 	}
+
+	$attributes['itemscope'] = true;
+	$attributes['itemtype']  = 'http://schema.org/CreativeWork';
 
 	return $attributes;
 
@@ -336,14 +632,32 @@ add_filter( 'genesis_attr_entry-image', 'genesis_attributes_entry_image' );
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for entry image element.
+ * @return array Amended attributes for entry image element.
  */
 function genesis_attributes_entry_image( $attributes ) {
 
 	$attributes['class']    = genesis_get_option( 'image_alignment' ) . ' post-image entry-image';
 	$attributes['itemprop'] = 'image';
+
+	return $attributes;
+
+}
+
+add_filter( 'genesis_attr_entry-image-link', 'genesis_attributes_entry_image_link' );
+/**
+ * Add attributes for entry image link element.
+ *
+ * @since 2.3.0
+ *
+ * @param array $attributes Existing attributes for entry image link element.
+ * @return array Amended attributes for entry image link element.
+ */
+function genesis_attributes_entry_image_link( $attributes ) {
+
+	$attributes['href']        = get_permalink();
+	$attributes['aria-hidden'] = 'true';
+	$attributes['class']       = 'entry-image-link';
 
 	return $attributes;
 
@@ -355,9 +669,8 @@ add_filter( 'genesis_attr_entry-image-widget', 'genesis_attributes_entry_image_w
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for entry image element shown in a widget.
+ * @return array Amended attributes for entry image element shown in a widget.
  */
 function genesis_attributes_entry_image_widget( $attributes ) {
 
@@ -374,9 +687,8 @@ add_filter( 'genesis_attr_entry-image-grid-loop', 'genesis_attributes_entry_imag
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for entry image element shown in a grid loop.
+ * @return array Amended attributes for entry image element shown in a grid loop.
  */
 function genesis_attributes_entry_image_grid_loop( $attributes ) {
 
@@ -392,14 +704,13 @@ add_filter( 'genesis_attr_entry-author', 'genesis_attributes_entry_author' );
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for author element for an entry.
+ * @return array Amended attributes for author element for an entry.
  */
 function genesis_attributes_entry_author( $attributes ) {
 
 	$attributes['itemprop']  = 'author';
-	$attributes['itemscope'] = 'itemscope';
+	$attributes['itemscope'] = true;
 	$attributes['itemtype']  = 'http://schema.org/Person';
 
 	return $attributes;
@@ -412,9 +723,8 @@ add_filter( 'genesis_attr_entry-author-link', 'genesis_attributes_entry_author_l
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for entry author link element.
+ * @return array Amended attributes for entry author link element.
  */
 function genesis_attributes_entry_author_link( $attributes ) {
 
@@ -431,9 +741,8 @@ add_filter( 'genesis_attr_entry-author-name', 'genesis_attributes_entry_author_n
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for entry author name element.
+ * @return array Amended attributes for entry author name element.
  */
 function genesis_attributes_entry_author_name( $attributes ) {
 
@@ -449,9 +758,8 @@ add_filter( 'genesis_attr_entry-time', 'genesis_attributes_entry_time' );
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for time element for an entry.
+ * @return array Amended attributes for time element for an entry.
  */
 function genesis_attributes_entry_time( $attributes ) {
 
@@ -468,9 +776,8 @@ add_filter( 'genesis_attr_entry-modified-time', 'genesis_attributes_entry_modifi
  *
  * @since 2.1.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for modified time element for an entry.
+ * @return array Amended attributes for modified time element for an entry.
  */
 function genesis_attributes_entry_modified_time( $attributes ) {
 
@@ -487,9 +794,8 @@ add_filter( 'genesis_attr_entry-title', 'genesis_attributes_entry_title' );
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for entry title element.
+ * @return array Amended attributes for entry title element.
  */
 function genesis_attributes_entry_title( $attributes ) {
 
@@ -505,11 +811,14 @@ add_filter( 'genesis_attr_entry-content', 'genesis_attributes_entry_content' );
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for entry content element.
+ * @return array Amended attributes for entry content element.
  */
 function genesis_attributes_entry_content( $attributes ) {
+
+	if ( ! is_main_query() && ! genesis_is_blog_template() ) {
+		return $attributes;
+	}
 
 	$attributes['itemprop'] = 'text';
 
@@ -524,9 +833,8 @@ add_filter( 'genesis_attr_entry-meta-after-content', 'genesis_attributes_entry_m
  *
  * @since 2.1.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for entry meta elements.
+ * @return array Amended attributes for entry meta elements.
  */
 function genesis_attributes_entry_meta( $attributes ) {
 
@@ -541,13 +849,12 @@ add_filter( 'genesis_attr_entry-pagination', 'genesis_attributes_pagination' );
 add_filter( 'genesis_attr_adjacent-entry-pagination', 'genesis_attributes_pagination' );
 add_filter( 'genesis_attr_comments-pagination', 'genesis_attributes_pagination' );
 /**
- * Add attributes for pagination.
+ * Add attributes for pagination element.
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for pagination element.
+ * @return array Amended attributes for pagination element.
  */
 function genesis_attributes_pagination( $attributes ) {
 
@@ -563,9 +870,8 @@ add_filter( 'genesis_attr_entry-comments', 'genesis_attributes_entry_comments' )
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for entry comments element.
+ * @return array Amended attributes for entry comments element.
  */
 function genesis_attributes_entry_comments( $attributes ) {
 
@@ -581,16 +887,15 @@ add_filter( 'genesis_attr_comment', 'genesis_attributes_comment' );
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for single comment element.
+ * @return array Amended attributes for single comment element.
  */
 function genesis_attributes_comment( $attributes ) {
 
 	$attributes['class']     = '';
 	$attributes['itemprop']  = 'comment';
-	$attributes['itemscope'] = 'itemscope';
-	$attributes['itemtype']  = 'http://schema.org/UserComments';
+	$attributes['itemscope'] = true;
+	$attributes['itemtype']  = 'http://schema.org/Comment';
 
 	return $attributes;
 
@@ -602,14 +907,13 @@ add_filter( 'genesis_attr_comment-author', 'genesis_attributes_comment_author' )
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for comment author element.
+ * @return array Amended attributes for comment author element.
  */
 function genesis_attributes_comment_author( $attributes ) {
 
-	$attributes['itemprop']  = 'creator';
-	$attributes['itemscope'] = 'itemscope';
+	$attributes['itemprop']  = 'author';
+	$attributes['itemscope'] = true;
 	$attributes['itemtype']  = 'http://schema.org/Person';
 
 	return $attributes;
@@ -622,9 +926,8 @@ add_filter( 'genesis_attr_comment-author-link', 'genesis_attributes_comment_auth
  *
  * @since 2.1.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for comment author link element.
+ * @return array Amended attributes for comment author link element.
  */
 function genesis_attributes_comment_author_link( $attributes ) {
 
@@ -641,14 +944,13 @@ add_filter( 'genesis_attr_comment-time', 'genesis_attributes_comment_time' );
  *
  * @since 2.1.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for comment time element.
+ * @return array Amended attributes for comment time element.
  */
 function genesis_attributes_comment_time( $attributes ) {
 
 	$attributes['datetime'] = esc_attr( get_comment_time( 'c' ) );
-	$attributes['itemprop'] = 'commentTime';
+	$attributes['itemprop'] = 'datePublished';
 
 	return $attributes;
 
@@ -660,9 +962,8 @@ add_filter( 'genesis_attr_comment-time-link', 'genesis_attributes_comment_time_l
  *
  * @since 2.1.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for comment time link element.
+ * @return array Amended attributes for comment time link element.
  */
 function genesis_attributes_comment_time_link( $attributes ) {
 
@@ -678,13 +979,12 @@ add_filter( 'genesis_attr_comment-content', 'genesis_attributes_comment_content'
  *
  * @since 2.1.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for comment content container.
+ * @return array Amended attributes for comment content container.
  */
 function genesis_attributes_comment_content( $attributes ) {
 
-	$attributes['itemprop'] = 'commentText';
+	$attributes['itemprop'] = 'text';
 
 	return $attributes;
 
@@ -696,14 +996,13 @@ add_filter( 'genesis_attr_author-box', 'genesis_attributes_author_box' );
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for author box element.
+ * @return array Amended attributes for author box element.
  */
 function genesis_attributes_author_box( $attributes ) {
 
 	$attributes['itemprop']  = 'author';
-	$attributes['itemscope'] = 'itemscope';
+	$attributes['itemscope'] = true;
 	$attributes['itemtype']  = 'http://schema.org/Person';
 
 	return $attributes;
@@ -716,15 +1015,15 @@ add_filter( 'genesis_attr_sidebar-primary', 'genesis_attributes_sidebar_primary'
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for primary sidebar element.
+ * @return array Amended attributes for primary sidebar element.
  */
 function genesis_attributes_sidebar_primary( $attributes ) {
 
 	$attributes['class']     = 'sidebar sidebar-primary widget-area';
 	$attributes['role']      = 'complementary';
-	$attributes['itemscope'] = 'itemscope';
+	$attributes['aria-label']  = __( 'Primary Sidebar', 'genesis' );
+	$attributes['itemscope'] = true;
 	$attributes['itemtype']  = 'http://schema.org/WPSideBar';
 
 	return $attributes;
@@ -737,15 +1036,15 @@ add_filter( 'genesis_attr_sidebar-secondary', 'genesis_attributes_sidebar_second
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for secondary sidebar element.
+ * @return array Amended attributes for secondary sidebar element.
  */
 function genesis_attributes_sidebar_secondary( $attributes ) {
 
 	$attributes['class']     = 'sidebar sidebar-secondary widget-area';
 	$attributes['role']      = 'complementary';
-	$attributes['itemscope'] = 'itemscope';
+	$attributes['aria-label']  = __( 'Secondary Sidebar', 'genesis' );
+	$attributes['itemscope'] = true;
 	$attributes['itemtype']  = 'http://schema.org/WPSideBar';
 
 	return $attributes;
@@ -758,16 +1057,97 @@ add_filter( 'genesis_attr_site-footer', 'genesis_attributes_site_footer' );
  *
  * @since 2.0.0
  *
- * @param array $attributes Existing attributes.
- *
- * @return array Amended attributes.
+ * @param array $attributes Existing attributes for site footer element.
+ * @return array Amended attributes for site footer element.
  */
 function genesis_attributes_site_footer( $attributes ) {
 
-	$attributes['role']      = 'contentinfo';
-	$attributes['itemscope'] = 'itemscope';
+	$attributes['itemscope'] = true;
 	$attributes['itemtype']  = 'http://schema.org/WPFooter';
 
 	return $attributes;
 
+}
+
+/**
+ * Add ID markup to the elements to jump to.
+ *
+ * @since 2.2.0
+ *
+ * @link https://gist.github.com/salcode/7164690
+ */
+function genesis_skiplinks_markup() {
+
+	add_filter( 'genesis_attr_nav-primary', 'genesis_skiplinks_attr_nav_primary' );
+	add_filter( 'genesis_attr_content', 'genesis_skiplinks_attr_content' );
+	add_filter( 'genesis_attr_sidebar-primary', 'genesis_skiplinks_attr_sidebar_primary' );
+	add_filter( 'genesis_attr_sidebar-secondary', 'genesis_skiplinks_attr_sidebar_secondary' );
+	add_filter( 'genesis_attr_footer-widgets', 'genesis_skiplinks_attr_footer_widgets' );
+
+}
+
+/**
+ * Add ID markup to primary navigation.
+ *
+ * @since 2.2.0
+ *
+ * @param array $attributes Existing attributes for primary navigation element.
+ * @return array Amended attributes for primary navigation element.
+ */
+function genesis_skiplinks_attr_nav_primary( $attributes ) {
+	$attributes['id'] = 'genesis-nav-primary';
+	$attributes['aria-label'] = __( 'Main navigation', 'genesis' );
+	return $attributes;
+}
+
+/**
+ * Add ID markup to main content area.
+ *
+ * @since 2.2.0
+ *
+ * @param array $attributes Existing attributes for `main` element.
+ * @return array Amended attributes for `main` element.
+ */
+function genesis_skiplinks_attr_content( $attributes ) {
+	$attributes['id'] = 'genesis-content';
+	return $attributes;
+}
+
+/**
+ * Add ID markup to primary sidebar.
+ *
+ * @since 2.2.0
+ *
+ * @param array $attributes Existing attributes for primary sidebar element.
+ * @return array Amended attributes for primary sidebar element.
+ */
+function genesis_skiplinks_attr_sidebar_primary( $attributes ) {
+	$attributes['id'] = 'genesis-sidebar-primary';
+	return $attributes;
+}
+
+/**
+ * Add ID markup to secondary sidebar.
+ *
+ * @since 2.2.0
+ *
+ * @param array $attributes Existing attributes for secondary sidebar element.
+ * @return array Amended attributes for secondary sidebar element.
+ */
+function genesis_skiplinks_attr_sidebar_secondary( $attributes ) {
+	$attributes['id'] = 'genesis-sidebar-secondary';
+	return $attributes;
+}
+
+/**
+ * Add ID markup to footer widget area.
+ *
+ * @since 2.2.0
+ *
+ * @param array $attributes Existing attributes for footer widget area element.
+ * @return array Amended attributes for footer widget area element.
+ */
+function genesis_skiplinks_attr_footer_widgets( $attributes ) {
+	$attributes['id'] = 'genesis-footer-widgets';
+	return $attributes;
 }

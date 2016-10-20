@@ -37,11 +37,12 @@ class Genesis_Featured_Post extends WP_Widget {
 		$this->defaults = array(
 			'title'                   => '',
 			'posts_cat'               => '',
-			'posts_num'               => 1,
+			'posts_num'               => '',
 			'posts_offset'            => 0,
 			'orderby'                 => '',
 			'order'                   => '',
 			'exclude_displayed'       => 0,
+			'exclude_sticky'          => 0,
 			'show_image'              => 0,
 			'image_alignment'         => '',
 			'image_size'              => '',
@@ -82,34 +83,36 @@ class Genesis_Featured_Post extends WP_Widget {
 	 *
 	 * @global WP_Query $wp_query               Query object.
 	 * @global array    $_genesis_displayed_ids Array of displayed post IDs.
-	 * @global $integer $more
+	 * @global int      $more
 	 *
-	 * @param array $args Display arguments including before_title, after_title, before_widget, and after_widget.
-	 * @param array $instance The settings for the particular instance of the widget
+	 * @param array $args     Display arguments including `before_title`, `after_title`,
+	 *                        `before_widget`, and `after_widget`.
+	 * @param array $instance The settings for the particular instance of the widget.
 	 */
 	function widget( $args, $instance ) {
 
 		global $wp_query, $_genesis_displayed_ids;
 
-		//* Merge with defaults
+		// Merge with defaults.
 		$instance = wp_parse_args( (array) $instance, $this->defaults );
 
 		echo $args['before_widget'];
 
-		//* Set up the author bio
+		// Set up the author bio.
 		if ( ! empty( $instance['title'] ) )
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base ) . $args['after_title'];
 
 		$query_args = array(
-			'post_type' => 'post',
-			'cat'       => $instance['posts_cat'],
-			'showposts' => $instance['posts_num'],
-			'offset'    => $instance['posts_offset'],
-			'orderby'   => $instance['orderby'],
-			'order'     => $instance['order'],
+			'post_type'           => 'post',
+			'cat'                 => $instance['posts_cat'],
+			'showposts'           => $instance['posts_num'],
+			'offset'              => $instance['posts_offset'],
+			'orderby'             => $instance['orderby'],
+			'order'               => $instance['order'],
+			'ignore_sticky_posts' => $instance['exclude_sticky'],
 		);
 
-		//* Exclude displayed IDs from this loop?
+		// Exclude displayed IDs from this loop?
 		if ( $instance['exclude_displayed'] )
 			$query_args['post__not_in'] = (array) $_genesis_displayed_ids;
 
@@ -120,8 +123,7 @@ class Genesis_Featured_Post extends WP_Widget {
 			$_genesis_displayed_ids[] = get_the_ID();
 
 			genesis_markup( array(
-				'html5'   => '<article %s>',
-				'xhtml'   => sprintf( '<div class="%s">', implode( ' ', get_post_class() ) ),
+				'open'    => '<article %s>',
 				'context' => 'entry',
 			) );
 
@@ -129,11 +131,13 @@ class Genesis_Featured_Post extends WP_Widget {
 				'format'  => 'html',
 				'size'    => $instance['image_size'],
 				'context' => 'featured-post-widget',
-				'attr'    => genesis_parse_attr( 'entry-image-widget' ),
+				'attr'    => genesis_parse_attr( 'entry-image-widget', array ( 'alt' => get_the_title() ) ),
 			) );
 
-			if ( $instance['show_image'] && $image )
-				printf( '<a href="%s" title="%s" class="%s">%s</a>', get_permalink(), the_title_attribute( 'echo=0' ), esc_attr( $instance['image_alignment'] ), $image );
+			if ( $instance['show_image'] && $image ) {
+				$role = empty( $instance['show_title'] ) ? '' : 'aria-hidden="true"';
+				printf( '<a href="%s" class="%s" %s>%s</a>', get_permalink(), esc_attr( $instance['image_alignment'] ), $role, wp_make_content_images_responsive( $image ) );
+			}
 
 			if ( ! empty( $instance['show_gravatar'] ) ) {
 				echo '<span class="' . esc_attr( $instance['gravatar_alignment'] ) . '">';
@@ -141,35 +145,113 @@ class Genesis_Featured_Post extends WP_Widget {
 				echo '</span>';
 			}
 
-			if ( $instance['show_title'] )
-				echo genesis_html5() ? '<header class="entry-header">' : '';
+			if ( $instance['show_title'] || $instance['show_byline'] ) {
+
+				$header = '';
 
 				if ( ! empty( $instance['show_title'] ) ) {
 
 					$title = get_the_title() ? get_the_title() : __( '(no title)', 'genesis' );
 
-					if ( genesis_html5() )
-						printf( '<h2 class="entry-title"><a href="%s">%s</a></h2>', get_permalink(), esc_html( $title ) );
-					else
-						printf( '<h2><a href="%s">%s</a></h2>', get_permalink(), esc_html( $title ) );
+					/**
+					 * Filter the featured post widget title.
+					 *
+					 * @since  2.2.0
+					 *
+					 * @param string $title    Featured post title.
+					 * @param array  $instance {
+					 *     Widget settings for this instance.
+					 *
+					 *     @type string $title                   Widget title.
+					 *     @type int    $posts_cat               ID of the post category.
+					 *     @type int    $posts_num               Number of posts to show.
+					 *     @type int    $posts_offset            Number of posts to skip when
+					 *                                           retrieving.
+					 *     @type string $orderby                 Field to order posts by.
+					 *     @type string $order                   ASC fr ascending order, DESC for
+					 *                                           descending order of posts.
+					 *     @type bool   $exclude_displayed       True if posts shown in main output
+					 *                                           should be excluded from this widget
+					 *                                           output.
+					 *     @type bool   $show_image              True if featured image should be
+					 *                                           shown, false otherwise.
+					 *     @type string $image_alignment         Image alignment: alignnone,
+					 *                                           alignleft, aligncenter or alignright.
+					 *     @type string $image_size              Name of the image size.
+					 *     @type bool   $show_gravatar           True if author avatar should be
+					 *                                           shown, false otherwise.
+					 *     @type string $gravatar_alignment      Author avatar alignment: alignnone,
+					 *                                           alignleft or aligncenter.
+					 *     @type int    $gravatar_size           Dimension of the author avatar.
+					 *     @type bool   $show_title              True if featured page title should
+					 *                                           be shown, false otherwise.
+					 *     @type bool   $show_byline             True if post info should be shown,
+					 *                                           false otherwise.
+					 *     @type string $post_info               Post info contents to show.
+					 *     @type bool   $show_content            True if featured page content
+					 *                                           should be shown, false otherwise.
+					 *     @type int    $content_limit           Amount of content to show, in
+					 *                                           characters.
+					 *     @type int    $more_text               Text to use for More link.
+					 *     @type int    $extra_num               Number of extra post titles to show.
+					 *     @type string $extra_title             Heading for extra posts.
+					 *     @type bool   $more_from_category      True if showing category archive
+					 *                                           link, false otherwise.
+					 *     @type string $more_from_category_text Category archive link text.
+					 * }
+					 * @param array  $args     {
+					 *     Widget display arguments.
+					 *
+					 *     @type string $before_widget Markup or content to display before the widget.
+					 *     @type string $before_title  Markup or content to display before the widget title.
+					 *     @type string $after_title   Markup or content to display after the widget title.
+					 *     @type string $after_widget  Markup or content to display after the widget.
+					 * }
+					 */
+					$title = apply_filters( 'genesis_featured_post_title', $title, $instance, $args );
+					$heading = genesis_a11y( 'headings' ) ? 'h4' : 'h2';
+
+					$header .= genesis_markup( array(
+						'open'    => "<{$heading} class=\"entry-title\">",
+						'close'   => "</{$heading}>",
+						'context' => 'widget-entry-title',
+						'content' => sprintf( '<a href="%s">%s</a>', get_permalink(), $title ),
+						'echo'    => false
+					) );
 
 				}
 
-				if ( ! empty( $instance['show_byline'] ) && ! empty( $instance['post_info'] ) )
-					printf( genesis_html5() ? '<p class="entry-meta">%s</p>' : '<p class="byline post-info">%s</p>', do_shortcode( $instance['post_info'] ) );
+				if ( ! empty( $instance['show_byline'] ) && ! empty( $instance['post_info'] ) ) {
+					$header .= genesis_markup( array(
+						'open'    => '<p class="entry-meta">',
+						'close'   => '</p>',
+						'context' => 'widget-entry-meta',
+						'content' => do_shortcode( $instance['post_info'] ),
+						'echo'    => false
+					) );
+				}
 
-			if ( $instance['show_title'] )
-				echo genesis_html5() ? '</header>' : '';
+				genesis_markup( array(
+					'open'    => '<header class="entry-header">',
+					'close'   => '</header>',
+					'context' => 'entry-header',
+					'content' => $header,
+				) );
+
+			}
 
 			if ( ! empty( $instance['show_content'] ) ) {
 
-				echo genesis_html5() ? '<div class="entry-content">' : '';
+				genesis_markup( array(
+					'open'    => '<div %s>',
+					'context' => 'entry-content',
+				) );
 
 				if ( 'excerpt' == $instance['show_content'] ) {
 					the_excerpt();
 				}
 				elseif ( 'content-limit' == $instance['show_content'] ) {
-					the_content_limit( (int) $instance['content_limit'], esc_html( $instance['more_text'] ) );
+					the_content_limit( (int) $instance['content_limit'], genesis_a11y_more_link( esc_html( $instance['more_text'] ) ) );
 				}
 				else {
 
@@ -178,30 +260,34 @@ class Genesis_Featured_Post extends WP_Widget {
 					$orig_more = $more;
 					$more = 0;
 
-					the_content( esc_html( $instance['more_text'] ) );
+					the_content( genesis_a11y_more_link( esc_html( $instance['more_text'] ) ) );
 
 					$more = $orig_more;
 
 				}
 
-				echo genesis_html5() ? '</div>' : '';
+				genesis_markup( array(
+					'close'   => '</div>',
+					'context' => 'entry-content',
+				) );
 
 			}
 
 			genesis_markup( array(
-				'html5' => '</article>',
-				'xhtml' => '</div>',
+				'close'   => '</article>',
+				'context' => 'entry',
 			) );
 
 		endwhile; endif;
 
-		//* Restore original query
+		// Restore original query.
 		wp_reset_query();
 
-		//* The EXTRA Posts (list)
+		// The EXTRA Posts (list).
 		if ( ! empty( $instance['extra_num'] ) ) {
-			if ( ! empty( $instance['extra_title'] ) )
-				echo $args['before_title'] . esc_html( $instance['extra_title'] ) . $args['after_title'];
+			if ( ! empty( $instance['extra_title'] ) ) {
+				echo $args['before_title'] . '<span class="more-posts-title">' . esc_html( $instance['extra_title'] ) . '</span>' . $args['after_title'];
+			}
 
 			$offset = intval( $instance['posts_num'] ) + intval( $instance['posts_offset'] );
 
@@ -223,10 +309,10 @@ class Genesis_Featured_Post extends WP_Widget {
 				}
 
 				if ( mb_strlen( $listitems ) > 0 )
-					printf( '<ul>%s</ul>', $listitems );
+					printf( '<ul class="more-posts">%s</ul>', $listitems );
 			}
 
-			//* Restore original query
+			// Restore original query.
 			wp_reset_query();
 		}
 
@@ -251,12 +337,14 @@ class Genesis_Featured_Post extends WP_Widget {
 	 *
 	 * @since 0.1.8
 	 *
-	 * @param array $new_instance New settings for this instance as input by the user via form()
-	 * @param array $old_instance Old settings for this instance
-	 * @return array Settings to save or bool false to cancel saving
+	 * @param array $new_instance New settings for this instance as input by the user via `form()`.
+	 * @param array $old_instance Old settings for this instance.
+	 * @return array Settings to save or bool false to cancel saving.
 	 */
 	function update( $new_instance, $old_instance ) {
 
+		$post_num = intval( $new_instance['posts_num'] );
+		$new_instance['posts_num'] = $post_num > 0 && $post_num < 100 ? $post_num : 1;
 		$new_instance['title']     = strip_tags( $new_instance['title'] );
 		$new_instance['more_text'] = strip_tags( $new_instance['more_text'] );
 		$new_instance['post_info'] = wp_kses_post( $new_instance['post_info'] );
@@ -269,17 +357,18 @@ class Genesis_Featured_Post extends WP_Widget {
 	 *
 	 * @since 0.1.8
 	 *
-	 * @param array $instance Current settings
+	 * @param array $instance Current settings.
+	 * @return void
 	 */
 	function form( $instance ) {
 
-		//* Merge with defaults
+		// Merge with defaults.
 		$instance = wp_parse_args( (array) $instance, $this->defaults );
 
 		?>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title', 'genesis' ); ?>:</label>
-			<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" class="widefat" />
+			<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" class="widefat" />
 		</p>
 
 		<div class="genesis-widget-column">
@@ -291,6 +380,7 @@ class Genesis_Featured_Post extends WP_Widget {
 					<?php
 					$categories_args = array(
 						'name'            => $this->get_field_name( 'posts_cat' ),
+						'id'              => $this->get_field_id( 'posts_cat' ),
 						'selected'        => $instance['posts_cat'],
 						'orderby'         => 'Name',
 						'hierarchical'    => 1,
@@ -301,18 +391,18 @@ class Genesis_Featured_Post extends WP_Widget {
 				</p>
 
 				<p>
-					<label for="<?php echo $this->get_field_id( 'posts_num' ); ?>"><?php _e( 'Number of Posts to Show', 'genesis' ); ?>:</label>
-					<input type="text" id="<?php echo $this->get_field_id( 'posts_num' ); ?>" name="<?php echo $this->get_field_name( 'posts_num' ); ?>" value="<?php echo esc_attr( $instance['posts_num'] ); ?>" size="2" />
+					<label for="<?php echo esc_attr( $this->get_field_id( 'posts_num' ) ); ?>"><?php _e( 'Number of Posts to Show', 'genesis' ); ?>:</label>
+					<input type="text" id="<?php echo esc_attr( $this->get_field_id( 'posts_num' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'posts_num' ) ); ?>" value="<?php echo esc_attr( $instance['posts_num'] ); ?>" size="2" placeholder="1" />
 				</p>
 
 				<p>
-					<label for="<?php echo $this->get_field_id( 'posts_offset' ); ?>"><?php _e( 'Number of Posts to Offset', 'genesis' ); ?>:</label>
-					<input type="text" id="<?php echo $this->get_field_id( 'posts_offset' ); ?>" name="<?php echo $this->get_field_name( 'posts_offset' ); ?>" value="<?php echo esc_attr( $instance['posts_offset'] ); ?>" size="2" />
+					<label for="<?php echo esc_attr( $this->get_field_id( 'posts_offset' ) ); ?>"><?php _e( 'Number of Posts to Offset', 'genesis' ); ?>:</label>
+					<input type="text" id="<?php echo esc_attr( $this->get_field_id( 'posts_offset' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'posts_offset' ) ); ?>" value="<?php echo esc_attr( $instance['posts_offset'] ); ?>" size="2" />
 				</p>
 
 				<p>
-					<label for="<?php echo $this->get_field_id( 'orderby' ); ?>"><?php _e( 'Order By', 'genesis' ); ?>:</label>
-					<select id="<?php echo $this->get_field_id( 'orderby' ); ?>" name="<?php echo $this->get_field_name( 'orderby' ); ?>">
+					<label for="<?php echo esc_attr( $this->get_field_id( 'orderby' ) ); ?>"><?php _e( 'Order By', 'genesis' ); ?>:</label>
+					<select id="<?php echo esc_attr( $this->get_field_id( 'orderby' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'orderby' ) ); ?>">
 						<option value="date" <?php selected( 'date', $instance['orderby'] ); ?>><?php _e( 'Date', 'genesis' ); ?></option>
 						<option value="title" <?php selected( 'title', $instance['orderby'] ); ?>><?php _e( 'Title', 'genesis' ); ?></option>
 						<option value="parent" <?php selected( 'parent', $instance['orderby'] ); ?>><?php _e( 'Parent', 'genesis' ); ?></option>
@@ -323,16 +413,21 @@ class Genesis_Featured_Post extends WP_Widget {
 				</p>
 
 				<p>
-					<label for="<?php echo $this->get_field_id( 'order' ); ?>"><?php _e( 'Sort Order', 'genesis' ); ?>:</label>
-					<select id="<?php echo $this->get_field_id( 'order' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>">
+					<label for="<?php echo esc_attr( $this->get_field_id( 'order' ) ); ?>"><?php _e( 'Sort Order', 'genesis' ); ?>:</label>
+					<select id="<?php echo esc_attr( $this->get_field_id( 'order' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'order' ) ); ?>">
 						<option value="DESC" <?php selected( 'DESC', $instance['order'] ); ?>><?php _e( 'Descending (3, 2, 1)', 'genesis' ); ?></option>
 						<option value="ASC" <?php selected( 'ASC', $instance['order'] ); ?>><?php _e( 'Ascending (1, 2, 3)', 'genesis' ); ?></option>
 					</select>
 				</p>
 
 				<p>
-					<input id="<?php echo $this->get_field_id( 'exclude_displayed' ); ?>" type="checkbox" name="<?php echo $this->get_field_name( 'exclude_displayed' ); ?>" value="1" <?php checked( $instance['exclude_displayed'] ); ?>/>
-					<label for="<?php echo $this->get_field_id( 'exclude_displayed' ); ?>"><?php _e( 'Exclude Previously Displayed Posts?', 'genesis' ); ?></label>
+					<input id="<?php echo esc_attr( $this->get_field_id( 'exclude_displayed' ) ); ?>" type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'exclude_displayed' ) ); ?>" value="1" <?php checked( $instance['exclude_displayed'] ); ?>/>
+					<label for="<?php echo esc_attr( $this->get_field_id( 'exclude_displayed' ) ); ?>"><?php _e( 'Exclude Previously Displayed Posts?', 'genesis' ); ?></label>
+				</p>
+
+				<p>
+					<input id="<?php echo esc_attr( $this->get_field_id( 'exclude_sticky' ) ); ?>" type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'exclude_sticky' ) ); ?>" value="1" <?php checked( $instance['exclude_sticky'] ); ?>/>
+					<label for="<?php echo esc_attr( $this->get_field_id( 'exclude_sticky' ) ); ?>"><?php _e( 'Exclude Sticky Posts?', 'genesis' ); ?></label>
 				</p>
 
 			</div>
@@ -340,23 +435,23 @@ class Genesis_Featured_Post extends WP_Widget {
 			<div class="genesis-widget-column-box">
 
 				<p>
-					<input id="<?php echo $this->get_field_id( 'show_gravatar' ); ?>" type="checkbox" name="<?php echo $this->get_field_name( 'show_gravatar' ); ?>" value="1" <?php checked( $instance['show_gravatar'] ); ?>/>
-					<label for="<?php echo $this->get_field_id( 'show_gravatar' ); ?>"><?php _e( 'Show Author Gravatar', 'genesis' ); ?></label>
+					<input id="<?php echo esc_attr( $this->get_field_id( 'show_gravatar' ) ); ?>" type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'show_gravatar' ) ); ?>" value="1" <?php checked( $instance['show_gravatar'] ); ?>/>
+					<label for="<?php echo esc_attr( $this->get_field_id( 'show_gravatar' ) ); ?>"><?php _e( 'Show Author Gravatar', 'genesis' ); ?></label>
 				</p>
 
 				<p>
-					<label for="<?php echo $this->get_field_id( 'gravatar_size' ); ?>"><?php _e( 'Gravatar Size', 'genesis' ); ?>:</label>
-					<select id="<?php echo $this->get_field_id( 'gravatar_size' ); ?>" name="<?php echo $this->get_field_name( 'gravatar_size' ); ?>">
+					<label for="<?php echo esc_attr( $this->get_field_id( 'gravatar_size' ) ); ?>"><?php _e( 'Gravatar Size', 'genesis' ); ?>:</label>
+					<select id="<?php echo esc_attr( $this->get_field_id( 'gravatar_size' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'gravatar_size' ) ); ?>">
 						<option value="45" <?php selected( 45, $instance['gravatar_size'] ); ?>><?php _e( 'Small (45px)', 'genesis' ); ?></option>
 						<option value="65" <?php selected( 65, $instance['gravatar_size'] ); ?>><?php _e( 'Medium (65px)', 'genesis' ); ?></option>
 						<option value="85" <?php selected( 85, $instance['gravatar_size'] ); ?>><?php _e( 'Large (85px)', 'genesis' ); ?></option>
-						<option value="125" <?php selected( 105, $instance['gravatar_size'] ); ?>><?php _e( 'Extra Large (125px)', 'genesis' ); ?></option>
+						<option value="125" <?php selected( 125, $instance['gravatar_size'] ); ?>><?php _e( 'Extra Large (125px)', 'genesis' ); ?></option>
 					</select>
 				</p>
 
 				<p>
-					<label for="<?php echo $this->get_field_id( 'gravatar_alignment' ); ?>"><?php _e( 'Gravatar Alignment', 'genesis' ); ?>:</label>
-					<select id="<?php echo $this->get_field_id( 'gravatar_alignment' ); ?>" name="<?php echo $this->get_field_name( 'gravatar_alignment' ); ?>">
+					<label for="<?php echo esc_attr( $this->get_field_id( 'gravatar_alignment' ) ); ?>"><?php _e( 'Gravatar Alignment', 'genesis' ); ?>:</label>
+					<select id="<?php echo esc_attr( $this->get_field_id( 'gravatar_alignment' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'gravatar_alignment' ) ); ?>">
 						<option value="alignnone">- <?php _e( 'None', 'genesis' ); ?> -</option>
 						<option value="alignleft" <?php selected( 'alignleft', $instance['gravatar_alignment'] ); ?>><?php _e( 'Left', 'genesis' ); ?></option>
 						<option value="alignright" <?php selected( 'alignright', $instance['gravatar_alignment'] ); ?>><?php _e( 'Right', 'genesis' ); ?></option>
@@ -368,25 +463,24 @@ class Genesis_Featured_Post extends WP_Widget {
 			<div class="genesis-widget-column-box">
 
 				<p>
-					<input id="<?php echo $this->get_field_id( 'show_image' ); ?>" type="checkbox" name="<?php echo $this->get_field_name( 'show_image' ); ?>" value="1" <?php checked( $instance['show_image'] ); ?>/>
-					<label for="<?php echo $this->get_field_id( 'show_image' ); ?>"><?php _e( 'Show Featured Image', 'genesis' ); ?></label>
+					<input id="<?php echo esc_attr( $this->get_field_id( 'show_image' ) ); ?>" type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'show_image' ) ); ?>" value="1" <?php checked( $instance['show_image'] ); ?>/>
+					<label for="<?php echo esc_attr( $this->get_field_id( 'show_image' ) ); ?>"><?php _e( 'Show Featured Image', 'genesis' ); ?></label>
 				</p>
 
 				<p>
-					<label for="<?php echo $this->get_field_id( 'image_size' ); ?>"><?php _e( 'Image Size', 'genesis' ); ?>:</label>
-					<select id="<?php echo $this->get_field_id( 'image_size' ); ?>" class="genesis-image-size-selector" name="<?php echo $this->get_field_name( 'image_size' ); ?>">
-						<option value="thumbnail">thumbnail (<?php echo get_option( 'thumbnail_size_w' ); ?>x<?php echo get_option( 'thumbnail_size_h' ); ?>)</option>
+					<label for="<?php echo esc_attr( $this->get_field_id( 'image_size' ) ); ?>"><?php _e( 'Image Size', 'genesis' ); ?>:</label>
+					<select id="<?php echo esc_attr( $this->get_field_id( 'image_size' ) ); ?>" class="genesis-image-size-selector" name="<?php echo esc_attr( $this->get_field_name( 'image_size' ) ); ?>">
 						<?php
-						$sizes = genesis_get_additional_image_sizes();
+						$sizes = genesis_get_image_sizes();
 						foreach( (array) $sizes as $name => $size )
-							echo '<option value="'.esc_attr( $name ).'" '.selected( $name, $instance['image_size'], FALSE ).'>'.esc_html( $name ).' ( '.$size['width'].'x'.$size['height'].' )</option>';
+							printf( '<option value="%s" %s>%s (%sx%s)</option>', esc_attr( $name ), selected( $name, $instance['image_size'], false ), esc_html( $name ), esc_html( $size['width'] ), esc_html( $size['height'] ) );
 						?>
 					</select>
 				</p>
 
 				<p>
-					<label for="<?php echo $this->get_field_id( 'image_alignment' ); ?>"><?php _e( 'Image Alignment', 'genesis' ); ?>:</label>
-					<select id="<?php echo $this->get_field_id( 'image_alignment' ); ?>" name="<?php echo $this->get_field_name( 'image_alignment' ); ?>">
+					<label for="<?php echo esc_attr( $this->get_field_id( 'image_alignment' ) ) ; ?>"><?php _e( 'Image Alignment', 'genesis' ); ?>:</label>
+					<select id="<?php echo esc_attr( $this->get_field_id( 'image_alignment' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'image_alignment' ) ); ?>">
 						<option value="alignnone">- <?php _e( 'None', 'genesis' ); ?> -</option>
 						<option value="alignleft" <?php selected( 'alignleft', $instance['image_alignment'] ); ?>><?php _e( 'Left', 'genesis' ); ?></option>
 						<option value="alignright" <?php selected( 'alignright', $instance['image_alignment'] ); ?>><?php _e( 'Right', 'genesis' ); ?></option>
@@ -403,50 +497,53 @@ class Genesis_Featured_Post extends WP_Widget {
 			<div class="genesis-widget-column-box genesis-widget-column-box-top">
 
 				<p>
-					<input id="<?php echo $this->get_field_id( 'show_title' ); ?>" type="checkbox" name="<?php echo $this->get_field_name( 'show_title' ); ?>" value="1" <?php checked( $instance['show_title'] ); ?>/>
-					<label for="<?php echo $this->get_field_id( 'show_title' ); ?>"><?php _e( 'Show Post Title', 'genesis' ); ?></label>
+					<input id="<?php echo esc_attr( $this->get_field_id( 'show_title' ) ); ?>" type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'show_title' ) ); ?>" value="1" <?php checked( $instance['show_title'] ); ?>/>
+					<label for="<?php echo esc_attr( $this->get_field_id( 'show_title' ) ); ?>"><?php _e( 'Show Post Title', 'genesis' ); ?></label>
 				</p>
 
 				<p>
-					<input id="<?php echo $this->get_field_id( 'show_byline' ); ?>" type="checkbox" name="<?php echo $this->get_field_name( 'show_byline' ); ?>" value="1" <?php checked( $instance['show_byline'] ); ?>/>
-					<label for="<?php echo $this->get_field_id( 'show_byline' ); ?>"><?php _e( 'Show Post Info', 'genesis' ); ?></label>
-					<input type="text" id="<?php echo $this->get_field_id( 'post_info' ); ?>" name="<?php echo $this->get_field_name( 'post_info' ); ?>" value="<?php echo esc_attr( $instance['post_info'] ); ?>" class="widefat" />
+					<input id="<?php echo esc_attr( $this->get_field_id( 'show_byline' ) ); ?>" type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'show_byline' ) ); ?>" value="1" <?php checked( $instance['show_byline'] ); ?>/>
+					<label for="<?php echo esc_attr( $this->get_field_id( 'show_byline' ) ); ?>"><?php _e( 'Show Post Info', 'genesis' ); ?></label>
+
+					<input type="text" id="<?php echo esc_attr( $this->get_field_id( 'post_info' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'post_info' ) ); ?>" value="<?php echo esc_attr( $instance['post_info'] ); ?>" class="widefat" />
+					<label for="<?php echo esc_attr( $this->get_field_id( 'post_info' ) ); ?>" class="screen-reader-text"><?php _e( 'Content Post Info', 'genesis' ); ?></label>
+
 				</p>
 
 				<p>
-					<label for="<?php echo $this->get_field_id( 'show_content' ); ?>"><?php _e( 'Content Type', 'genesis' ); ?>:</label>
-					<select id="<?php echo $this->get_field_id( 'show_content' ); ?>" name="<?php echo $this->get_field_name( 'show_content' ); ?>">
+					<label for="<?php echo esc_attr( $this->get_field_id( 'show_content' ) ); ?>"><?php _e( 'Content Type', 'genesis' ); ?>:</label>
+					<select id="<?php echo esc_attr( $this->get_field_id( 'show_content' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_content' ) ); ?>">
 						<option value="content" <?php selected( 'content', $instance['show_content'] ); ?>><?php _e( 'Show Content', 'genesis' ); ?></option>
 						<option value="excerpt" <?php selected( 'excerpt', $instance['show_content'] ); ?>><?php _e( 'Show Excerpt', 'genesis' ); ?></option>
 						<option value="content-limit" <?php selected( 'content-limit', $instance['show_content'] ); ?>><?php _e( 'Show Content Limit', 'genesis' ); ?></option>
 						<option value="" <?php selected( '', $instance['show_content'] ); ?>><?php _e( 'No Content', 'genesis' ); ?></option>
 					</select>
 					<br />
-					<label for="<?php echo $this->get_field_id( 'content_limit' ); ?>"><?php _e( 'Limit content to', 'genesis' ); ?>
-						<input type="text" id="<?php echo $this->get_field_id( 'image_alignment' ); ?>" name="<?php echo $this->get_field_name( 'content_limit' ); ?>" value="<?php echo esc_attr( intval( $instance['content_limit'] ) ); ?>" size="3" />
+					<label for="<?php echo esc_attr( $this->get_field_id( 'content_limit' ) ); ?>"><?php _e( 'Limit content to', 'genesis' ); ?>
+						<input type="text" id="<?php echo esc_attr( $this->get_field_id( 'content_limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'content_limit' ) ); ?>" value="<?php echo esc_attr( intval( $instance['content_limit'] ) ); ?>" size="3" />
 						<?php _e( 'characters', 'genesis' ); ?>
 					</label>
 				</p>
 
 				<p>
-					<label for="<?php echo $this->get_field_id( 'more_text' ); ?>"><?php _e( 'More Text (if applicable)', 'genesis' ); ?>:</label>
-					<input type="text" id="<?php echo $this->get_field_id( 'more_text' ); ?>" name="<?php echo $this->get_field_name( 'more_text' ); ?>" value="<?php echo esc_attr( $instance['more_text'] ); ?>" />
+					<label for="<?php echo esc_attr( $this->get_field_id( 'more_text' ) ); ?>"><?php _e( 'More Text (if applicable)', 'genesis' ); ?>:</label>
+					<input type="text" id="<?php echo esc_attr( $this->get_field_id( 'more_text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'more_text' ) ); ?>" value="<?php echo esc_attr( $instance['more_text'] ); ?>" />
 				</p>
 
 			</div>
 
 			<div class="genesis-widget-column-box">
 
-				<p><?php _e( 'To display an unordered list of more posts from this category, please fill out the information below', 'genesis' ); ?>:</p>
+				<p id="<?php echo esc_attr( $this->get_field_id( 'extra_title' ) ); ?>-descr"><?php _e( 'To display an unordered list of more posts from this category, please fill out the information below', 'genesis' ); ?>:</p>
 
 				<p>
-					<label for="<?php echo $this->get_field_id( 'extra_title' ); ?>"><?php _e( 'Title', 'genesis' ); ?>:</label>
-					<input type="text" id="<?php echo $this->get_field_id( 'extra_title' ); ?>" name="<?php echo $this->get_field_name( 'extra_title' ); ?>" value="<?php echo esc_attr( $instance['extra_title'] ); ?>" class="widefat" />
+					<label for="<?php echo esc_attr( $this->get_field_id( 'extra_title' ) ); ?>"><?php _e( 'Title', 'genesis' ); ?>:</label>
+					<input type="text" id="<?php echo esc_attr( $this->get_field_id( 'extra_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'extra_title' ) ); ?>" value="<?php echo esc_attr( $instance['extra_title'] ); ?>" class="widefat" aria-describedby="<?php echo esc_attr( $this->get_field_id( 'extra_title' ) ); ?>-descr" />
 				</p>
 
 				<p>
-					<label for="<?php echo $this->get_field_id( 'extra_num' ); ?>"><?php _e( 'Number of Posts to Show', 'genesis' ); ?>:</label>
-					<input type="text" id="<?php echo $this->get_field_id( 'extra_num' ); ?>" name="<?php echo $this->get_field_name( 'extra_num' ); ?>" value="<?php echo esc_attr( $instance['extra_num'] ); ?>" size="2" />
+					<label for="<?php echo esc_attr( $this->get_field_id( 'extra_num' ) ); ?>"><?php _e( 'Number of Posts to Show', 'genesis' ); ?>:</label>
+					<input type="text" id="<?php echo esc_attr( $this->get_field_id( 'extra_num' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'extra_num' ) ); ?>" value="<?php echo esc_attr( $instance['extra_num'] ); ?>" size="2" />
 				</p>
 
 			</div>
@@ -454,13 +551,13 @@ class Genesis_Featured_Post extends WP_Widget {
 			<div class="genesis-widget-column-box">
 
 				<p>
-					<input id="<?php echo $this->get_field_id( 'more_from_category' ); ?>" type="checkbox" name="<?php echo $this->get_field_name( 'more_from_category' ); ?>" value="1" <?php checked( $instance['more_from_category'] ); ?>/>
-					<label for="<?php echo $this->get_field_id( 'more_from_category' ); ?>"><?php _e( 'Show Category Archive Link', 'genesis' ); ?></label>
+					<input id="<?php echo esc_attr( $this->get_field_id( 'more_from_category' ) ); ?>" type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'more_from_category' ) ); ?>" value="1" <?php checked( $instance['more_from_category'] ); ?>/>
+					<label for="<?php echo esc_attr( $this->get_field_id( 'more_from_category' ) ); ?>"><?php _e( 'Show Category Archive Link', 'genesis' ); ?></label>
 				</p>
 
 				<p>
-					<label for="<?php echo $this->get_field_id( 'more_from_category_text' ); ?>"><?php _e( 'Link Text', 'genesis' ); ?>:</label>
-					<input type="text" id="<?php echo $this->get_field_id( 'more_from_category_text' ); ?>" name="<?php echo $this->get_field_name( 'more_from_category_text' ); ?>" value="<?php echo esc_attr( $instance['more_from_category_text'] ); ?>" class="widefat" />
+					<label for="<?php echo esc_attr( $this->get_field_id( 'more_from_category_text' ) ); ?>"><?php _e( 'Link Text', 'genesis' ); ?>:</label>
+					<input type="text" id="<?php echo esc_attr( $this->get_field_id( 'more_from_category_text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'more_from_category_text' ) ); ?>" value="<?php echo esc_attr( $instance['more_from_category_text'] ); ?>" class="widefat" />
 				</p>
 
 			</div>

@@ -63,12 +63,19 @@ hr.div {
 	border-radius: 5px;
 }
 
+.changelog ul {
+	list-style: disc;
+	padding: 0 0 0 40px;
+}
+
 
 /* # Fix notice placment on our admin pages
 ----------- */
 
-.wrap div.error,
-.wrap div.updated {
+.genesis-form div.error,
+.genesis-form div.updated,
+.genesis-metaboxes div.error,
+.genesis-metaboxes div.updated {
 	clear: both;
 }
 
@@ -78,28 +85,16 @@ hr.div {
 
 .genesis-metaboxes {
 	box-sizing: border-box;
-	max-width: 690px;
+
 	padding-bottom: 20px;
 }
 
-.genesis-metaboxes h2 {
+.genesis-metaboxes h1 {
 	float: left;
 }
 
-.genesis-metaboxes .top-buttons {
-	float: right;
-}
-
-.genesis-metaboxes .top-buttons input {
-	margin-left: 10px;
-}
-
-.genesis-metaboxes .bottom-buttons {
-	text-align: right;
-}
-
-.genesis-metaboxes .bottom-buttons input {
-	margin-left: 10px;
+.genesis-metaboxes .bottom-buttons .button-primary {
+	margin-right: 10px;
 }
 
 .genesis-metaboxes .metabox-holder {
@@ -119,7 +114,7 @@ hr.div {
 }
 
 .genesis-metaboxes fieldset {
-	margin-top: 1em;
+	margin-top: 0;
 }
 
 .genesis-metaboxes legend {
@@ -131,7 +126,6 @@ hr.div {
 ----------- */
 
 .genesis-layout-selector input {
-	display: none;
 	text-align: center;
 }
 

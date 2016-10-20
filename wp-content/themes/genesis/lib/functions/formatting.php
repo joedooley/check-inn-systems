@@ -21,21 +21,28 @@
  *
  * @since 1.4.0
  *
- * @param string $text            A string to be shortened.
- * @param integer $max_characters The maximum number of characters to return.
- *
- * @return string Truncated string
+ * @param string $text           A string to be shortened.
+ * @param int    $max_characters The maximum number of characters to return.
+ * @return string Truncated string. Empty string if `$max_characters` is falsy.
  */
 function genesis_truncate_phrase( $text, $max_characters ) {
+
+	if ( ! $max_characters ) {
+		return '';
+	}
 
 	$text = trim( $text );
 
 	if ( mb_strlen( $text ) > $max_characters ) {
-		//* Truncate $text to $max_characters + 1
+
+		// Truncate $text to $max_characters + 1.
 		$text = mb_substr( $text, 0, $max_characters + 1 );
 
-		//* Truncate to the last space in the truncated string
-		$text = trim( mb_substr( $text, 0, mb_strrpos( $text, ' ' ) ) );
+		// Truncate to the last space in the truncated string.
+		$text_trim = trim( mb_substr( $text, 0, mb_strrpos( $text, ' ' ) ) );
+
+		$text = empty( $text_trim ) ? $text : $text_trim;
+
 	}
 
 	return $text;
@@ -48,26 +55,25 @@ function genesis_truncate_phrase( $text, $max_characters ) {
  *
  * @since 0.1.0
  *
- * @param integer $max_characters The maximum number of characters to return.
- * @param string  $more_link_text Optional. Text of the more link. Default is "(more...)".
- * @param bool    $stripteaser    Optional. Strip teaser content before the more text. Default is false.
- *
+ * @param int    $max_characters The maximum number of characters to return.
+ * @param string $more_link_text Optional. Text of the more link. Default is "(more...)".
+ * @param bool   $stripteaser    Optional. Strip teaser content before the more text. Default is false.
  * @return string Limited content.
  */
 function get_the_content_limit( $max_characters, $more_link_text = '(more...)', $stripteaser = false ) {
 
 	$content = get_the_content( '', $stripteaser );
 
-	//* Strip tags and shortcodes so the content truncation count is done correctly
+	// Strip tags and shortcodes so the content truncation count is done correctly.
 	$content = strip_tags( strip_shortcodes( $content ), apply_filters( 'get_the_content_limit_allowedtags', '<script>,<style>' ) );
 
-	//* Remove inline styles / scripts
+	// Remove inline styles / scripts.
 	$content = trim( preg_replace( '#<(s(cript|tyle)).*?</\1>#si', '', $content ) );
 
-	//* Truncate $content to $max_char
+	// Truncate $content to $max_char.
 	$content = genesis_truncate_phrase( $content, $max_characters );
 
-	//* More link?
+	// More link?
 	if ( $more_link_text ) {
 		$link   = apply_filters( 'get_the_content_more_link', sprintf( '&#x02026; <a href="%s" class="more-link">%s</a>', get_permalink(), $more_link_text ), $more_link_text );
 		$output = sprintf( '<p>%s %s</p>', $content, $link );
@@ -81,15 +87,30 @@ function get_the_content_limit( $max_characters, $more_link_text = '(more...)', 
 }
 
 /**
+ * Return more link text plus hidden title for screen readers, to improve accessibility.
+ *
+ * @since 2.2.0
+ *
+ * @param string $more_link_text Text of the more link.
+ * @return string `$more_link_text` with or without the hidden title.
+ */
+ function genesis_a11y_more_link( $more_link_text )  {
+
+ 	if ( genesis_a11y( 'screen-reader-text' ) && ! empty( $more_link_text ) ) {
+		$more_link_text .= ' <span class="screen-reader-text">' . __( 'about ', 'genesis' ) . get_the_title() . '</span>';
+ 	}
+ 	return $more_link_text;
+
+ }
+
+/**
  * Echo the limited content.
  *
  * @since 0.1.0
  *
- * @uses get_the_content_limit() Return content stripped down and limited content.
- *
- * @param integer $max_characters The maximum number of characters to return.
- * @param string  $more_link_text Optional. Text of the more link. Default is "(more...)".
- * @param bool    $stripteaser    Optional. Strip teaser content before the more text. Default is false.
+ * @param int    $max_characters The maximum number of characters to return.
+ * @param string $more_link_text Optional. Text of the more link. Default is "(more...)".
+ * @param bool   $stripteaser    Optional. Strip teaser content before the more text. Default is false.
  */
 function the_content_limit( $max_characters, $more_link_text = '(more...)', $stripteaser = false ) {
 
@@ -103,11 +124,8 @@ function the_content_limit( $max_characters, $more_link_text = '(more...)', $str
  *
  * @since 1.0.0
  *
- * @uses genesis_strip_attr() Remove any existing rel attribute from links.
- *
  * @param string $text HTML markup.
- *
- * @return string Amendment HTML markup.
+ * @return string Amended HTML markup with `rel="nofollow"` attribute.
  */
 function genesis_rel_nofollow( $text ) {
 
@@ -144,32 +162,64 @@ function genesis_rel_nofollow( $text ) {
  * @param string       $text       A string of HTML formatted code.
  * @param array|string $elements   Elements that $attributes should be stripped from.
  * @param array|string $attributes Attributes that should be stripped from $elements.
- * @param boolean      $two_passes Whether the function should allow two passes.
- *
+ * @param bool         $two_passes Whether the function should allow two passes.
  * @return string HTML markup with attributes stripped.
  */
 function genesis_strip_attr( $text, $elements, $attributes, $two_passes = true ) {
 
-	//* Cache elements pattern
+	// Cache elements pattern.
 	$elements_pattern = implode( '|', (array) $elements );
 
-	//* Build patterns
+	// Build patterns.
 	$patterns = array();
 	foreach ( (array) $attributes as $attribute ) {
-		//* Opening tags
+		// Opening tags.
 		$patterns[] = sprintf( '~(<(?:%s)[^>]*)\s+%s=[\\\'"][^\\\'"]+[\\\'"]([^>]*[^>]*>)~', $elements_pattern, $attribute );
 
-		//* Self closing tags
+		// Self closing tags.
 		$patterns[] = sprintf( '~(<(?:%s)[^>]*)\s+%s=[\\\'"][^\\\'"]+[\\\'"]([^>]*[^/]+/>)~', $elements_pattern, $attribute );
 	}
 
-	//* First pass
+	// First pass.
 	$text = preg_replace( $patterns, '$1$2', $text );
 
-	if ( $two_passes ) //* Second pass
+	if ( $two_passes ) // Second pass.
 		$text = preg_replace( $patterns, '$1$2', $text );
 
 	return $text;
+
+}
+
+/**
+ * Return the special URL of a paged post.
+ *
+ * Taken from _wp_link_page() in WordPress core, but instead of anchor markup, just return the URL.
+ *
+ * @since 2.2.0
+ *
+ * @param int $i       The page number to generate the URL from.
+ * @param int $post_id The post ID.
+ * @return string Unescaped URL for the a paged post.
+ */
+function genesis_paged_post_url( $i, $post_id = 0 ) {
+
+	global $wp_rewrite;
+
+	$post = get_post( $post_id );
+
+	if ( 1 == $i ) {
+		$url = get_permalink( $post_id );
+	} else {
+		if ( '' == get_option( 'permalink_structure' ) || in_array( $post->post_status, array( 'draft', 'pending' ) ) ) {
+			$url = add_query_arg( 'page', $i, get_permalink( $post_id ) );
+		} elseif ( 'page' == get_option( 'show_on_front' ) && get_option( 'page_on_front' ) == $post->ID ) {
+			$url = trailingslashit( get_permalink( $post_id ) ) . user_trailingslashit( "$wp_rewrite->pagination_base/" . $i, 'single_paged' );
+		} else {
+			$url = trailingslashit( get_permalink( $post_id ) ) . user_trailingslashit( $i, 'single_paged' );
+		}
+	}
+
+	return $url;
 
 }
 
@@ -181,10 +231,9 @@ function genesis_strip_attr( $text, $elements, $attributes, $two_passes = true )
  *
  * @since 2.0.0
  *
- * @param $classes       array|string Classes to be sanitized.
- * @param $return_format string       Optional. The return format, 'input', 'string', or 'array'. Default is 'input'.
- *
- * @return array|string Sanitized classes.
+ * @param array|string $classes       Classes to be sanitized.
+ * @param string       $return_format Optional. The return format, 'input', 'string', or 'array'. Default is 'input'.
+ * @return array|string String of multiple sanitized classes.
  */
 function genesis_sanitize_html_classes( $classes, $return_format = 'input' ) {
 
@@ -210,7 +259,7 @@ function genesis_sanitize_html_classes( $classes, $return_format = 'input' ) {
  *
  * @since 1.6.0
  *
- * @return array Allowed tags.
+ * @return array Allowed elements and attributes, used with KSES.
  */
 function genesis_formatting_allowedtags() {
 
@@ -227,9 +276,6 @@ function genesis_formatting_allowedtags() {
 			'p'          => array( 'align' => array(), 'class' => array(), 'style' => array(), ),
 			'span'       => array( 'align' => array(), 'class' => array(), 'style' => array(), ),
 			'strong'     => array(),
-
-			//* <img src="" class="" alt="" title="" width="" height="" />
-			//'img'        => array( 'src' => array(), 'class' => array(), 'alt' => array(), 'width' => array(), 'height' => array(), 'style' => array() ),
 		)
 	);
 
@@ -240,11 +286,8 @@ function genesis_formatting_allowedtags() {
  *
  * @since 1.8.0
  *
- * @uses genesis_formatting_allowedtags() List of allowed HTML elements.
- *
- * @param string $string Content to filter through kses.
- *
- * @return string
+ * @param string $string Content to filter through KSES.
+ * @return string Filtered content with only allowed HTML elements.
  */
 function genesis_formatting_kses( $string ) {
 
@@ -267,23 +310,23 @@ function genesis_formatting_kses( $string ) {
  *
  * @since 1.7.0
  *
- * @param $older_date int Unix timestamp of date you want to calculate the time since for`
- * @param $newer_date int Optional. Unix timestamp of date to compare older date to. Default false (current time)`
- *
- * @return str The time difference
+ * @param int      $older_date     Unix timestamp of date you want to calculate the time since for`.
+ * @param int|bool $newer_date     Optional. Unix timestamp of date to compare older date to. Default false (current time).
+ * @param int      $relative_depth Optional, how many units to include in relative date. Default 2.
+ * @return string The time difference between two dates.
  */
-function genesis_human_time_diff( $older_date, $newer_date = false ) {
+function genesis_human_time_diff( $older_date, $newer_date = false, $relative_depth = 2 ) {
 
-	//* If no newer date is given, assume now
+	// If no newer date is given, assume now.
 	$newer_date = $newer_date ? $newer_date : time();
 
-	//* Difference in seconds
+	// Difference in seconds.
 	$since = absint( $newer_date - $older_date );
 
 	if ( ! $since )
 		return '0 ' . _x( 'seconds', 'time difference', 'genesis' );
 
-	//* Hold units of time in seconds, and their pluralised strings (not translated yet)
+	// Hold units of time in seconds, and their pluralised strings (not translated yet).
 	$units = array(
 		array( 31536000, _nx_noop( '%s year', '%s years', 'time difference', 'genesis' ) ),  // 60 * 60 * 24 * 365
 		array( 2592000, _nx_noop( '%s month', '%s months', 'time difference', 'genesis' ) ), // 60 * 60 * 24 * 30
@@ -294,29 +337,34 @@ function genesis_human_time_diff( $older_date, $newer_date = false ) {
 		array( 1, _nx_noop( '%s second', '%s seconds', 'time difference', 'genesis' ) ),
 	);
 
-	//* Step one: the first unit
-	for ( $i = 0, $j = count( $units ); $i < $j; $i++ ) {
+	// Build output with as many units as specified in $relative_depth.
+	$relative_depth = intval( $relative_depth ) ? intval( $relative_depth ) : 2;
+	$i = 0;
+	$counted_seconds = 0;
+	$date_partials = array();
+	while ( count( $date_partials ) < $relative_depth && $i < count( $units ) ) {
 		$seconds = $units[$i][0];
-
-		//* Finding the biggest chunk (if the chunk fits, break)
-		if ( ( $count = floor( $since / $seconds ) ) != 0 )
-			break;
+		if ( ( $count = floor( ( $since - $counted_seconds ) / $seconds ) ) != 0 ) {
+			$date_partials[] = sprintf( translate_nooped_plural( $units[$i][1], $count, 'genesis' ), $count );
+			$counted_seconds = $counted_seconds + $count * $seconds;
+		}
+		$i++;
 	}
 
-	//* Translate unit string, and add to the output
-	$output = sprintf( translate_nooped_plural( $units[$i][1], $count, 'genesis' ), $count );
+	if ( empty( $date_partials ) ) {
+		$output = '';
+	} elseif ( 1 == count( $date_partials ) ) {
+		$output = $date_partials[0];
+	} else {
 
-	//* Note the next unit
-	$ii = $i + 1;
+		// Combine all but last partial using commas.
+		$output = implode( ', ', array_slice( $date_partials, 0, -1 ) );
 
-	//* Step two: the second unit
-	if ( $ii < $j ) {
-		$seconds2 = $units[$ii][0];
+		// Add 'and' separator.
+		$output .= ' ' . _x( 'and', 'separator in time difference', 'genesis' ) . ' ';
 
-		//* Check if this second unit has a value > 0
-		if ( ( $count2 = floor( ( $since - ( $seconds * $count ) ) / $seconds2 ) ) !== 0 )
-			//* Add translated separator string, and translated unit string
-			$output .= sprintf( ' %s ' . translate_nooped_plural( $units[$ii][1], $count2, 'genesis' ),	_x( 'and', 'separator in time difference', 'genesis' ),	$count2	);
+		// Add last partial.
+		$output .= end( $date_partials );
 	}
 
 	return $output;
@@ -332,9 +380,8 @@ function genesis_human_time_diff( $older_date, $newer_date = false ) {
  *
  * @since 2.0.0
  *
- * @param  string $content Content to be wrapped in code tags.
- *
- * @return string Content wrapped in code tags.
+ * @param string $content Content to be wrapped in code tags.
+ * @return string Content wrapped in `code` tags.
  */
 function genesis_code( $content ) {
 

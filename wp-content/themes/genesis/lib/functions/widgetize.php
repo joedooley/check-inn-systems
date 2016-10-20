@@ -31,24 +31,21 @@
  *
  * @since 2.1.0
  *
- * @uses genesis_markup() Contextual markup.
- *
  * @param string|array $args Name, ID, description and other widget area arguments.
- *
  * @return string The sidebar ID that was added.
  */
 function genesis_register_widget_area( $args ) {
 
 	$defaults = array(
 		'before_widget' => genesis_markup( array(
-			'html5' => '<section id="%1$s" class="widget %2$s"><div class="widget-wrap">',
-			'xhtml' => '<div id="%1$s" class="widget %2$s"><div class="widget-wrap">',
-			'echo'  => false,
+			'open'    => '<section id="%%1$s" class="widget %%2$s"><div class="widget-wrap">',
+			'context' => 'widget-wrap',
+			'echo'    => false,
 		) ),
 		'after_widget'  => genesis_markup( array(
-			'html5' => '</div></section>' . "\n",
-			'xhtml' => '</div></div>' . "\n",
-			'echo'  => false
+			'close'   => '</div></section>' . "\n",
+			'context' => 'widget-wrap',
+			'echo'    => false
 		) ),
 		'before_title'  => '<h4 class="widget-title widgettitle">',
 		'after_title'   => "</h4>\n",
@@ -78,94 +75,85 @@ function genesis_register_widget_area( $args ) {
  * An alias for `genesis_register_widget_area()`.
  *
  * @since 1.0.1
- * 
- * @uses genesis_register_widget_area()
  *
  * @param string|array $args Name, ID, description and other widget area arguments.
- *
  * @return string The sidebar ID that was added.
  */
 function genesis_register_sidebar( $args ) {
 	return genesis_register_widget_area( $args );
 }
 
-add_action( 'after_setup_theme', '_genesis_builtin_sidebar_params' );
+add_action( 'genesis_setup', 'genesis_register_default_widget_areas' );
 /**
- * Alters the widget area params array for HTML5 compatibility.
+ * Hook the callback that registers the default Genesis widget areas.
  *
- * @since 2.0.0
- *
- * @uses genesis_html5() Check if HTML5 is supported.
- * 
- * @global $wp_registered_sidebars Holds all of the registered sidebars.
+ * @since 1.6.0
  */
-function _genesis_builtin_sidebar_params() {
+function genesis_register_default_widget_areas() {
+
+	// Temporarily register placeholder widget areas, so that child themes can unregister directly in functions.php.
+	genesis_register_widget_area( array( 'id' => 'header-right' ) );
+	genesis_register_widget_area( array( 'id' => 'sidebar' ) );
+	genesis_register_widget_area( array( 'id' => 'sidebar-alt' ) );
+
+	// Call all final widget area registration after themes setup, so text can be translated.
+	add_action( 'after_setup_theme', '_genesis_register_default_widget_areas_cb' );
+	add_action( 'after_setup_theme', 'genesis_register_footer_widget_areas' );
+	add_action( 'after_setup_theme', 'genesis_register_after_entry_widget_area' );
+
+}
+
+/**
+ * Register the default Genesis widget areas, if the placeholder widget areas are still registered.
+ *
+ * @since 2.2.0
+ */
+function _genesis_register_default_widget_areas_cb() {
 
 	global $wp_registered_sidebars;
 
-	if ( ! genesis_html5() )
-		return;
+	if ( isset( $wp_registered_sidebars['header-right'] ) ) {
+		genesis_register_widget_area(
+			array(
+				'id'               => 'header-right',
+				'name'             => is_rtl() ? __( 'Header Left', 'genesis' ) : __( 'Header Right', 'genesis' ),
+				'description'      => __( 'This is the header widget area. It typically appears next to the site title or logo. This widget area is not suitable to display every type of widget, and works best with a custom menu, a search form, or possibly a text widget.', 'genesis' ),
+				'_genesis_builtin' => true,
+			)
+		);
+	}
 
-	foreach ( $wp_registered_sidebars as $id => $params ) {
+	if ( isset( $wp_registered_sidebars['sidebar'] ) ) {
+		genesis_register_widget_area(
+			array(
+				'id'               => 'sidebar',
+				'name'             => __( 'Primary Sidebar', 'genesis' ),
+				'description'      => __( 'This is the primary sidebar if you are using a two or three column site layout option.', 'genesis' ),
+				'_genesis_builtin' => true,
+			)
+		);
+	}
 
-		if ( ! isset( $params['_genesis_builtin'] ) )
-			continue;
-
-		$wp_registered_sidebars[ $id ]['before_widget'] = '<section id="%1$s" class="widget %2$s"><div class="widget-wrap">';
-		$wp_registered_sidebars[ $id ]['after_widget']  = '</div></section>';
-
+	if ( isset( $wp_registered_sidebars['sidebar-alt'] ) ) {
+		genesis_register_widget_area(
+			array(
+				'id'               => 'sidebar-alt',
+				'name'             => __( 'Secondary Sidebar', 'genesis' ),
+				'description'      => __( 'This is the secondary sidebar if you are using a three column site layout option.', 'genesis' ),
+				'_genesis_builtin' => true,
+			)
+		);
 	}
 
 }
 
-add_action( 'genesis_setup', 'genesis_register_default_widget_areas' );
-/**
- * Register the default Genesis widget areas.
- *
- * @since 1.6.0
- *
- * @uses genesis_register_widget_area() Register widget areas.
- */
-function genesis_register_default_widget_areas() {
-
-	genesis_register_widget_area(
-		array(
-			'id'               => 'header-right',
-			'name'             => is_rtl() ? __( 'Header Left', 'genesis' ) : __( 'Header Right', 'genesis' ),
-			'description'      => __( 'This is the header widget area. It typically appears the the right of the site title or logo. This widget area is not equipped to display any widget, and works best with a custom menu, a search form, or possibly a text widget.', 'genesis' ),
-			'_genesis_builtin' => true,
-		)
-	);
-
-	genesis_register_widget_area(
-		array(
-			'id'               => 'sidebar',
-			'name'             => __( 'Primary Sidebar', 'genesis' ),
-			'description'      => __( 'This is the primary sidebar if you are using a two or three column site layout option.', 'genesis' ),
-			'_genesis_builtin' => true,
-		)
-	);
-
-	genesis_register_widget_area(
-		array(
-			'id'               => 'sidebar-alt',
-			'name'             => __( 'Secondary Sidebar', 'genesis' ),
-			'description'      => __( 'This is the secondary sidebar if you are using a three column site layout option.', 'genesis' ),
-			'_genesis_builtin' => true,
-		)
-	);
-
-}
-
-add_action( 'after_setup_theme', 'genesis_register_footer_widget_areas' );
 /**
  * Register footer widget areas based on the number of widget areas the user wishes to create with `add_theme_support()`.
  *
  * @since 1.6.0
  *
- * @uses genesis_register_widget_area() Register footer widget areas.
- *
- * @return null Return early if there's no theme support.
+ * @return null Return early if there is no theme support for `genesis-footer-widgets`
+ *              or the number of widgets given is not set or not numeric.
  */
 function genesis_register_footer_widget_areas() {
 
@@ -193,15 +181,12 @@ function genesis_register_footer_widget_areas() {
 
 }
 
-add_action( 'after_setup_theme', 'genesis_register_after_entry_widget_area' );
 /**
  * Register after-entry widget area if user specifies in the child theme.
  *
  * @since 2.1.0
  *
- * @uses genesis_register_widget_area() Register widget area.
- *
- * @return null Return early if there's no theme support.
+ * @return null Return early if there is no theme support for `genesis-after-entry-widget-area`.
  */
 function genesis_register_after_entry_widget_area() {
 
@@ -235,48 +220,101 @@ function genesis_register_after_entry_widget_area() {
  *
  * @since 1.8.0
  *
- * @param string $id   Sidebar ID, as per when it was registered
+ * @param string $id   Sidebar ID, as per when it was registered.
  * @param array  $args Arguments.
- *
- * @return boolean False if $args['show_inactive'] set to false and sidebar is not currently being used. True otherwise.
+ * @return bool `false` if `$id` is falsy, or `$args['show_inactive']` is falsy and sidebar
+ *              is not currently being used. `true` otherwise.
  */
 function genesis_widget_area( $id, $args = array() ) {
 
 	if ( ! $id )
 		return false;
 
-	$args = wp_parse_args(
-		$args,
-		array(
-			'before'              => genesis_html5() ? '<aside class="widget-area">' : '<div class="widget-area">',
-			'after'               => genesis_html5() ? '</aside>' : '</div>',
-			'default'             => '',
-			'show_inactive'       => 0,
-			'before_sidebar_hook' => 'genesis_before_' . $id . '_widget_area',
-			'after_sidebar_hook'  => 'genesis_after_' . $id . '_widget_area',
-		)
-	);
+	$defaults = apply_filters( 'genesis_widget_area_defaults', array(
+		'before'              => genesis_html5() ? '<aside class="widget-area">' . genesis_sidebar_title( $id ) : '<div class="widget-area">',
+		'after'               => genesis_html5() ? '</aside>' : '</div>',
+		'default'             => '',
+		'show_inactive'       => 0,
+		'before_sidebar_hook' => 'genesis_before_' . $id . '_widget_area',
+		'after_sidebar_hook'  => 'genesis_after_' . $id . '_widget_area',
+	), $id, $args );
+
+	$args = wp_parse_args( $args, $defaults );
 
 	if ( ! is_active_sidebar( $id ) && ! $args['show_inactive'] )
 		return false;
 
-	//* Opening markup
+	// Opening markup.
 	echo $args['before'];
 
-	//* Before hook
+	// Before hook.
 	if ( $args['before_sidebar_hook'] )
 			do_action( $args['before_sidebar_hook'] );
 
 	if ( ! dynamic_sidebar( $id ) )
 		echo $args['default'];
 
-	//* After hook
+	// After hook.
 	if( $args['after_sidebar_hook'] )
 			do_action( $args['after_sidebar_hook'] );
 
-	//* Closing markup
+	// Closing markup.
 	echo $args['after'];
 
 	return true;
 
 }
+
+add_filter( 'genesis_register_sidebar_defaults', 'genesis_a11y_register_sidebar_defaults' );
+/**
+ * Widget heading filter, default H4 in Widgets and sidebars modified to an H3 if genesis_a11y( 'headings' ) support
+ *
+ * For using a semantic heading structure, improves accessibility
+ *
+ * @since 2.2.0
+ *
+ * @param array $args Existing sidebar default arguments.
+ * @return array Amended sidebar default arguments.
+ */
+function genesis_a11y_register_sidebar_defaults( $args ) {
+
+	if ( genesis_a11y( 'headings' ) ) {
+		$args['before_title'] = '<h3 class="widgettitle widget-title">';
+    	$args['after_title']  = "</h3>\n";
+	}
+
+    return $args;
+}
+
+/**
+ * Adds an H2 title to widget areas.
+ *
+ * For using a semantic heading structure, improves accessibility
+ *
+ * @since 2.2.0
+ *
+ * @global array $wp_registered_sidebars
+ *
+ * @param string $id Sidebar ID, as per when it was registered.
+ * @return string Widget area heading, or `null` if `headings` are not enabled for
+ *                Genesis accessibility, or `$id` is not registered as a widget area ID.
+ */
+function genesis_sidebar_title( $id ) {
+
+	if ( genesis_a11y( 'headings' ) && $id ) {
+
+		global $wp_registered_sidebars;
+
+		if ( array_key_exists( $id, $wp_registered_sidebars ) ) {
+			$name = $wp_registered_sidebars[$id]['name'];
+		} else {
+			$name = $id;
+		}
+
+		$heading = '<h2 class="genesis-sidebar-title screen-reader-text">' . $name . '</h2>';
+
+		return apply_filters( 'genesis_sidebar_title_output', $heading, $id );
+	}
+
+}
+

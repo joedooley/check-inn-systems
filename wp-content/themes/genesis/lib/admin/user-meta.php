@@ -20,6 +20,7 @@ add_filter( 'user_contactmethods', 'genesis_user_contactmethods' );
  * @since 1.9.0
  *
  * @param array $contactmethods Array of contact methods.
+ * @return array Contact methods.
  */
 function genesis_user_contactmethods( array $contactmethods ) {
 
@@ -43,8 +44,7 @@ add_action( 'edit_user_profile', 'genesis_user_options_fields' );
  * @since 1.4.0
  *
  * @param \WP_User $user User object.
- *
- * @return false Return false if current user can not edit users.
+ * @return false Return `false` early if current user can not edit users.
  */
 function genesis_user_options_fields( $user ) {
 
@@ -56,17 +56,17 @@ function genesis_user_options_fields( $user ) {
 	<table class="form-table">
 		<tbody>
 			<tr>
-				<th scope="row" valign="top"><?php _e( 'Genesis Admin Menus', 'genesis' ); ?></th>
+				<th scope="row"><?php _e( 'Genesis Admin Menus', 'genesis' ); ?></th>
 				<td>
-					<label for="meta[genesis_admin_menu]"><input id="meta[genesis_admin_menu]" name="meta[genesis_admin_menu]" type="checkbox" value="1" <?php checked( get_the_author_meta( 'genesis_admin_menu', $user->ID ) ); ?> />
+					<label for="genesis-meta[genesis_admin_menu]"><input id="genesis-meta[genesis_admin_menu]" name="genesis-meta[genesis_admin_menu]" type="checkbox" value="1" <?php checked( get_the_author_meta( 'genesis_admin_menu', $user->ID ) ); ?> />
 					<?php _e( 'Enable Genesis Admin Menu?', 'genesis' ); ?></label><br />
 
 					<?php if ( ! genesis_seo_disabled() ) : ?>
-					<label for="meta[genesis_seo_settings_menu]"><input id="meta[genesis_seo_settings_menu]" name="meta[genesis_seo_settings_menu]" type="checkbox" value="1" <?php checked( get_the_author_meta( 'genesis_seo_settings_menu', $user->ID ) ); ?> />
+					<label for="genesis-meta[genesis_seo_settings_menu]"><input id="genesis-meta[genesis_seo_settings_menu]" name="genesis-meta[genesis_seo_settings_menu]" type="checkbox" value="1" <?php checked( get_the_author_meta( 'genesis_seo_settings_menu', $user->ID ) ); ?> />
 					<?php _e( 'Enable SEO Settings Submenu?', 'genesis' ); ?></label><br />
 					<?php endif; ?>
 
-					<label for="meta[genesis_import_export_menu]"><input id="meta[genesis_import_export_menu]" name="meta[genesis_import_export_menu]" type="checkbox" value="1" <?php checked( get_the_author_meta( 'genesis_import_export_menu', $user->ID ) ); ?> />
+					<label for="genesis-meta[genesis_import_export_menu]"><input id="genesis-meta[genesis_import_export_menu]" name="genesis-meta[genesis_import_export_menu]" type="checkbox" value="1" <?php checked( get_the_author_meta( 'genesis_import_export_menu', $user->ID ) ); ?> />
 					<?php _e( 'Enable Import/Export Submenu?', 'genesis' ); ?></label>
 				</td>
 			</tr>
@@ -94,8 +94,7 @@ add_action( 'edit_user_profile', 'genesis_user_archive_fields' );
  * @since 1.6.0
  *
  * @param \WP_User $user User object.
- *
- * @return false Return false if current user can not edit users.
+ * @return false Return `false` early if current user can not edit users.
  */
 function genesis_user_archive_fields( $user ) {
 
@@ -108,28 +107,28 @@ function genesis_user_archive_fields( $user ) {
 	<table class="form-table">
 		<tbody>
 			<tr>
-				<th scope="row" valign="top"><label for="headline"><?php _e( 'Custom Archive Headline', 'genesis' ); ?></label></th>
+				<th scope="row"><label for="headline"><?php _e( 'Custom Archive Headline', 'genesis' ); ?></label></th>
 				<td>
-					<input name="meta[headline]" id="headline" type="text" value="<?php echo esc_attr( get_the_author_meta( 'headline', $user->ID ) ); ?>" class="regular-text" /><br />
+					<input name="genesis-meta[headline]" id="genesis-meta[headline]" type="text" value="<?php echo esc_attr( get_the_author_meta( 'headline', $user->ID ) ); ?>" class="regular-text" /><br />
 					<span class="description"><?php printf( __( 'Will display in the %s tag at the top of the first page', 'genesis' ), genesis_code( '<h1>' ) ); ?></span>
 				</td>
 			</tr>
 
 			<tr>
-				<th scope="row" valign="top"><label for="intro_text"><?php _e( 'Custom Description Text', 'genesis' ); ?></label></th>
+				<th scope="row"><label for="intro_text"><?php _e( 'Custom Description Text', 'genesis' ); ?></label></th>
 				<td>
-					<textarea name="meta[intro_text]" id="intro_text" rows="5" cols="30"><?php echo esc_textarea( get_the_author_meta( 'intro_text', $user->ID ) ); ?></textarea><br />
+					<textarea name="genesis-meta[intro_text]" id="intro_text" rows="5" cols="30"><?php echo esc_textarea( get_the_author_meta( 'intro_text', $user->ID ) ); ?></textarea><br />
 					<span class="description"><?php _e( 'This text will be the first paragraph, and display on the first page', 'genesis' ); ?></span>
 				</td>
 			</tr>
 
 			<tr>
-				<th scope="row" valign="top"><?php _e( 'Author Box', 'genesis' ); ?></th>
+				<th scope="row"><?php _e( 'Author Box', 'genesis' ); ?></th>
 				<td>
-					<label for="meta[genesis_author_box_single]"><input id="meta[genesis_author_box_single]" name="meta[genesis_author_box_single]" type="checkbox" value="1" <?php checked( get_the_author_meta( 'genesis_author_box_single', $user->ID ) ); ?> />
+					<label for="genesis-meta[genesis_author_box_single]"><input id="genesis-meta[genesis_author_box_single]" name="genesis-meta[genesis_author_box_single]" type="checkbox" value="1" <?php checked( get_the_author_meta( 'genesis_author_box_single', $user->ID ) ); ?> />
 					<?php _e( 'Enable Author Box on this User\'s Posts?', 'genesis' ); ?></label><br />
 
-					<label for="meta[genesis_author_box_archive]"><input id="meta[genesis_author_box_archive]" name="meta[genesis_author_box_archive]" type="checkbox" value="1" <?php checked( get_the_author_meta( 'genesis_author_box_archive', $user->ID ) ); ?> />
+					<label for="genesis-meta[genesis_author_box_archive]"><input id="genesis-meta[genesis_author_box_archive]" name="genesis-meta[genesis_author_box_archive]" type="checkbox" value="1" <?php checked( get_the_author_meta( 'genesis_author_box_archive', $user->ID ) ); ?> />
 					<?php _e( 'Enable Author Box on this User\'s Archives?', 'genesis' ); ?></label>
 				</td>
 			</tr>
@@ -159,8 +158,7 @@ add_action( 'edit_user_profile', 'genesis_user_seo_fields' );
  * @since 1.4.0
  *
  * @param \WP_User $user User object.
- *
- * @return false Return false if current user can not edit users.
+ * @return false Return `false` early if current user can not edit users.
  */
 function genesis_user_seo_fields( $user ) {
 
@@ -173,37 +171,37 @@ function genesis_user_seo_fields( $user ) {
 	<table class="form-table">
 		<tbody>
 			<tr>
-				<th scope="row" valign="top"><label for="doctitle"><?php _e( 'Custom Document Title', 'genesis' ); ?></label></th>
+				<th scope="row"><label for="doctitle"><?php _e( 'Custom Document Title', 'genesis' ); ?></label></th>
 				<td>
-					<input name="meta[doctitle]" id="doctitle" type="text" value="<?php echo esc_attr( get_the_author_meta( 'doctitle', $user->ID ) ); ?>" class="regular-text" />
+					<input name="genesis-meta[doctitle]" id="genesis-meta[doctitle]" type="text" value="<?php echo esc_attr( get_the_author_meta( 'doctitle', $user->ID ) ); ?>" class="regular-text" />
 				</td>
 			</tr>
 
 			<tr>
-				<th scope="row" valign="top"><label for="meta-description"><?php _e( 'Meta Description', 'genesis' ); ?></label></th>
+				<th scope="row"><label for="meta-description"><?php _e( 'Meta Description', 'genesis' ); ?></label></th>
 				<td>
-					<textarea name="meta[meta_description]" id="meta-description" rows="5" cols="30"><?php echo esc_textarea( get_the_author_meta( 'meta_description', $user->ID ) ); ?></textarea>
+					<textarea name="genesis-meta[meta_description]" id="genesis-meta[meta-description]" rows="5" cols="30"><?php echo esc_textarea( get_the_author_meta( 'meta_description', $user->ID ) ); ?></textarea>
 				</td>
 			</tr>
 
 			<tr>
-				<th scope="row" valign="top"><label for="meta-keywords"><?php _e( 'Meta Keywords', 'genesis' ); ?></label></th>
+				<th scope="row"><label for="meta-keywords"><?php _e( 'Meta Keywords', 'genesis' ); ?></label></th>
 				<td>
-					<input name="meta[meta_keywords]" id="meta-keywords" type="text" value="<?php echo esc_attr( get_the_author_meta( 'meta_keywords', $user->ID ) ); ?>" class="regular-text" /><br />
+					<input name="genesis-meta[meta_keywords]" id="genesis-meta[meta-keywords]" type="text" value="<?php echo esc_attr( get_the_author_meta( 'meta_keywords', $user->ID ) ); ?>" class="regular-text" /><br />
 					<span class="description"><?php _e( 'Comma separated list', 'genesis' ); ?></span>
 				</td>
 			</tr>
 
 			<tr>
-				<th scope="row" valign="top"><?php _e( 'Robots Meta', 'genesis' ); ?></th>
+				<th scope="row"><?php _e( 'Robots Meta', 'genesis' ); ?></th>
 				<td>
-					<label for="meta[noindex]"><input id="meta[noindex]" name="meta[noindex]" id="noindex" type="checkbox" value="1" <?php checked( get_the_author_meta( 'noindex', $user->ID ) ); ?> />
+					<label for="genesis-meta[noindex]"><input id="genesis-meta[noindex]" name="genesis-meta[noindex]" type="checkbox" value="1" <?php checked( get_the_author_meta( 'noindex', $user->ID ) ); ?> />
 					<?php printf( __( 'Apply %s to this archive?', 'genesis' ), genesis_code( 'noindex' ) ); ?></label><br />
 
-					<label for="meta[nofollow]"><input id="meta[nofollow]" name="meta[nofollow]" id="nofollow" type="checkbox" value="1" <?php checked( get_the_author_meta( 'nofollow', $user->ID ) ); ?> />
+					<label for="genesis-meta[nofollow]"><input id="genesis-meta[nofollow]" name="genesis-meta[nofollow]" type="checkbox" value="1" <?php checked( get_the_author_meta( 'nofollow', $user->ID ) ); ?> />
 					<?php printf( __( 'Apply %s to this archive?', 'genesis' ), genesis_code( 'nofollow' ) ); ?></label><br />
 
-					<label for="meta[noarchive]"><input id="meta[noarchive]" name="meta[noarchive]" id="noarchive" type="checkbox" value="1" <?php checked( get_the_author_meta( 'noarchive', $user->ID ) ); ?> />
+					<label for="genesis-meta[noarchive]"><input id="genesis-meta[noarchive]" name="genesis-meta[noarchive]" type="checkbox" value="1" <?php checked( get_the_author_meta( 'noarchive', $user->ID ) ); ?> />
 					<?php printf( __( 'Apply %s to this archive?', 'genesis' ), genesis_code( 'noarchive' ) ); ?></label>
 				</td>
 			</tr>
@@ -220,13 +218,20 @@ add_action( 'edit_user_profile', 'genesis_user_layout_fields' );
  *
  * @since 1.4.0
  *
- * @uses genesis_layout_selector() Layout selector.
- *
  * @param \WP_User $user User object.
  *
- * @return false Return false if current user can not edit users.
+ * @return null|false Return `null` if current theme does not support `genesis-archive-layouts` or Genesis
+ *                    does not have multiple layouts. Return `false` if current user can not edit users.
  */
 function genesis_user_layout_fields( $user ) {
+
+	if ( ! current_theme_supports( 'genesis-archive-layouts' ) ) {
+		return;
+	}
+
+	if ( ! genesis_has_multiple_layouts() ) {
+		return;
+	}
 
 	if ( ! current_user_can( 'edit_users', $user->ID ) )
 		return false;
@@ -240,16 +245,15 @@ function genesis_user_layout_fields( $user ) {
 	<table class="form-table">
 		<tbody>
 			<tr>
-				<th scope="row" valign="top"><?php _e( 'Choose Layout', 'genesis' ); ?></th>
+				<th scope="row"><?php _e( 'Choose Layout', 'genesis' ); ?></th>
 				<td>
-					<div class="genesis-layout-selector">
-						<p>
-							<input type="radio" name="meta[layout]" class="default-layout" id="default-layout"  value="" <?php checked( $layout, '' ); ?> />
-							<label class="default" for="default-layout"><?php printf( __( 'Default Layout set in <a href="%s">Theme Settings</a>', 'genesis' ), menu_page_url( 'genesis', 0 ) ); ?></label>
-						</p>
+					<fieldset class="genesis-layout-selector">
+						<legend class="screen-reader-text"><?php _e( 'Choose Layout', 'genesis' ); ?></legend>
 
-						<p><?php genesis_layout_selector( array( 'name' => 'meta[layout]', 'selected' => $layout, 'type' => 'site' ) ); ?></p>
-					</div>
+						<p><input type="radio" name="genesis-meta[layout]" class="default-layout" id="default-layout" value="" <?php checked( $layout, '' ); ?> /> <label class="default" for="default-layout"><?php printf( __( 'Default Layout set in <a href="%s">Theme Settings</a>', 'genesis' ), menu_page_url( 'genesis', 0 ) ); ?></label></p>
+						<?php genesis_layout_selector( array( 'name' => 'genesis-meta[layout]', 'selected' => $layout, 'type' => 'site' ) ); ?>
+
+					</fieldset>
 				</td>
 			</tr>
 		</tbody>
@@ -265,16 +269,15 @@ add_action( 'edit_user_profile_update', 'genesis_user_meta_save' );
  *
  * @since 1.4.0
  *
- * @param integer $user_id User ID
- *
- * @return null Returns null if current user can not edit users, or no meta fields submitted.
+ * @param int $user_id User ID.
+ * @return null Return early if current user can not edit users, or no meta fields submitted.
  */
 function genesis_user_meta_save( $user_id ) {
 
 	if ( ! current_user_can( 'edit_users', $user_id ) )
 		return;
 
-	if ( ! isset( $_POST['meta'] ) || ! is_array( $_POST['meta'] ) )
+	if ( ! isset( $_POST['genesis-meta'] ) || ! is_array( $_POST['genesis-meta'] ) )
 		return;
 
 	$defaults = array(
@@ -300,12 +303,12 @@ function genesis_user_meta_save( $user_id ) {
 	 * Allows developer to filter the default array of user meta key => value pairs.
 	 *
 	 * @since 2.1.0
-	 * 
+	 *
 	 * @param array $defaults Default user meta array.
 	 */
 	$defaults = apply_filters( 'genesis_user_meta_defaults', $defaults );
 
-	$meta = wp_parse_args( $_POST['meta'], $defaults );
+	$meta = wp_parse_args( $_POST['genesis-meta'], $defaults );
 
 	$meta['headline']   = strip_tags( $meta['headline'] );
 	$meta['intro_text'] = current_user_can( 'unfiltered_html' ) ? $meta['intro_text'] : genesis_formatting_kses( $meta['intro_text'] );
@@ -328,36 +331,36 @@ add_filter( 'get_the_author_genesis_import_export_menu', 'genesis_user_meta_defa
  *
  * @global bool|object authordata User object if successful, false if not.
  *
- * @param string|boolean $value   The submitted value.
- * @param integer        $user_id User ID.
- *
- * @return string|integer Submitted value, or 1.
+ * @param string|bool $value   The submitted value.
+ * @param int         $user_id User ID.
+ * @return mixed|int Submitted value, user field value, or `1`.
  */
 function genesis_user_meta_default_on( $value, $user_id ) {
 
-	//* Get the name of the field by removing the prefix from the active filter
+	// If a real value exists, simply return it.
+	if ( $value ) {
+		return $value;
+	}
+
+	// Get the name of the field by removing the prefix from the active filter.
 	$field = str_replace( 'get_the_author_', '', current_filter() );
 
-	//* If a real value exists, simply return it
-	if ( $value )
-		return $value;
-
-	//* Setup user data
+	// Setup user data.
 	if ( ! $user_id )
 		global $authordata;
 	else
 		$authordata = get_userdata( $user_id );
 
-	//* Just in case
+	// Just in case.
 	$user_field = "user_$field";
 	if ( isset( $authordata->$user_field ) )
 		return $authordata->user_field;
 
-	//* If an empty or false value exists, return it
+	// If an empty or false value exists, return it.
 	if ( isset( $authordata->$field ) )
 		return $value;
 
-	//* If all that fails, default to true
+	// If all that fails, default to true.
 	return 1;
 
 }
@@ -368,13 +371,9 @@ add_filter( 'get_the_author_genesis_author_box_single', 'genesis_author_box_sing
  *
  * @since 1.4.0
  *
- * @uses genesis_get_option()           Get Genesis setting.
- * @uses genesis_user_meta_default_on() Get enforced conditional.
- *
- * @param string  $value   Submitted value.
- * @param integer $user_id User ID.
- *
- * @return string Result.
+ * @param string $value   Submitted value.
+ * @param int    $user_id User ID.
+ * @return mixed Existing user meta value, or `1`.
  */
 function genesis_author_box_single_default_on( $value, $user_id ) {
 

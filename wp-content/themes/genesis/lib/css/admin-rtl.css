@@ -1,13 +1,9 @@
-.genesis-metaboxes h2 {
+.genesis-metaboxes h1 {
 	float: right;
 }
 
-.genesis-metaboxes .top-buttons {
-	float: left;
-}
-
-.genesis-metaboxes .bottom-buttons {
-	text-align: left;
+.genesis-metaboxes .bottom-buttons .button-primary {
+	margin-left: 10px;
 }
 
 .genesis-layout-selector label.box {

@@ -21,32 +21,30 @@
  *
  * @since 0.1.3
  *
- * @uses GENESIS_SETTINGS_FIELD
- *
- * @param string  $key        Option name.
- * @param string  $setting    Optional. Settings field name. Eventually defaults to `GENESIS_SETTINGS_FIELD` if not
- *                            passed as an argument.
- * @param boolean $use_cache  Optional. Whether to use the Genesis cache value or not. Default is true.
- *
- * @return mixed The value of this $key in the database.
+ * @param string $key       Option name.
+ * @param string $setting   Optional. Settings field name. Eventually defaults to `GENESIS_SETTINGS_FIELD` if not
+ *                          passed as an argument.
+ * @param bool   $use_cache Optional. Whether to use the Genesis cache value or not. Default is true.
+ * @return mixed The value of the `$key` in the database, or the return from
+ *               `genesis_pre_get_option_{$key}` short circuit filter if not `null`.
  */
 function genesis_get_option( $key, $setting = null, $use_cache = true ) {
 
-	//* The default is set here, so it doesn't have to be repeated in the function arguments for genesis_option() too.
+	// The default is set here, so it doesn't have to be repeated in the function arguments for genesis_option() too.
 	$setting = $setting ? $setting : GENESIS_SETTINGS_FIELD;
 
-	//* Allow child theme to short-circuit this function
+	// Allow child theme to short circuit this function.
 	$pre = apply_filters( "genesis_pre_get_option_{$key}", null, $setting );
 	if ( null !== $pre ) {
 		return $pre;
 	}
 
-	//* Bypass cache if viewing site in customizer
+	// Bypass cache if viewing site in customizer.
 	if ( genesis_is_customizer() ) {
 		$use_cache = false;
 	}
 
-	//* If we need to bypass the cache
+	// If we need to bypass the cache.
 	if ( ! $use_cache ) {
 		$options = get_option( $setting );
 
@@ -56,29 +54,29 @@ function genesis_get_option( $key, $setting = null, $use_cache = true ) {
 		return is_array( $options[$key] ) ? stripslashes_deep( $options[$key] ) : stripslashes( wp_kses_decode_entities( $options[$key] ) );
 	}
 
-	//* Setup caches
+	// Setup caches.
 	static $settings_cache = array();
 	static $options_cache  = array();
 
-	//* Check options cache
+	// Check options cache.
 	if ( isset( $options_cache[$setting][$key] ) )
-		//* Option has been cached
+		// Option has been cached.
 		return $options_cache[$setting][$key];
 
-	//* Check settings cache
+	// Check settings cache.
 	if ( isset( $settings_cache[$setting] ) )
-		//* Setting has been cached
+		// Setting has been cached.
 		$options = apply_filters( 'genesis_options', $settings_cache[$setting], $setting );
 	else
-		//* Set value and cache setting
+		// Set value and cache setting.
 		$options = $settings_cache[$setting] = apply_filters( 'genesis_options', get_option( $setting ), $setting );
 
-	//* Check for non-existent option
+	// Check for non-existent option.
 	if ( ! is_array( $options ) || ! array_key_exists( $key, (array) $options ) )
-		//* Cache non-existent option
+		// Cache non-existent option.
 		$options_cache[$setting][$key] = '';
 	else
-		//* Option has not been previously been cached, so cache now
+		// Option has not been previously been cached, so cache now.
 		$options_cache[$setting][$key] = is_array( $options[$key] ) ? stripslashes_deep( $options[$key] ) : stripslashes( wp_kses_decode_entities( $options[$key] ) );
 
 	return $options_cache[$setting][$key];
@@ -90,11 +88,9 @@ function genesis_get_option( $key, $setting = null, $use_cache = true ) {
  *
  * @since 0.1.3
  *
- * @uses genesis_get_option() Return option from the options table and cache result.
- *
- * @param string  $key       Option name.
- * @param string  $setting   Optional. Settings field name. Eventually defaults to GENESIS_SETINGS_FIELD.
- * @param boolean $use_cache Optional. Whether to use the Genesis cache value or not. Default is true.
+ * @param string $key       Option name.
+ * @param string $setting   Optional. Settings field name. Eventually defaults to GENESIS_SETINGS_FIELD.
+ * @param bool   $use_cache Optional. Whether to use the Genesis cache value or not. Default is true.
  */
 function genesis_option( $key, $setting = null, $use_cache = true ) {
 
@@ -107,13 +103,10 @@ function genesis_option( $key, $setting = null, $use_cache = true ) {
  *
  * @since 0.1.3
  *
- * @uses genesis_get_option() Return option from the options table and cache result.
- * @uses GENESIS_SEO_SETTINGS_FIELD
- *
- * @param string  $key       Option name.
- * @param boolean $use_cache Optional. Whether to use the Genesis cache value or not. Defaults to true.
- *
- * @return mixed The value of this $key in the database.
+ * @param string $key       Option name.
+ * @param bool   $use_cache Optional. Whether to use the Genesis cache value or not. Defaults to true.
+ * @return mixed The value of the `$key` in the database, or the return from
+ *               `genesis_pre_get_option_{$key}` short circuit filter if not `null`.
  */
 function genesis_get_seo_option( $key, $use_cache = true ) {
 
@@ -126,11 +119,8 @@ function genesis_get_seo_option( $key, $use_cache = true ) {
  *
  * @since 0.1.3
  *
- * @uses genesis_option() Echo option from the options table and cache result.
- * @uses GENESIS_SEO_SETTINGS_FIELD
- *
- * @param string  $key       Option name.
- * @param boolean $use_cache Optional. Whether to use the Genesis cache value or not. Defaults to true.
+ * @param string $key       Option name.
+ * @param bool   $use_cache Optional. Whether to use the Genesis cache value or not. Defaults to true.
  */
 function genesis_seo_option( $key, $use_cache = true ) {
 
@@ -143,15 +133,11 @@ function genesis_seo_option( $key, $use_cache = true ) {
  *
  * @since 2.0.0
  *
- * @uses genesis_get_global_post_type_name()       Get the `post_type` from the global `$post` if supplied value is empty.
- * @uses genesis_get_option()                      Return option from the options table and cache result.
- * @uses GENESIS_CPT_ARCHIVE_SETTINGS_FIELD_PREFIX
- *
  * @param string $key            Option name.
  * @param string $post_type_name Post type name.
  * @param bool   $use_cache      Optional. Whether to use the Genesis cache value or not. Defaults to true.
- *
- * @return mixed The option value.
+ * @return mixed The value of the `$key` in the database, or the return from
+ *               `genesis_pre_get_option_{$key}` short circuit filter if not `null`.
  */
 function genesis_get_cpt_option( $key, $post_type_name = '', $use_cache = true ) {
 
@@ -165,8 +151,6 @@ function genesis_get_cpt_option( $key, $post_type_name = '', $use_cache = true )
  * Echo a CPT Archive option from the options table.
  *
  * @since 2.0.0
- *
- * @uses genesis_get_cpt_option() Return a CPT Archive setting value from the options table.
  *
  * @param string $key            Option name.
  * @param string $post_type_name Post type name.
@@ -187,40 +171,47 @@ function genesis_cpt_option( $key, $post_type_name, $use_cache = true ) {
  *
  * @since 0.1.3
  *
- * @uses genesis_get_custom_field() Return custom field post meta data.
- *
  * @param string $field          Custom field key.
- * @param string $output_pattern printf() compatible output pattern.
+ * @param string $output_pattern `printf()` compatible output pattern.
+ * @param int    $post_id        Optional. Post ID to use for Post Meta lookup, defaults to `get_the_ID()`.
  */
-function genesis_custom_field( $field, $output_pattern = '%s' ) {
+function genesis_custom_field( $field, $output_pattern = '%s', $post_id = null ) {
 
-	if ( $value = genesis_get_custom_field( $field ) )
+	if ( $value = genesis_get_custom_field( $field, $post_id ) ) {
+
 		printf( $output_pattern, $value );
+
+	}
 
 }
 
 /**
  * Return custom field post meta data.
  *
- * Return only the first value of custom field. Return false if field is blank or not set.
+ * Return only the first value of custom field. Return empty string if field is blank or not set.
  *
  * @since 0.1.3
  *
- * @param string $field Custom field key.
- *
- * @return string|boolean Return value or false on failure.
+ * @param string $field   Custom field key.
+ * @param int    $post_id Optional. Post ID to use for Post Meta lookup, defaults to `get_the_ID()`.
+ * @return string|bool Return value or empty string on failure.
  */
-function genesis_get_custom_field( $field ) {
+function genesis_get_custom_field( $field, $post_id = null ) {
 
-	if ( null === get_the_ID() )
+	// Use get_the_ID() if no $post_id is specified.
+	$post_id = empty( $post_id ) ? get_the_ID() : $post_id;
+
+	if ( ! $post_id ) {
 		return '';
+	}
 
-	$custom_field = get_post_meta( get_the_ID(), $field, true );
+	$custom_field = get_post_meta( $post_id, $field, true );
 
-	if ( ! $custom_field )
+	if ( ! $custom_field ) {
 		return '';
+	}
 
-	//* Return custom field, slashes stripped, sanitized if string
+	// Return custom field, slashes stripped, sanitized if string.
 	return is_array( $custom_field ) ? stripslashes_deep( $custom_field ) : stripslashes( wp_kses_decode_entities( $custom_field ) );
 
 }
@@ -237,14 +228,13 @@ function genesis_get_custom_field( $field ) {
  *
  * @since 1.9.0
  *
- * @param array    $data         Key/Value pairs of data to save in '_field_name' => 'value' format.
- * @param string   $nonce_action Nonce action for use with wp_verify_nonce().
- * @param string   $nonce_name   Name of the nonce to check for permissions.
- * @param WP_Post|integer $post  Post object or ID.
- * @param integer  $deprecated   Deprecated (formerly accepted a post ID).
- *
- * @return mixed Return null if permissions incorrect, doing autosave, ajax or future post, false if update or delete
- *               failed, and true on success.
+ * @param array       $data         Key/Value pairs of data to save in '_field_name' => 'value' format.
+ * @param string      $nonce_action Nonce action for use with wp_verify_nonce().
+ * @param string      $nonce_name   Name of the nonce to check for permissions.
+ * @param WP_Post|int $post         Post object or ID.
+ * @param int         $deprecated   Deprecated (formerly accepted a post ID).
+ * @return mixed `null` if permissions are incorrect, doing autosave, Ajax or future post,
+ *               `false` if update or delete failed, and `true` on success.
  */
 function genesis_save_custom_fields( array $data, $nonce_action, $nonce_name, $post, $deprecated = null ) {
 
@@ -252,11 +242,11 @@ function genesis_save_custom_fields( array $data, $nonce_action, $nonce_name, $p
 		_deprecated_argument( __FUNCTION__, '2.0.0' );
 	}
 
-	//* Verify the nonce
+	// Verify the nonce.
 	if ( ! isset( $_POST[ $nonce_name ] ) || ! wp_verify_nonce( $_POST[ $nonce_name ], $nonce_action ) )
 		return;
 
-	//* Don't try to save the data under autosave, ajax, or future post.
+	// Don't try to save the data under autosave, ajax, or future post.
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
 		return;
 	if ( defined( 'DOING_AJAX' ) && DOING_AJAX )
@@ -264,23 +254,23 @@ function genesis_save_custom_fields( array $data, $nonce_action, $nonce_name, $p
 	if ( defined( 'DOING_CRON' ) && DOING_CRON )
 		return;
 
-	//* Grab the post object
+	// Grab the post object.
 	if ( ! is_null( $deprecated ) )
 		$post = get_post( $deprecated );
 	else
 		$post = get_post( $post );
 
-	//* Don't save if WP is creating a revision (same as DOING_AUTOSAVE?)
+	// Don't save if WP is creating a revision (same as DOING_AUTOSAVE?).
 	if ( 'revision' === get_post_type( $post ) )
 		return;
 
-	//* Check that the user is allowed to edit the post
+	// Check that the user is allowed to edit the post.
 	if ( ! current_user_can( 'edit_post', $post->ID ) )
 		return;
 
-	//* Cycle through $data, insert value or delete field
+	// Cycle through $data, insert value or delete field.
 	foreach ( (array) $data as $field => $value ) {
-		//* Save $value, or delete if the $value is empty
+		// Save $value, or delete if the $value is empty.
 		if ( $value )
 			update_post_meta( $post->ID, $field, $value );
 		else
@@ -294,13 +284,23 @@ function genesis_save_custom_fields( array $data, $nonce_action, $nonce_name, $p
  *
  * @since 2.1.0
  *
- * @uses GENESIS_SETTINGS_FIELD
- *
  * @param string|array $new     New settings. Can be a string, or an array.
  * @param string       $setting Optional. Settings field name. Default is GENESIS_SETTINGS_FIELD.
+ * @return bool `true` if option was updated, `false` otherwise.
  */
 function genesis_update_settings( $new = '', $setting = GENESIS_SETTINGS_FIELD ) {
 
-	return update_option( $setting, wp_parse_args( $new, get_option( $setting ) ) );
+	$old = get_option( $setting );
+
+	$settings = wp_parse_args( $new, $old );
+
+	// Allow settings to be deleted.
+	foreach ( $settings as $key => $value ) {
+		if ( 'unset' == $value ) {
+			unset( $settings[ $key ] );
+		}
+	}
+
+	return update_option( $setting, $settings );
 
 }
