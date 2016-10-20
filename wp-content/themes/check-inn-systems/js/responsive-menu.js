@@ -56,7 +56,7 @@
 		}
 		$this.attr( 'id', 'mobile-' + $( nav ).attr( id ) );
 	}
-	
+
 	// check CSS rule to determine width
 	function _combineMenus(){
 		if ( ( $( '.js nav' ).css( 'position' ) == 'relative' ) && $( '.nav-primary' ).length > 0 ) { // depends on .js nav having position: relative; in style.css
@@ -186,8 +186,8 @@
 
 		// run test on resize of the window
 		$( window ).resize( _combineMenus );
-		
-		genesisSample.params = typeof genesisSampleL10n === 'undefined' ? '' : genesisSampleL10n;
+
+		genesisSample.params = typeof checkInnSystemsL10n === 'undefined' ? '' : checkInnSystemsL10n;
 
 		if ( typeof genesisSample.params !== 'undefined' ) {
 			genesisSample.init();
