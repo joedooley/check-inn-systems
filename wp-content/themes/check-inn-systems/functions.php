@@ -22,6 +22,5 @@ include_once __DIR__ . '/includes/scripts-and-styles.php';
  * Define Child Theme Constants
  */
 define( 'CHILD_THEME_NAME', 'Check Inn Systems' );
-define( 'CHILD_THEME_URL', 'http://www.checkinn.com.au/' );
 define( 'CHILD_THEME_VERSION', '1.0.0' );
 
