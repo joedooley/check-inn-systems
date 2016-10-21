@@ -1968,6 +1968,61 @@ p.entry-meta {
 
 }
 
+/* ## Primary Nav Icons -
+   ## Find other icons on the Dashicons
+   ## website.
+   ## https://developer.wordpress.org/resource/dashicons/
+----------------------------- */
+
+.nav-primary li > a:before,
+.nav-primary li > a:after {
+	-webkit-font-smoothing: antialiased;
+	font: normal 20px/1 'dashicons';
+	vertical-align: middle;
+	padding-right: 4px;
+	display: inline-block;
+}
+
+.nav-primary li > a:after,
+.nav-primary li > a:before {
+	margin-left: 1rem;
+	margin-right: 1rem;
+}
+
+.nav-primary li > a:hover:before,
+.nav-primary li > a:hover:after {
+	text-decoration: none;
+}
+
+.nav-primary li > a:after {
+	margin-left: 1rem;
+}
+
+.nav-primary li.about > a:after {
+	content: "\f223";
+}
+
+.nav-primary li.support > a:after {
+	content: "\f338";
+}
+
+.nav-primary li.testimonials > a:after {
+	content: "\f328";
+}
+
+.nav-primary li.partners > a:before {
+	content: "\f307";
+}
+
+.nav-primary li.products > a:before {
+	content: "\f312";
+}
+
+.nav-primary li.contact > a:before {
+	content: "\f466";
+}
+
+
 /*! single-product.php - WooCommerce Product Page
 ------------------------------------------------- */
 body.single-product {
