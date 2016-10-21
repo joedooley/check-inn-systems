@@ -34,40 +34,6 @@ remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation_add
 
 
 /**
- * Outputs ACF Repeator for Accordion.
- */
-function acf_accordion() {
-
-	if ( have_rows( 'accordion' ) && is_product() ) {
-
-		echo '<div id="accordion">';
-
-		while ( have_rows( 'accordion' ) ) : the_row();
-
-			$heading = get_sub_field( 'header' );
-			$content = get_sub_field( 'hidden_content' ); ?>
-
-			<div class = "accordion-item">
-
-				<?php if ( $heading ) : ?>
-					<h2 class = "accordion-heading heading"><?php echo $heading; ?></h2>
-				<?php endif; ?>
-
-				<div class = "accordion-content"><?php echo $content; ?></div>
-
-			</div>
-
-			<?php
-
-		endwhile;
-
-		echo '</div>';
-
-	}
-}
-
-
-/**
  * Enqueue single page script accordion.js
  *
  * @return void
@@ -130,6 +96,40 @@ add_action( 'wp_enqueue_scripts', function() {
 });
 
 
+add_action( 'woocommerce_single_product_summary', 'check_inn_systems_acf_accordion' );
+/**
+ * Outputs ACF Accordion Repeator on single product pages.
+ */
+function check_inn_systems_acf_accordion() {
+
+	if ( have_rows( 'accordion' ) && is_product() ) {
+
+		echo '<div id="accordion">';
+
+		while ( have_rows( 'accordion' ) ) : the_row();
+
+			$heading = get_sub_field( 'header' );
+			$content = get_sub_field( 'hidden_content' );
+
+			echo '<div class="accordion-item">';
+
+			if ( $heading ) {
+				echo '<h2 class = "accordion-heading heading"><?php $heading; ?></h2>';
+			}
+
+			echo '<div class = "accordion-content"><?php $content; ?></div>';
+
+			echo '</div>';
+
+		endwhile;
+
+		echo '</div>';
+
+	}
+
+}
+
+
 add_action( 'genesis_loop', 'gencwooc_single_product_loop' );
 /**
  * Displays single product loop
@@ -160,7 +160,7 @@ function gencwooc_single_product_loop() {
 
 	if ( $wc_query->have_posts() ) while ( $wc_query->have_posts() ) : $wc_query->the_post(); ?>
 
-		<?php do_action('woocommerce_before_single_product'); ?>
+		<?php do_action( 'woocommerce_before_single_product' ); ?>
 
 		<div itemscope itemtype="http://schema.org/Product" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
 
@@ -169,11 +169,12 @@ function gencwooc_single_product_loop() {
 			<div class="summary">
 				<div class="product-essential">
 
-					<?php do_action( 'woocommerce_single_product_summary' ); ?>
+					<?php
 
-					<?php echo acf_accordion(); ?>
+					do_action( 'woocommerce_single_product_summary' );
+					do_action( 'woocommerce_after_single_product_summary' );
 
-					<?php do_action( 'woocommerce_after_single_product_summary' ); ?>
+					?>
 
 				</div>
 			</div>
