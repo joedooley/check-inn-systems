@@ -82,6 +82,7 @@ function acf_accordion() {
  * Enqueue single page script accordion.js
  *
  * @return void
+ * @todo Find JavaScript bug in scroll-to-fixed.js tomorrow
  */
 add_action( 'wp_enqueue_scripts', function() {
 
@@ -125,17 +126,17 @@ add_action( 'wp_enqueue_scripts', function() {
 			CHILD_THEME_VERSION
 		);
 
-		if ( ! wp_is_mobile() ) {
-
-			wp_enqueue_script(
-				'scrolltofixed-init',
-				get_stylesheet_directory_uri() . '/assets/js/custom/single/scrolltofixed-init.js',
-				array( 'jquery' ),
-				CHILD_THEME_VERSION,
-				true
-			);
-
-		}
+//		if ( ! wp_is_mobile() ) {
+//
+//			wp_enqueue_script(
+//				'scrolltofixed-init',
+//				get_stylesheet_directory_uri() . '/assets/js/custom/single/scrolltofixed-init.js',
+//				array( 'jquery' ),
+//				CHILD_THEME_VERSION,
+//				true
+//			);
+//
+//		}
 	}
 });
 
