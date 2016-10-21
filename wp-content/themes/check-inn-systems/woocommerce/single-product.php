@@ -38,8 +38,8 @@ remove_action( 'woocommerce_single_variation',
 	'woocommerce_single_variation_add_to_cart_button', 10 );
 remove_action( 'woocommerce_single_variation',
 	'woocommerce_single_variation_add_to_cart_button', 20 );
-add_action( 'woocommerce_before_add_to_cart_button',
-	'woocommerce_single_variation_add_to_cart_button', 10 );
+//add_action( 'woocommerce_before_add_to_cart_button',
+//	'woocommerce_single_variation_add_to_cart_button', 10 );
 
 
 
@@ -107,6 +107,14 @@ add_action( 'wp_enqueue_scripts', function() {
 			'slick-init-js',
 			get_stylesheet_directory_uri() . '/assets/js/custom/single/slick-init.js',
 			array( 'jquery', 'slick-js' ),
+			CHILD_THEME_VERSION,
+			true
+		);
+
+		wp_enqueue_script(
+			'increment-decrement-js',
+			get_stylesheet_directory_uri() . '/assets/js/custom/input-increment-decrement.js',
+			array( 'jquery' ),
 			CHILD_THEME_VERSION,
 			true
 		);

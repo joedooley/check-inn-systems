@@ -100,6 +100,14 @@ add_action( 'get_header', function () {
 } );
 
 
+/**
+ * Remove WooCommerce breadcrumbs, using Genesis crumbs instead.
+ */
+add_action( 'get_header', function () {
+	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+} );
+
+
 add_filter( 'woocommerce_product_tabs', 'check_inn_systems_woo_remove_product_tabs', 98 );
 /**
  * Delete WooCommerce Product Tabs.

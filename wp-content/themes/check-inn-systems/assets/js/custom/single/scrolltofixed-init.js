@@ -4,16 +4,15 @@ jQuery(function ($) {
 
 		var winHeight    = window.innerHeight;
 		var headerHeight = $('.site-header').outerHeight();
-		var footerTop    = $('.above-footer-widgets').position().top;
-		var headerTop    = $('.site-header .title-area .site-title img').position().top;
+		var footerTop    = $('.footer-widgets').position().top;
+		var headerTop    = $('.site-header').position().top;
 		var paddingTop   = parseInt($('.images').css('padding-top'));
-		var beforeHeader = $('.before-header').outerHeight();
 		var wcMessage    = $('.woocommerce-message').outerHeight();
 		var wpAdminBar   = $('#wpadminbar').outerHeight();
 
-		var scrollHeight = headerHeight + beforeHeader + beforeHeader + wcMessage + wpAdminBar;
+		var scrollHeight = headerHeight + wcMessage + wpAdminBar;
 
-		var leftHeight = winHeight - headerHeight - beforeHeader;
+		var leftHeight = winHeight - headerHeight;
 
 		var currScroll = $(window).scrollTop();
 
