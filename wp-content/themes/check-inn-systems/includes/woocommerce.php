@@ -1,0 +1,127 @@
+<?php
+/**
+ * Check Inn Systems
+ *
+ * This file is for WooCommerce functions
+ *
+ * @package Check Inn Systems
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
+
+
+/**
+ * Replace primary sidebar with shop-sidebar on WooCommerce archives.
+ * Remove Genesis breadcrumbs.
+ *
+ * @uses spa_do_shop_sidebar()
+ */
+add_action( 'get_header', function () {
+	if ( is_shop() || is_product_taxonomy() ) {
+		remove_action( 'genesis_before_loop', 'genesis_do_breadcrumbs' );
+
+		remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
+		add_action( 'genesis_sidebar', 'spa_do_shop_sidebar' );
+	}
+
+	/**
+	 * Output shop-sidebar.
+	 */
+	function spa_do_shop_sidebar() {
+		dynamic_sidebar( 'shop-sidebar' );
+	}
+} );
+
+
+add_filter( 'genesis_site_layout', 'check_inn_systems_wc_force_full_width' );
+/**
+ * Force full width layout on WooCommerce pages
+ * @return string
+ */
+function check_inn_systems_wc_force_full_width() {
+	if ( is_shop() || is_product_taxonomy() ) {
+		return 'sidebar-content';
+	}
+}
+
+
+add_filter( 'genesis_attr_content', 'check_inn_systems_add_facetwp_class' );
+/**
+ * Add the class needed for FacetWP to main element.
+ *
+ * Context: Posts page, all Archives and Search results page.
+ *
+ * @param $attributes
+ *
+ * @return mixed
+ */
+function check_inn_systems_add_facetwp_class( $attributes ) {
+	if ( is_shop() || is_product_taxonomy() ) {
+		$attributes['class'] .= ' facetwp-template';
+	}
+
+	return $attributes;
+
+}
+
+
+add_filter( 'woocommerce_show_page_title', 'check_inn_systems_remove_shop_title' );
+/**
+ * Removes the "shop" title on the main shop page
+ */
+function check_inn_systems_remove_shop_title() {
+	if ( is_shop() || is_product_taxonomy() ) {
+		return false;
+	}
+}
+
+
+/**
+ * Remove WooCommerce orderby dropdown and showing all results.
+ */
+add_action( 'get_header', function () {
+	if ( is_woocommerce() ) {
+		remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+		remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
+	}
+} );
+
+
+/**
+ * Move product price to just before add to cart button.
+ */
+add_action( 'get_header', function () {
+	if ( is_front_page() || is_shop() || is_product_taxonomy() || is_product() ) {
+		remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
+		add_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_price', 6 );
+	}
+} );
+
+
+/**
+ * Remove WooCommerce breadcrumbs, using Genesis crumbs instead.
+ */
+add_action( 'get_header', function () {
+	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+} );
+
+
+add_filter( 'woocommerce_product_tabs', 'check_inn_systems_woo_remove_product_tabs', 98 );
+/**
+ * Delete WooCommerce Product Tabs.
+ *
+ * @param $tabs
+ *
+ * @return mixed
+ */
+function check_inn_systems_woo_remove_product_tabs( $tabs ) {
+
+	unset( $tabs['description'] );
+	unset( $tabs['reviews'] );
+	unset( $tabs['additional_information'] );
+
+	return $tabs;
+
+}
