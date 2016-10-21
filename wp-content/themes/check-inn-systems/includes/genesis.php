@@ -20,7 +20,6 @@ add_action( 'after_setup_theme', 'check_inn_systems_add_theme_support' );
  */
 function check_inn_systems_add_theme_support() {
 
-	add_theme_support( 'custom-background' );
 	add_theme_support( 'genesis-responsive-viewport' );
 	add_theme_support( 'genesis-after-entry-widget-area' );
 

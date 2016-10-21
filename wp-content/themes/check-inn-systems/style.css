@@ -2310,3 +2310,38 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
 	height: 0;
 	overflow: hidden;
 	transition: 0.5s height; }
+
+
+/* ## Shop Archive and Product Taxonomy
+--------------------------------------- */
+
+.archive.woocommerce.sidebar-content ul.products li.product,
+.archive.woocommerce-page.sidebar-content ul.products li.product {
+	clear: right;
+	margin-right: 3.8%;
+	width: 29.25%;
+}
+
+body.woocommerce ul.products li.product,
+body.woocommerce-page ul.products li.product {
+	clear: right;
+	margin-right: 3.8%;
+	width: 29.25%;
+}
+
+@media screen and (max-width: 800px) {
+	.archive.woocommerce.sidebar-content ul.products li.product,
+	.archive.woocommerce-page.sidebar-content ul.products li.product {
+		clear: none;
+		margin-right: 2%;
+		width: 48%;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.archive.woocommerce.sidebar-content ul.products li.product,
+	.archive.woocommerce-page.sidebar-content ul.products li.product {
+		margin-right: 0;
+		width: 100%;
+	}
+}
