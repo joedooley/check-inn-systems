@@ -65,3 +65,55 @@ function check_inn_systems_add_facetwp_class( $attributes ) {
 	return $attributes;
 
 }
+
+
+add_filter( 'woocommerce_show_page_title', 'check_inn_systems_remove_shop_title' );
+/**
+ * Removes the "shop" title on the main shop page
+ */
+function check_inn_systems_remove_shop_title() {
+	if ( is_shop() || is_product_taxonomy() ) {
+		return false;
+	}
+}
+
+
+/**
+ * Remove WooCommerce orderby dropdown and showing all results.
+ */
+add_action( 'get_header', function () {
+	if ( is_woocommerce() ) {
+		remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+		remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
+	}
+} );
+
+
+/**
+ * Move product price to just before add to cart button.
+ */
+add_action( 'get_header', function () {
+	if ( is_front_page() || is_shop() || is_product_taxonomy() || is_product() ) {
+		remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
+		add_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_price', 6 );
+	}
+} );
+
+
+add_filter( 'woocommerce_product_tabs', 'check_inn_systems_woo_remove_product_tabs', 98 );
+/**
+ * Delete WooCommerce Product Tabs.
+ *
+ * @param $tabs
+ *
+ * @return mixed
+ */
+function check_inn_systems_woo_remove_product_tabs( $tabs ) {
+
+	unset( $tabs['description'] );
+	unset( $tabs['reviews'] );
+	unset( $tabs['additional_information'] );
+
+	return $tabs;
+
+}
