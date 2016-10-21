@@ -59,7 +59,6 @@ add_filter( 'genesis_attr_content', 'check_inn_systems_add_facetwp_class' );
  */
 function check_inn_systems_add_facetwp_class( $attributes ) {
 	if ( is_shop() || is_product_taxonomy() ) {
-		echo 'im a dick';
 		$attributes['class'] .= ' facetwp-template';
 	}
 
