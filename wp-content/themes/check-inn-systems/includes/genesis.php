@@ -75,6 +75,11 @@ function check_inn_systems_add_theme_support() {
 	add_action( 'wp_enqueue_scripts', 'check_inn_systems_enqueue_scripts_styles' );
 
 	/**
+	 * Register widgets in widgets.php
+	 */
+	add_action( 'widgets_init', 'check_inn_systems_register_widgets' );
+
+	/**
 	 * Reposition the secondary navigation menu
 	 */
 	remove_action( 'genesis_after_header', 'genesis_do_subnav' );
