@@ -33,3 +33,15 @@ add_action( 'get_header', function () {
 		dynamic_sidebar( 'shop-sidebar' );
 	}
 } );
+
+
+add_filter( 'genesis_site_layout', 'check_inn_systems_wc_force_full_width' );
+/**
+ * Force full width layout on WooCommerce pages
+ * @return string
+ */
+function check_inn_systems_wc_force_full_width() {
+	if ( is_shop() || is_product_taxonomy() ) {
+		return 'sidebar-content';
+	}
+}
