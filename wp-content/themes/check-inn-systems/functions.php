@@ -8,20 +8,17 @@
  */
 
 
-add_action( 'genesis_setup', 'check_inn_systems_includes_constants' );
 /**
  * Include theme files and declare child theme constants.
  */
-function check_inn_systems_includes_constants() {
+include_once( get_stylesheet_directory() . '/includes/scripts-and-styles.php' );
+include_once( get_stylesheet_directory() . '/includes/genesis.php' );
+include_once( get_stylesheet_directory() . '/lib/output.php' );
+require_once( get_stylesheet_directory() . '/lib/customize.php' );
 
-	if ( ! is_admin() ) {
-		include_once __DIR__ . '/includes/output.php';
-		require_once __DIR__ . '/includes/customize.php';
-		include_once __DIR__ . '/includes/genesis.php';
-		include_once __DIR__ . '/includes/scripts-and-styles.php';
+define( 'CHILD_THEME_NAME', 'Check Inn Systems' );
+define( 'CHILD_THEME_URL', 'http://www.studiopress.com/' );
+define( 'CHILD_THEME_VERSION', '1.0.0' );
 
-		define( 'CHILD_THEME_NAME', 'Check Inn Systems' );
-		define( 'CHILD_THEME_VERSION', '1.0.0' );
-	}
 
-}
+

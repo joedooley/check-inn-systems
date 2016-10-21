@@ -7,73 +7,62 @@
  * @package Check Inn Systems
  */
 
-add_action( 'after_setup_theme', 'spa_add_theme_support' );
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+add_action( 'after_setup_theme', 'check_inn_systems_add_theme_support' );
 /**
  * Add theme support features on after-theme-setup hook
  *
  * @author Joe Dooley
  *
  */
-function spa_add_theme_support() {
+function check_inn_systems_add_theme_support() {
 
 	add_theme_support( 'custom-background' );
 	add_theme_support( 'genesis-responsive-viewport' );
 	add_theme_support( 'genesis-after-entry-widget-area' );
 	add_theme_support( 'genesis-connect-woocommerce' );
 
-	add_theme_support(
-		'html5',
-		[
+	add_theme_support( 'html5', [
 			'caption',
 			'comment-form',
 			'comment-list',
 			'gallery',
 			'search-form',
-		]
-	);
+	] );
 
-	add_theme_support(
-		'genesis-accessibility',
-		[
+	add_theme_support( 'genesis-accessibility', [
 			'404-page',
 			'drop-down-menu',
 			'headings',
 			'rems',
 			'search-form',
 			'skip-links',
-		]
-	);
+	] );
 
-	add_theme_support(
-		'genesis-menus',
-		[
+	add_theme_support( 'genesis-menus', [
 			'primary'   => __( 'After Header Menu', 'check-inn-systems' ),
 			'secondary' => __( 'Footer Menu', 'check-inn-systems' ),
-		]
-	);
+	] );
 
-	add_theme_support(
-		'custom-header',
-		array(
-			'width'           => 600,
-			'height'          => 160,
+	add_theme_support( 'custom-header', [
+			'width'           => 206,
+			'height'          => 222,
 			'header-selector' => '.site-title a',
 			'header-text'     => false,
 			'flex-height'     => true,
-			)
-	);
+	] );
 
-	add_theme_support(
-		'genesis-structural-wraps',
-		[
+	add_theme_support( 'genesis-structural-wraps', [
 			'header',
 			'nav',
 			'subnav',
 			'inner',
 			'footer-widgets',
 			'footer',
-		]
-	);
+	] );
 
 	/**
 	 * Load child theme text domain
@@ -100,11 +89,6 @@ function spa_add_theme_support() {
 	 * Remove site description
 	 */
 	remove_action( 'genesis_site_description', 'genesis_seo_site_description' );
-
-	/**
-	 * Unregistered Header-Right Widget Area
-	 */
-	unregister_sidebar( 'header-right' );
 
 }
 
@@ -162,3 +146,52 @@ add_filter( 'genesis_comment_list_args', function( $args ) {
 	return $args;
 } );
 
+
+// if header image is set, remove Header Right widget area and inject CSS to apply the header image as background image for home menu item and more
+add_action( 'wp_head', 'check_inn_systems_home_menu_item_background_image' );
+function check_inn_systems_home_menu_item_background_image() {
+
+	if ( get_header_image() ) {
+		// Remove the header right widget area
+		unregister_sidebar( 'header-right' ); ?>
+
+		<style type = "text/css">
+			.nav-primary li.menu-item-home a {
+				background-image: url(<?php echo get_header_image(); ?>);
+				text-indent: -9999em;
+				width: 100px;
+				height: 100px;
+			}
+
+			@media only screen and (min-width: 1024px) {
+				.site-header > .wrap {
+					padding: 0;
+				}
+
+				.title-area {
+					display: none;
+				}
+
+				.nav-primary {
+					padding: 20px 0;
+				}
+
+				.menu-primary {
+					display: -webkit-box;
+					display: -webkit-flex;
+					display: -ms-flexbox;
+					display: flex;
+					-webkit-box-pack: center;
+					-webkit-justify-content: center;
+					-ms-flex-pack: center;
+					justify-content: center; /* center flex items horizontally */
+					-webkit-box-align: center;
+					-webkit-align-items: center;
+					-ms-flex-align: center;
+					align-items: center; /* center flex items vertically */
+				}
+			}
+		</style>
+	<?php }
+
+}

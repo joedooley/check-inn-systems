@@ -1941,3 +1941,29 @@ p.entry-meta {
 	}
 
 }
+
+
+/* ## Primary Nav
+------------------------- */
+
+.header-image .site-title > a {
+	min-height: 100px;
+}
+
+@media only screen and (min-width: 1024px) {
+
+	.nav-primary li.menu-item-home a {
+		background-repeat: no-repeat;
+		background-size: contain;
+		margin: 0 10px;
+	}
+
+}
+
+@media only screen and (max-width: 1023px) {
+
+	.js .nav-primary .genesis-nav-menu .menu-item.menu-item-home {
+		display: none;
+	}
+
+}
