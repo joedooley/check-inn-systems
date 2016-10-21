@@ -23,7 +23,6 @@ function check_inn_systems_add_theme_support() {
 	add_theme_support( 'custom-background' );
 	add_theme_support( 'genesis-responsive-viewport' );
 	add_theme_support( 'genesis-after-entry-widget-area' );
-	add_theme_support( 'genesis-connect-woocommerce' );
 
 	add_theme_support( 'html5', [
 			'caption',

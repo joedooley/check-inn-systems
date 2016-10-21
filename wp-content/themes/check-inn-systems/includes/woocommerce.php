@@ -45,3 +45,24 @@ function check_inn_systems_wc_force_full_width() {
 		return 'sidebar-content';
 	}
 }
+
+
+add_filter( 'genesis_attr_content', 'check_inn_systems_add_facetwp_class' );
+/**
+ * Add the class needed for FacetWP to main element.
+ *
+ * Context: Posts page, all Archives and Search results page.
+ *
+ * @param $attributes
+ *
+ * @return mixed
+ */
+function check_inn_systems_add_facetwp_class( $attributes ) {
+	if ( is_shop() || is_product_taxonomy() ) {
+		echo 'im a dick';
+		$attributes['class'] .= ' facetwp-template';
+	}
+
+	return $attributes;
+
+}

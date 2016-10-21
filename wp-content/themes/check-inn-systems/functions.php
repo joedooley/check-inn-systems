@@ -19,6 +19,16 @@ include_once( get_stylesheet_directory() . '/includes/woocommerce.php' );
 include_once( get_stylesheet_directory() . '/lib/output.php' );
 require_once( get_stylesheet_directory() . '/lib/customize.php' );
 
+
+/**
+ * Define child theme constants
+ */
 define( 'CHILD_THEME_NAME', 'Check Inn Systems' );
 define( 'CHILD_THEME_URL', 'http://www.studiopress.com/' );
 define( 'CHILD_THEME_VERSION', '1.0.0' );
+
+
+/**
+ * Add theme support for Genesis Connect WocCommerce
+ */
+add_theme_support( 'genesis-connect-woocommerce' );
