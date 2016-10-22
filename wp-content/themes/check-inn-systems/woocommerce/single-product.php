@@ -31,6 +31,10 @@ remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wra
 remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation_add_to_cart_button', 10 );
 remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation_add_to_cart_button', 20 );
 
+/** Move product category to below title */
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+//add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 6 );
+
 
 /**
  * Enqueue single page script accordion.js
