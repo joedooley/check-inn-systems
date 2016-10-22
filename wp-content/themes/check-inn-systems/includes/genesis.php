@@ -63,6 +63,11 @@ function check_inn_systems_add_theme_support() {
 	] );
 
 	/**
+	 * Unregister Header Right Sidebar
+	 */
+	unregister_sidebar( 'header-right' );
+
+	/**
 	 * Load child theme text domain
 	 */
 	load_child_theme_textdomain( 'check-inn-systems', apply_filters( 'child_theme_textdomain', get_stylesheet_directory() . '/languages', 'check-inn-systems' ) );
@@ -154,9 +159,7 @@ add_filter( 'genesis_comment_list_args', function( $args ) {
 add_action( 'wp_head', 'check_inn_systems_home_menu_item_background_image' );
 function check_inn_systems_home_menu_item_background_image() {
 
-	if ( get_header_image() ) {
-		// Remove the header right widget area
-		unregister_sidebar( 'header-right' ); ?>
+	if ( get_header_image() ) { ?>
 
 		<style type = "text/css">
 			.nav-primary li.menu-item-home a {

@@ -16,10 +16,30 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Register widgets. Function called in after_theme_setup in genesis.php
  */
 function check_inn_systems_register_widgets() {
-	genesis_register_sidebar( array(
+
+	genesis_register_sidebar(
+		[
 		'id'          => 'shop-sidebar',
-		'name'        => __( 'Shop Sidebar', 'epik' ),
-		'description' => __( 'This widget will show up on the shop pages.', 'epik' ),
-	) );
+		'name'        => __( 'Shop Sidebar', 'check-inn-systems' ),
+		'description' => __( 'This widget will show up on the shop pages.', 'check-inn-systems' ),
+		]
+	);
+
+	genesis_register_sidebar(
+		[
+		'id'          => 'before-header-left',
+		'name'        => __( 'Before Header Left', 'check-inn-systems' ),
+		'description' => __( 'This is the Before Header Left widget area', 'check-inn-systems' ),
+		]
+	);
+
+	genesis_register_sidebar(
+		[
+		'id'          => 'before-header-right',
+		'name'        => __( 'Before Header Right', 'check-inn-systems' ),
+		'description' => __( 'This is the Before Header Right widget area', 'check-inn-systems' ),
+		]
+	);
+
 }
 

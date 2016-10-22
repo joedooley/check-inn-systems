@@ -32,7 +32,6 @@ remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation_add
 remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation_add_to_cart_button', 20 );
 
 
-
 /**
  * Enqueue single page script accordion.js
  *
@@ -96,7 +95,7 @@ add_action( 'wp_enqueue_scripts', function() {
 });
 
 
-add_action( 'woocommerce_single_product_summary', 'check_inn_systems_acf_accordion' );
+add_action( 'woocommerce_single_product_summary', 'check_inn_systems_acf_accordion', 30 );
 /**
  * Outputs ACF Accordion Repeator on single product pages.
  */
@@ -117,10 +116,8 @@ function check_inn_systems_acf_accordion() {
 				echo '<h2 class = "accordion-heading heading">' . $heading . '</h2>';
 			}
 
-			if ( $content ) {
-				echo '<div class = "accordion-content">' . $content . '</div>';
-			}
-			
+			echo '<div class = "accordion-content">' . $content . '</div>';
+
 			echo '</div>';
 
 		endwhile;
