@@ -7,9 +7,40 @@
  * @package Check Inn Systems
  */
 
+/**
+ * Exit if accessed directly
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} // Exit if accessed directly
+}
+
+
+add_action( 'wp_enqueue_scripts', 'spa_conditionally_load_woc_js_css' );
+/**
+ * Dequeue WooCommerce Scripts and Styles for pages that don't need them.
+ */
+function spa_conditionally_load_woc_js_css() {
+
+	if ( function_exists( 'spa_conditionally_load_woc_js_css' ) ) {
+
+		if ( ! is_woocommerce() && ! is_cart() && ! is_checkout() ) {
+
+			wp_dequeue_script( 'woocommerce' );
+			wp_dequeue_script( 'wc-add-to-cart' );
+			wp_dequeue_script( 'wc-cart-fragments' );
+
+			wp_dequeue_style( 'woocommerce-general' );
+			wp_dequeue_style( 'woocommerce-layout' );
+			wp_dequeue_style( 'woocommerce-smallscreen' );
+		}
+
+		if ( is_product() ) {
+			wp_dequeue_style( 'pac-styles-css' );
+			wp_dequeue_style( 'pac-layout-styles-css' );
+		}
+	}
+
+}
 
 
 /**
@@ -117,11 +148,16 @@ add_filter( 'woocommerce_product_tabs', 'check_inn_systems_woo_remove_product_ta
  * @return mixed
  */
 function check_inn_systems_woo_remove_product_tabs( $tabs ) {
-
 	unset( $tabs['description'] );
 	unset( $tabs['reviews'] );
 	unset( $tabs['additional_information'] );
 
 	return $tabs;
-
 }
+
+
+/**
+ * Set shop page products to 18 per page
+ */
+add_filter( 'loop_shop_per_page', create_function( '$cols', 'return 18;' ), 20 );
+

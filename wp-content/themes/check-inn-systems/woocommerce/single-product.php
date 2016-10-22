@@ -20,12 +20,6 @@
 /** Remove default Genesis loop */
 remove_action( 'genesis_loop', 'genesis_do_loop' );
 
-/** Remove WooCommerce breadcrumbs */
-//remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
-
-/** Uncomment the below line of code to add back WooCommerce breadcrumbs */
-//add_action( 'woocommerce_single_product_summary', 'woocommerce_breadcrumb', 10, 0 );
-
 remove_action( 'genesis_before_loop', 'genesis_do_breadcrumbs' );
 add_action( 'woocommerce_single_product_summary', 'genesis_do_breadcrumbs', 4 );
 
@@ -34,48 +28,16 @@ remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wr
 remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
 
 /** Switch Add To Cart and Summary sections */
-remove_action( 'woocommerce_single_variation',
-	'woocommerce_single_variation_add_to_cart_button', 10 );
-remove_action( 'woocommerce_single_variation',
-	'woocommerce_single_variation_add_to_cart_button', 20 );
-//add_action( 'woocommerce_before_add_to_cart_button',
-//	'woocommerce_single_variation_add_to_cart_button', 10 );
+remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation_add_to_cart_button', 10 );
+remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation_add_to_cart_button', 20 );
 
+/** Move product category to below title */
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+//add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 6 );
 
-
-/**
- * Outputs ACF Repeator for Accordion.
- */
-function acf_accordion() {
-
-	if ( have_rows( 'accordion' ) ) :
-
-		echo '<div id="accordion">';
-
-		while ( have_rows( 'accordion' ) ) : the_row();
-
-			$heading = get_sub_field( 'header' );
-			$content = get_sub_field( 'hidden_content' ); ?>
-
-				<div class="accordion-item">
-
-				<?php if ( $heading ) : ?>
-					<h2 class="accordion-heading heading"><?php echo $heading; ?></h2>
-				<?php endif; ?>
-
-				<div class="accordion-content"><?php echo $content; ?></div>
-
-				</div>
-
-			<?php
-
-			endwhile;
-
-		echo '</div>';
-
-	endif;
-
-}
+/** Move product add-to-cart buttons to below price */
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 11 );
 
 
 /**
@@ -141,6 +103,40 @@ add_action( 'wp_enqueue_scripts', function() {
 });
 
 
+add_action( 'woocommerce_single_product_summary', 'check_inn_systems_acf_accordion', 30 );
+/**
+ * Outputs ACF Accordion Repeator on single product pages.
+ */
+function check_inn_systems_acf_accordion() {
+
+	if ( have_rows( 'accordion' ) && is_product() ) {
+
+		echo '<div id="accordion">';
+
+		while ( have_rows( 'accordion' ) ) : the_row();
+
+			$heading = get_sub_field( 'header' );
+			$content = get_sub_field( 'hidden_content' );
+
+			echo '<div class="accordion-item">';
+
+			if ( $heading ) {
+				echo '<h2 class = "accordion-heading heading">' . $heading . '</h2>';
+			}
+
+			echo '<div class = "accordion-content">' . $content . '</div>';
+
+			echo '</div>';
+
+		endwhile;
+
+		echo '</div>';
+
+	}
+
+}
+
+
 add_action( 'genesis_loop', 'gencwooc_single_product_loop' );
 /**
  * Displays single product loop
@@ -171,7 +167,7 @@ function gencwooc_single_product_loop() {
 
 	if ( $wc_query->have_posts() ) while ( $wc_query->have_posts() ) : $wc_query->the_post(); ?>
 
-		<?php do_action('woocommerce_before_single_product'); ?>
+		<?php do_action( 'woocommerce_before_single_product' ); ?>
 
 		<div itemscope itemtype="http://schema.org/Product" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
 
@@ -180,11 +176,12 @@ function gencwooc_single_product_loop() {
 			<div class="summary">
 				<div class="product-essential">
 
-					<?php do_action( 'woocommerce_single_product_summary' ); ?>
+					<?php
 
-					<?php echo acf_accordion(); ?>
+					do_action( 'woocommerce_single_product_summary' );
+					do_action( 'woocommerce_after_single_product_summary' );
 
-					<?php do_action( 'woocommerce_after_single_product_summary' ); ?>
+					?>
 
 				</div>
 			</div>

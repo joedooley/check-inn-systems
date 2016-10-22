@@ -20,7 +20,6 @@ add_action( 'after_setup_theme', 'check_inn_systems_add_theme_support' );
  */
 function check_inn_systems_add_theme_support() {
 
-	add_theme_support( 'custom-background' );
 	add_theme_support( 'genesis-responsive-viewport' );
 	add_theme_support( 'genesis-after-entry-widget-area' );
 
@@ -56,12 +55,17 @@ function check_inn_systems_add_theme_support() {
 
 	add_theme_support( 'genesis-structural-wraps', [
 			'header',
-			'nav',
-			'subnav',
+			//'nav',
+			//'subnav',
 			'inner',
 			'footer-widgets',
 			'footer',
 	] );
+
+	/**
+	 * Unregister Header Right Sidebar
+	 */
+	unregister_sidebar( 'header-right' );
 
 	/**
 	 * Load child theme text domain
@@ -155,9 +159,7 @@ add_filter( 'genesis_comment_list_args', function( $args ) {
 add_action( 'wp_head', 'check_inn_systems_home_menu_item_background_image' );
 function check_inn_systems_home_menu_item_background_image() {
 
-	if ( get_header_image() ) {
-		// Remove the header right widget area
-		unregister_sidebar( 'header-right' ); ?>
+	if ( get_header_image() ) { ?>
 
 		<style type = "text/css">
 			.nav-primary li.menu-item-home a {
