@@ -2240,12 +2240,17 @@ body.single-product .product-essential {
 
 @media screen and (max-width: 1023px) and (max-width: 768px) {
 	body.single-product .product-essential {
-		padding: 1em 2em 0; }
+		padding: 1em 0.5em 0; }
 }
 
-body.single-product .product-essential > div:nth-child(2) {
+body.single-product div[itemprop="offers"],
+body.single-product div[itemprop="description"],
+body.single-product div.product-essential form.cart {
 	border-bottom: 1px solid #cacaca;
 	margin-bottom: 1em; }
+
+body.single-product div.product-essential form.cart {
+	padding-bottom: 1em; }
 
 body.single-product div.product p.price,
 body.single-product div.product span.price {
@@ -2314,6 +2319,7 @@ body.single-product div.product form.cart button.button:hover {
 
 @media screen and (max-width: 768px) {
 	body.single-product.woocommerce ul.products {
+		margin-bottom: 0;
 		padding-bottom: 2em;
 	}
 }
@@ -2325,7 +2331,8 @@ body.single-product.woocommerce ul.products li.product, body.single-product.wooc
 
 @media screen and (max-width: 768px) {
 	body.single-product.woocommerce ul.products li.product, body.single-product.woocommerce-page ul.products li.product {
-		margin: 0 auto 2em;
+		margin: 1em auto 2em;
+		padding-bottom: 3em;
 		width: 100%; }
 }
 
@@ -2353,8 +2360,8 @@ body.single-product.woocommerce ul.products li.product .price, body.single-produ
 	float: right;
 	font-size: 14px; }
 
-body.single-product.woocommerce ul.products li.product .button, body.single-product.woocommerce-page ul.products li.product .button {
-	padding: 0;
+body.single-product.woocommerce ul.products li.product .button,
+body.single-product.woocommerce-page ul.products li.product .button {
 	border-radius: 0;
 	color: #fff;
 	font-size: 16px;

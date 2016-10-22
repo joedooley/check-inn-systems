@@ -8,9 +8,9 @@
 
 		if (thumbnails)
 			$(thumbnails).slick({
-				arrows        : false,
+				arrows        : true,
 				dots          : true,
-				infinite      : true,
+				infinite      : false,
 				slidesToShow  : 3,
 				slidesToScroll: 3,
 				centerMode    : true,
