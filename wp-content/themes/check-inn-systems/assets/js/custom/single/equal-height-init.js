@@ -1,5 +1,5 @@
 (function ($) {
-	
+
 	$('.product').matchHeight({
 		byRow   : true,
 		property: 'min-height',

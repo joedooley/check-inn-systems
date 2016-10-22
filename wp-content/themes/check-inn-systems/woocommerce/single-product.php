@@ -114,11 +114,13 @@ function check_inn_systems_acf_accordion() {
 			echo '<div class="accordion-item">';
 
 			if ( $heading ) {
-				echo '<h2 class = "accordion-heading heading"><?php $heading; ?></h2>';
+				echo '<h2 class = "accordion-heading heading">' . $heading . '</h2>';
 			}
 
-			echo '<div class = "accordion-content"><?php $content; ?></div>';
-
+			if ( $content ) {
+				echo '<div class = "accordion-content">' . $content . '</div>';
+			}
+			
 			echo '</div>';
 
 		endwhile;
