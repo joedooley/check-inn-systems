@@ -55,8 +55,8 @@ function check_inn_systems_add_theme_support() {
 
 	add_theme_support( 'genesis-structural-wraps', [
 			'header',
-			'nav',
-			'subnav',
+			//'nav',
+			//'subnav',
 			'inner',
 			'footer-widgets',
 			'footer',
