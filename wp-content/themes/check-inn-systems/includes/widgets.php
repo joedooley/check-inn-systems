@@ -27,14 +27,6 @@ function check_inn_systems_register_widgets() {
 
 	genesis_register_sidebar(
 		[
-		'id'          => 'before-header-left',
-		'name'        => __( 'Before Header Left', 'check-inn-systems' ),
-		'description' => __( 'This is the Before Header Left widget area', 'check-inn-systems' ),
-		]
-	);
-
-	genesis_register_sidebar(
-		[
 		'id'          => 'before-header-right',
 		'name'        => __( 'Before Header Right', 'check-inn-systems' ),
 		'description' => __( 'This is the Before Header Right widget area', 'check-inn-systems' ),

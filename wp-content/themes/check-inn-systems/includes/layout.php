@@ -24,15 +24,10 @@ add_action( 'genesis_before', function () {
 
 	echo '<section class="before-header"><div class="wrap">';
 
-	genesis_widget_area( 'before-header-left', array(
-		'before' => '<div class="before-header-left-container"><div class="one-third first before-header-widget before-header-left">',
-		'after'  => '</div></div>',
-	) );
-
 	if ( get_field( 'site_notification', 'option' ) ) {
 		$free_shipping = get_field( 'site_notification', 'option' );
 
-		echo '<div class="before-header-middle-container"><div class="before-header-widget one-third before-header-middle">';
+		echo '<div class="before-header-left-container"><div class="before-header-widget one-half first before-header-left">';
 
 		echo '<h5 class="free-shipping-notification">' . $free_shipping . '</h5>';
 
@@ -40,10 +35,13 @@ add_action( 'genesis_before', function () {
 
 	}
 
-	genesis_widget_area( 'before-header-right', array(
-		'before' => '<div class="before-header-right-container"><div class="one-third before-header-widget before-header-right">',
-		'after'  => '</div></div>',
-	) );
+	genesis_widget_area(
+		'before-header-right',
+		[
+			'before' => '<div class="before-header-right-container"><div class="one-half before-header-widget before-header-right">',
+			'after'  => '</div></div>'
+		]
+	);
 
 	echo '</div></section>';
 

@@ -1,4 +1,4 @@
-scss_files: "assets/sass/*.scss"
+scss_files: "assets/scss/*.scss"
 linters:
   BangFormat:
     enabled: true

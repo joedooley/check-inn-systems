@@ -1,0 +1,15 @@
+{
+  "name": "check-inn-systems",
+  "version": "1.0.0",
+  "description": "Genesis child theme for Check Inn Systems",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://codeserver.dev.3877ba78-aae6-4475-852e-8cd183249f69@codeserver.dev.3877ba78-aae6-4475-852e-8cd183249f69.drush.in:2222/~/repository.git"
+  },
+  "author": "Joe Dooley <hello@developingdesigns.com> (https://www.developingdesigns.com/)",
+  "license": "ISC"
+}
