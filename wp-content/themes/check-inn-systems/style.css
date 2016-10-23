@@ -2317,6 +2317,10 @@ body.single-product div.product form.cart button.button {
 body.single-product div.product form.cart button.button:hover {
 }
 
+
+/** ## Related Products
+----------------------------------- */
+
 @media screen and (max-width: 768px) {
 	body.single-product.woocommerce ul.products {
 		margin-bottom: 0;
@@ -2324,40 +2328,42 @@ body.single-product div.product form.cart button.button:hover {
 	}
 }
 
-body.single-product.woocommerce ul.products li.product, body.single-product.woocommerce-page ul.products li.product {
+body.single-product.woocommerce ul.products li.product,
+body.single-product.woocommerce-page ul.products li.product {
 	margin: 0 5.9% 2.992em 0;
 	padding: 5px;
+	text-align: center;
 	width: 44.10%; }
 
 @media screen and (max-width: 768px) {
-	body.single-product.woocommerce ul.products li.product, body.single-product.woocommerce-page ul.products li.product {
+	body.single-product.woocommerce ul.products li.product,
+	body.single-product.woocommerce-page ul.products li.product {
 		margin: 1em auto 2em;
 		padding-bottom: 3em;
 		width: 100%; }
 }
 
-body.single-product.woocommerce ul.products li.product h3, body.single-product.woocommerce-page ul.products li.product h3 {
+body.single-product.woocommerce ul.products li.product h3,
+body.single-product.woocommerce-page ul.products li.product h3 {
 	padding: 0;
-	background-color: #ebebeb;
 	color: #000;
 	display: inline-block;
 	font-size: 18px;
 	font-weight: bold;
-	height: 0;
-	line-height: 1;
-	text-align: center;
 	text-transform: uppercase;
 	width: 100%; }
 
-body.single-product.woocommerce ul.products li.product .categories, body.single-product.woocommerce-page ul.products li.product .categories {
+body.single-product.woocommerce ul.products li.product .categories,
+body.single-product.woocommerce-page ul.products li.product .categories {
 	display: none; }
 
-body.single-product.woocommerce ul.products li.product .price, body.single-product.woocommerce-page ul.products li.product .price {
+body.single-product.woocommerce ul.products li.product .price,
+body.single-product.woocommerce-page ul.products li.product .price {
 	margin-top: 5px;
 	margin-right: 8px;
 	color: #000;
 	display: inline-block;
-	float: right;
+	float: none;
 	font-size: 14px; }
 
 body.single-product.woocommerce ul.products li.product .button,
