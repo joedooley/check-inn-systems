@@ -13,12 +13,14 @@ wp-content/advanced-cache.php
 wp-content/wp-cache-config.php
 sitemap.xml
 sitemap.xml.gz
-*.log
 
 # @TODO writable paths
 wp-content/cache/
 wp-content/backups/
 
+# Dev Dependencies #
+####################
+/wp-content/themes/check-inn-systems/node_modules/
 
 # Packages #
 ############

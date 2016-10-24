@@ -11,5 +11,14 @@
     "url": "ssh://codeserver.dev.3877ba78-aae6-4475-852e-8cd183249f69@codeserver.dev.3877ba78-aae6-4475-852e-8cd183249f69.drush.in:2222/~/repository.git"
   },
   "author": "Joe Dooley <hello@developingdesigns.com> (https://www.developingdesigns.com/)",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bourbon": "^4.2.7",
+    "bourbon-neat": "^1.8.0"
+  },
+  "devDependencies": {
+    "node-normalize-scss": "^1.4.0",
+    "node-sass": "^3.10.1",
+    "nodemon": "^1.11.0"
+  }
 }
