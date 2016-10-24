@@ -4,8 +4,8 @@
   "description": "Genesis child theme for Check Inn Systems",
   "main": "index.js",
   "scripts": {
-    "build-css": "node-sass --include-path scss assets/scss/main.scss temp-style.css",
-    "watch-css": "nodemon -e scss -x \"npm run build-css\""
+    "scss": "node-sass --source-map style.css.map assets/scss/main.scss style.css",
+    "autoprefixer": "postcss -u autoprefixer -r style.css"
   },
   "repository": {
     "type": "git",
@@ -18,8 +18,11 @@
     "bourbon-neat": "^1.8.0"
   },
   "devDependencies": {
+    "autoprefixer": "^6.5.1",
+    "eslint": "^3.8.1",
     "node-normalize-scss": "^1.4.0",
     "node-sass": "^3.10.1",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "postcss-cli": "^2.6.0"
   }
 }

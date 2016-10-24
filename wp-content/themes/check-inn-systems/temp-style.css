@@ -2367,7 +2367,9 @@ body {
   margin: 0;
   background-color: #bad954 !important;
   color: #bad954;
-  color: green; }
+  color: #bad954;
+  color: #bad954;
+  color: blue; }
   body::after {
     clear: both;
     content: "";

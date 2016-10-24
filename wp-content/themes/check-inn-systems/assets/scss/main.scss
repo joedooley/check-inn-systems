@@ -74,16 +74,3 @@ Table of Contents
 @import "base/original-stylesheet";
 
 $visual-grid: true !default;
-
-
-// npm scripts test
-$badass: rgb(186, 217, 84);
-
-body {
-  @include outer-container(80%);
-  margin: 0;
-  background-color: $badass !important;
-  color: $badass;
-  color: $badass;
-
-}
