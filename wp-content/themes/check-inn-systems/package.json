@@ -4,7 +4,8 @@
   "description": "Genesis child theme for Check Inn Systems",
   "main": "index.js",
   "scripts": {
-    "build-css": "node-sass --include-path scss assets/scss/main.scss temp-style.css"
+    "build-css": "node-sass --include-path scss assets/scss/main.scss temp-style.css",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\""
   },
   "repository": {
     "type": "git",
