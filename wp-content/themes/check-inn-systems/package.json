@@ -4,7 +4,7 @@
   "description": "Genesis child theme for Check Inn Systems",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-css": "node-sass --include-path scss assets/scss/main.scss temp-style.css"
   },
   "repository": {
     "type": "git",
