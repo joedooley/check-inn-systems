@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /* Slider */
 .slick-slider {
 	position: relative;
@@ -102,10 +104,9 @@
 	display: none;
 }
 
-@charset "UTF-8";
 /* Slider */
 .slick-loading .slick-list {
-	background: #fff url('../../images/ajax-loader.gif') center center no-repeat;
+	background: #fff url('../images/ajax-loader.gif') center center no-repeat;
 }
 
 /* Icons */
