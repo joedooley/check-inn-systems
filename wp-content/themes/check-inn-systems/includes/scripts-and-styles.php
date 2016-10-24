@@ -30,7 +30,7 @@ function check_inn_systems_enqueue_scripts_styles() {
 
 	wp_enqueue_script(
 		'check-inn-systems-responsive-menu',
-		get_stylesheet_directory_uri() . '/assets/js/responsive-menu.js',
+		get_stylesheet_directory_uri() . '/dist/js/site.js',
 		array( 'jquery' ),
 		'1.0.0',
 		true
