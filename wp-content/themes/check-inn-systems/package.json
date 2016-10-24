@@ -7,7 +7,7 @@
     "scss": "node-sass --source-map style.css.map assets/scss/main.scss style.css",
     "autoprefixer": "postcss -u autoprefixer -r style.css",
     "eslint": "eslint --ignore-pattern assets/js/custom/packages assets/js",
-    "uglify": "mkdir -p dist/js && uglifyjs assets/js/*.js -m -o dist/js/site.js"
+    "uglify": "mkdir -p dist/js && uglifyjs assets/js/*.js -m -o dist/js/site.js && uglifyjs assets/js/*.js -m -c -o dist/js/site.min.js"
   },
   "repository": {
     "type": "git",

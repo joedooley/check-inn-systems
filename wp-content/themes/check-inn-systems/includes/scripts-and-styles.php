@@ -20,7 +20,6 @@ function check_inn_systems_enqueue_scripts_styles() {
 	wp_enqueue_style(
 		'check-inn-systems-fonts',
 		'//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700',
-		array(),
 		CHILD_THEME_VERSION
 	);
 
@@ -30,8 +29,8 @@ function check_inn_systems_enqueue_scripts_styles() {
 
 	wp_enqueue_script(
 		'check-inn-systems-responsive-menu',
-		get_stylesheet_directory_uri() . '/dist/js/site.js',
-		array( 'jquery' ),
+		get_stylesheet_directory_uri() . '/dist/js/site.min.js',
+        ['jquery'],
 		'1.0.0',
 		true
 	);
