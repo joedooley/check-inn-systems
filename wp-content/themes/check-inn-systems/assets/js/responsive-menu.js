@@ -4,39 +4,47 @@
 
 ( function ( document, $, undefined ) {
 
-	$( 'body' ).addClass( 'js' );
-
 	'use strict';
 
-	var genesisSample              = {},
-		mainMenuButtonClass = 'menu-toggle',
-		subMenuButtonClass  = 'sub-menu-toggle';
+	var genesisSample = {};
+	var	mainMenuButtonClass = 'menu-toggle';
+	var	subMenuButtonClass  = 'sub-menu-toggle';
+
+	$( 'body' ).addClass( 'js' );
 
 	genesisSample.init = function() {
+
 		var toggleButtons = {
-			menu : $( '<button />', {
+			menu : $( '<button />',{
 				'class' : mainMenuButtonClass,
 				'aria-expanded' : false,
 				'aria-pressed' : false,
 				'role' : 'button'
-				} )
-				.append( genesisSample.params.mainMenu ),
+			}
+
+			).append(genesisSample.params.mainMenu),
+
 			submenu : $( '<button />', {
 				'class' : subMenuButtonClass,
 				'aria-expanded' : false,
 				'aria-pressed' : false,
 				'role' : 'button'
-				} )
-				.append( $( '<span />', {
-					'class' : 'screen-reader-text',
-					text : genesisSample.params.subMenu
-				} ) )
+			}
+
+			).append( $( '<span />', {
+				'class' : 'screen-reader-text',
+				text : genesisSample.params.subMenu
+			} ) )
 		};
+
+
 		if ($( '.nav-primary' ).length > 0 ) {
-			$( '.nav-primary' ).before( toggleButtons.menu ); // add the main nav buttons
+			$( '.nav-primary' ).before( toggleButtons.menu );
 		} else {
 			$( '.nav-header' ).before( toggleButtons.menu );
 		}
+
+
 		$( 'nav .sub-menu' ).before( toggleButtons.submenu ); // add the submenu nav buttons
 		$( '.' + mainMenuButtonClass ).each( _addClassID );
 		$( '.' + mainMenuButtonClass ).addClass('dashicons-before dashicons-menu');
@@ -44,7 +52,10 @@
 		$( window ).on( 'resize.genesisSample', _doResize ).triggerHandler( 'resize.genesisSample' );
 		$( '.' + mainMenuButtonClass ).on( 'click.genesisSample-mainbutton', _mainmenuToggle );
 		$( '.' + subMenuButtonClass ).on( 'click.genesisSample-subbutton', _submenuToggle );
+
+
 	};
+
 
 	// add nav class and ID to related button
 	function _addClassID() {
@@ -56,6 +67,7 @@
 		}
 		$this.attr( 'id', 'mobile-' + $( nav ).attr( id ) );
 	}
+
 
 	// check CSS rule to determine width
 	function _combineMenus(){
@@ -70,6 +82,7 @@
 		}
 	}
 
+
 	// Change Skiplinks and Superfish
 	function _doResize() {
 		var buttons = $( 'button[id^="mobile-"]' ).attr( 'id' );
@@ -80,6 +93,7 @@
 		_changeSkipLink( buttons );
 		_maybeClose( buttons );
 	}
+
 
 	/**
 	 * action to happen when the main menu button is clicked
@@ -92,11 +106,11 @@
 		$this.next( 'nav, .sub-menu' ).slideToggle( 'fast' );
 	}
 
+
 	/**
 	 * action for submenu toggles
 	 */
 	function _submenuToggle() {
-
 		var $this  = $( this ),
 			others = $this.closest( '.menu-item' ).siblings();
 		_toggleAria( $this, 'aria-pressed' );
@@ -106,8 +120,8 @@
 
 		others.find( '.' + subMenuButtonClass ).removeClass( 'activated' ).attr( 'aria-pressed', 'false' );
 		others.find( '.sub-menu' ).slideUp( 'fast' );
-
 	}
+
 
 	/**
 	 * activate/deactivate superfish
@@ -127,22 +141,26 @@
 		}
 	}
 
+
 	/**
 	 * modify skip links to match mobile buttons
 	 */
 	function _changeSkipLink( buttons ) {
 		var startLink = 'genesis-nav',
 			endLink   = 'mobile-genesis-nav';
+
 		if ( 'none' === _getDisplayValue( buttons ) ) {
 			startLink = 'mobile-genesis-nav';
 			endLink   = 'genesis-nav';
 		}
+
 		$( '.genesis-skip-link a[href^="#' + startLink + '"]' ).each( function() {
 			var link = $( this ).attr( 'href' );
 			link = link.replace( startLink, endLink );
 			$( this ).attr( 'href', link );
 		});
 	}
+
 
 	function _maybeClose( buttons ) {
 		if ( 'none' !== _getDisplayValue( buttons ) ) {
@@ -156,6 +174,7 @@
 			.attr( 'style', '' );
 	}
 
+
 	/**
 	 * generic function to get the display value of an element
 	 * @param  {id} $id ID to check
@@ -166,6 +185,7 @@
 			style   = window.getComputedStyle( element );
 		return style.getPropertyValue( 'display' );
 	}
+
 
 	/**
 	 * Toggle aria attributes
@@ -179,8 +199,8 @@
 		});
 	}
 
-	$(document).ready(function () {
 
+	$(document).ready(function () {
 		// run test on initial page load
 		_combineMenus();
 
@@ -192,7 +212,6 @@
 		if ( typeof genesisSample.params !== 'undefined' ) {
 			genesisSample.init();
 		}
-
 	});
 
 })( document, jQuery );

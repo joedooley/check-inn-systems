@@ -2,11 +2,19 @@
     "env": {
         "browser": true,
         "commonjs": true,
-        "es6": true
+        "es6": true,
+        "amd": true,
+        "jquery": true,
+        "shared-node-browser": true
     },
     "extends": "eslint:recommended",
     "parserOptions": {
-        "sourceType": "module"
+        "ecmaVersion": 6,
+        "sourceType": "script",
+        "ecmaFeatures": {
+            "globalReturn": true,
+            "experimentalObjectRestSpread": true
+        }
     },
     "rules": {
         "indent": [

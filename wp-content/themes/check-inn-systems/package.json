@@ -4,10 +4,18 @@
   "description": "Genesis child theme for Check Inn Systems",
   "main": "index.js",
   "scripts": {
-    "scss": "node-sass --source-map style.css.map assets/scss/main.scss style.css",
+    "scss": "node-sass --source-map true assets/scss/style.scss -o ./",
     "autoprefixer": "postcss -u autoprefixer -r style.css",
-    "eslint": "eslint --ignore-pattern assets/js/custom/packages assets/js",
-    "uglify": "mkdir -p dist/js && uglifyjs assets/js/*.js -m -o dist/js/site.js && uglifyjs assets/js/*.js -m -c -o dist/js/site.min.js"
+    "eslint": "eslint assets/js",
+    "uglify": "mkdir -p dist/js && uglifyjs assets/js/*.js -m -o dist/js/site.js && uglifyjs assets/js/*.js -m -c -o dist/js/site.min.js",
+    "serve": "browser-sync start --proxy http://checkinn.kbox --files 'assets/scss/**/*, assets/js/*, includes/*'",
+    "build:css": "npm run scss && npm run autoprefixer",
+    "build:js": "npm run eslint && npm run uglify",
+    "build:all": "npm run build:css && npm run build:js",
+    "watch:css": "onchange 'assets/scss/style.scss' -- npm run build:css",
+    "watch:js": "onchange 'assets/js/*.js' -- npm run build:js",
+    "watch:all": "npm-run-all serve watch:css",
+    "play": "node-sass echo sass.info --error-bell"
   },
   "repository": {
     "type": "git",
@@ -17,14 +25,16 @@
   "license": "ISC",
   "dependencies": {
     "bourbon": "^4.2.7",
-    "bourbon-neat": "^1.8.0"
+    "bourbon-neat": "^1.8.0",
+    "normalize.css": "^5.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.5.1",
     "eslint": "^3.8.1",
-    "node-normalize-scss": "^1.4.0",
     "node-sass": "^3.10.1",
     "nodemon": "^1.11.0",
+    "npm-run-all": "^3.1.1",
+    "onchange": "^3.0.2",
     "postcss-cli": "^2.6.0",
     "uglify-js": "^2.7.4"
   }

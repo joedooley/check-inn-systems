@@ -1,4 +1,4 @@
-@import "../../../node_modules/bourbon-neat/app/assets/stylesheets/neat-helpers";
+@import "../vendor/neat/stylesheets/neat-helpers";
 
 // Neat Overrides
 // $column: 90px;
@@ -12,6 +12,9 @@
 //
 //$medium-screen-up: new-breakpoint(min-width $medium-screen 4);
 //$large-screen-up: new-breakpoint(min-width $large-screen 8);
+
+$visual-grid: true !default;
+
 
 // Neat Breakpoints
 $small-screen: 480px;

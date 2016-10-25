@@ -64,13 +64,11 @@ Table of Contents
 */
 
 // Importing Bourbon, Neat, Refills and _grid_settings.scss
-@import "../../node_modules/bourbon/app/assets/stylesheets/bourbon";
+@import "vendor/bourbon/stylesheets/bourbon";
 @import "base/grid-settings";
-@import "../../node_modules/bourbon-neat/app/assets/stylesheets/neat";
+@import "vendor/neat/stylesheets/neat";
 @import "base/base";
 
 
 // Original Styles
-@import "base/original-stylesheet";
-
-$visual-grid: true !default;
+@import "original-stylesheet";

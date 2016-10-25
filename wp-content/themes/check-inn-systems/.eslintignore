@@ -1,0 +1,4 @@
+/* ## Exclude vendor js
+      from eslint
+------------------------*/
+assets/js/custom/packages
