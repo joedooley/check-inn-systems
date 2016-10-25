@@ -51,16 +51,16 @@ add_action( 'wp_enqueue_scripts', function() {
 	if ( is_product() ) {
 		wp_enqueue_script(
 			'accordion-js',
-			get_stylesheet_directory_uri() . '/assets/js/custom/single/accordion.js',
-			array( 'jquery' ),
+			get_stylesheet_directory_uri() . '/dist/js/single/accordion.js',
+			['jquery'],
 			CHILD_THEME_VERSION,
 			true
 		);
 
 		wp_enqueue_script(
 			'slick-js',
-			get_stylesheet_directory_uri() . '/assets/js/custom/packages/slick.js',
-			array( 'jquery' ),
+			get_stylesheet_directory_uri() . '/dist/js/packages/slick.js',
+			['jquery'],
 			CHILD_THEME_VERSION,
 			true
 		);
@@ -68,23 +68,23 @@ add_action( 'wp_enqueue_scripts', function() {
 
 		wp_enqueue_script(
 			'slick-init-js',
-			get_stylesheet_directory_uri() . '/assets/js/custom/single/slick-init.js',
-			array( 'jquery', 'slick-js' ),
+			get_stylesheet_directory_uri() . '/dist/js/single/slick-init.js',
+			['jquery', 'slick-js'],
 			CHILD_THEME_VERSION,
 			true
 		);
 
 		wp_enqueue_script(
 			'increment-decrement-js',
-			get_stylesheet_directory_uri() . '/assets/js/custom/input-increment-decrement.js',
-			array( 'jquery' ),
+			get_stylesheet_directory_uri() . '/dist/js/input-increment-decrement.js',
+			['jquery'],
 			CHILD_THEME_VERSION,
 			true
 		);
 
 		wp_enqueue_style(
 			'slick-css',
-			get_stylesheet_directory_uri() . '/assets/css/slick.css',
+			get_stylesheet_directory_uri() . '/dist/css/slick.css',
 			CHILD_THEME_VERSION
 		);
 

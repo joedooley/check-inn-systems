@@ -42,7 +42,7 @@ add_action( 'wp_enqueue_scripts', function() {
 	if ( is_shop() || is_product_taxonomy() ) {
 		wp_enqueue_script(
 			'equal-height-js',
-			get_stylesheet_directory_uri() . '/assets/js/custom/packages/equal-height.js',
+			get_stylesheet_directory_uri() . '/dist/js/packages/equal-height.js',
 			array( 'jquery' ),
 			CHILD_THEME_VERSION,
 			true
@@ -50,7 +50,7 @@ add_action( 'wp_enqueue_scripts', function() {
 
 		wp_enqueue_script(
 			'equal-height-init-js',
-			get_stylesheet_directory_uri() . '/assets/js/custom/single/equal-height-init.js',
+			get_stylesheet_directory_uri() . '/dist/js/single/equal-height-init.js',
 			array( 'equal-height-js', 'jquery' ),
 			CHILD_THEME_VERSION,
 			true
