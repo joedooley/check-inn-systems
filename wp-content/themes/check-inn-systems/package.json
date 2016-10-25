@@ -7,7 +7,7 @@
     "scss": "node-sass --source-map true assets/scss/style.scss -o ./",
     "autoprefixer": "postcss -u autoprefixer -r style.css",
     "eslint": "eslint assets/js",
-    "babel": "babel assets/js -w -d dist/js -s --ignore assets/js/custom/packages/slick.js,assets/js/custom/packages/equal-height.js",
+    "babel": "babel assets/js/** -d dist/js -s --ignore assets/js/custom/packages/slick.js,assets/js/custom/packages/equal-height.js",
     "serve": "browser-sync start --proxy http://checkinn.kbox --files 'assets/scss/**/*, assets/js/*, includes/*'",
     "build:css": "npm run scss && npm run autoprefixer",
     "build:js": "npm run eslint && npm run uglify",

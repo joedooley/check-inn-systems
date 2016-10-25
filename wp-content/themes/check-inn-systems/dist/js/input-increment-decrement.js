@@ -6,7 +6,7 @@
 
 	$('.buttons_added').on('click', function () {
 
-		var $button  = $(this);
+		var $button = $(this);
 		let oldValue = $button.parent().find("input").val();
 
 		if ($button.text() == "+") {
@@ -33,8 +33,5 @@
 	//		$button.parent().find("input").val(newVal);
 	//	}
 	//});
-
 })(jQuery, window, document);
-
-
-
+//# sourceMappingURL=input-increment-decrement.js.map

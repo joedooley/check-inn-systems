@@ -240,21 +240,6 @@ picture {
   margin: 0;
   max-width: 100%; }
 
-h1 {
-  color: pink;
-  font-size: 20px; }
-
-body {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: darkolivegreen !important;
-  color: blue; }
-  body::after {
-    clear: both;
-    content: "";
-    display: block; }
-
 /* # HTML5 Reset
 ---------------------------------------------------------------------------------------------------- */
 /* ## Baseline Normalize
