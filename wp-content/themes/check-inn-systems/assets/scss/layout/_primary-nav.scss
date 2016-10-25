@@ -1,0 +1,116 @@
+/* ## Primary Nav
+------------------------- */
+
+.header-image .site-title > a {
+  min-height: 100px;
+}
+
+@media only screen and (min-width: 1024px) {
+  .nav-primary li.menu-item-home a {
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin: 0 10px;
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .js .nav-primary .genesis-nav-menu .menu-item.menu-item-home {
+    display: none;
+  }
+}
+
+
+
+/* ## Primary Nav Icons -
+   ## Find other icons on the Dashicons
+   ## website.
+   ## https://developer.wordpress.org/resource/dashicons/
+----------------------------- */
+
+.nav-primary li > a:before,
+.nav-primary li > a:after {
+  -webkit-font-smoothing: antialiased;
+  font: normal 20px/1 'dashicons';
+  vertical-align: middle;
+  padding-right: 4px;
+  display: inline-block;
+}
+
+.nav-primary li > a:after,
+.nav-primary li > a:before {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+@media only screen and (max-width: 1340px) {
+  .nav-primary li > a:after,
+  .nav-primary li > a:before {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+}
+
+.nav-primary li > a:hover:before,
+.nav-primary li > a:hover:after {
+  text-decoration: none;
+}
+
+.nav-primary li.about > a:after {
+  content: "\f223";
+}
+
+.nav-primary li.support > a:after {
+  content: "\f338";
+}
+
+.nav-primary li.testimonials > a:after {
+  content: "\f328";
+}
+
+.nav-primary li.partners > a:before {
+  content: "\f307";
+}
+
+.nav-primary li.products > a:before {
+  content: "\f312";
+}
+
+.nav-primary li.contact > a:before {
+  content: "\f466";
+}
+
+@media only screen and (max-width: 1023px) {
+  .nav-primary li > a:after,
+  .nav-primary li > a:before {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .nav-primary li > a:before {
+    margin-right: 0.5rem;
+  }
+
+  .nav-primary li.about > a:after {
+    content: "";
+  }
+
+  .nav-primary li.support > a:after {
+    content: "";
+  }
+
+  .nav-primary li.testimonials > a:after {
+    content: "";
+  }
+
+  .nav-primary li.about > a:before {
+    content: "\f307";
+  }
+
+  .nav-primary li.support > a:before {
+    content: "\f312";
+  }
+
+  .nav-primary li.testimonials > a:before {
+    content: "\f466";
+  }
+}

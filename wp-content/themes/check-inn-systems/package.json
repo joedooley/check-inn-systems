@@ -4,18 +4,17 @@
   "description": "Genesis child theme for Check Inn Systems",
   "main": "index.js",
   "scripts": {
-    "scss": "node-sass --source-map true assets/scss/style.scss -o ./",
+    "scss": "node-sass --source-map true -w assets/scss -o ./",
     "autoprefixer": "postcss -u autoprefixer -r style.css",
     "eslint": "eslint assets/js",
     "babel": "babel assets/js/** -d dist/js -s --ignore assets/js/custom/packages/slick.js,assets/js/custom/packages/equal-height.js",
-    "serve": "browser-sync start --proxy http://checkinn.kbox --files 'assets/scss/**/*, assets/js/*, includes/*'",
+    "serve": "browser-sync start --proxy http://checkinn.kbox",
     "build:css": "npm run scss && npm run autoprefixer",
     "build:js": "npm run eslint && npm run uglify",
     "build:all": "npm run build:css && npm run build:js",
     "watch:css": "onchange 'assets/scss/style.scss' -- npm run build:css",
     "watch:js": "onchange 'assets/js/*.js' -- npm run build:js",
-    "watch:all": "npm-run-all serve watch:css",
-    "play": "node-sass echo sass.info --error-bell"
+    "watch:all": "npm-run-all scss serve"
   },
   "repository": {
     "type": "git",

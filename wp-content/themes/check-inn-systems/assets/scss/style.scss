@@ -64,6 +64,7 @@ Table of Contents
 */
 
 // Importing Bourbon, Neat, Refills and _grid_settings.scss
+@import "vendor/normalize";
 @import "vendor/bourbon/stylesheets/bourbon";
 @import "base/grid-settings";
 @import "vendor/neat/stylesheets/neat";
@@ -72,3 +73,7 @@ Table of Contents
 
 // Original Styles
 @import "original-stylesheet";
+
+// Custom SCSS
+@import "layout/layout";
+@import "pages/pages";
