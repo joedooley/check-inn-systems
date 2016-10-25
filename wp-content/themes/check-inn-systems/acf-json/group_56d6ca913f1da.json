@@ -50,7 +50,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "Changing a Social Media URL will change the URL wherever the Social Media icon is present. For example... If you want to change the Facebook page URL on the Products page to something different. The Facebook icons in the footer widgets will be changed too.",
+            "message": "",
             "new_lines": "wpautop",
             "esc_html": 0
         },
@@ -76,7 +76,7 @@
             "name": "footer_copyright",
             "type": "wysiwyg",
             "instructions": "Anything added here will be output in the site footer with the copyright information.",
-            "required": 1,
+            "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
@@ -106,5 +106,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1477167972
+    "modified": 1477415155
 }

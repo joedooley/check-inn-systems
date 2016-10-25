@@ -19,6 +19,11 @@
   }
 }
 
+.nav-primary {
+  border-top: 1px solid $black1;
+  border-bottom: 1px solid $black1;
+}
+
 
 
 /* ## Primary Nav Icons -
@@ -26,9 +31,10 @@
    ## website.
    ## https://developer.wordpress.org/resource/dashicons/
 ----------------------------- */
-
 .nav-primary li > a:before,
-.nav-primary li > a:after {
+.nav-primary li > a:after,
+#menu-utility-menu #menu-item-65 > a:before,
+#menu-utility-menu #menu-item-65 > a:after {
   -webkit-font-smoothing: antialiased;
   font: normal 20px/1 'dashicons';
   vertical-align: middle;
@@ -77,6 +83,11 @@
 
 .nav-primary li.contact > a:before {
   content: "\f466";
+}
+
+#menu-utility-menu #menu-item-65 > a:after {
+  @include padding(null null 3px 4px);
+  content: '\f174';
 }
 
 @media only screen and (max-width: 1023px) {

@@ -178,10 +178,6 @@ function check_inn_systems_home_menu_item_background_image() {
 					display: none;
 				}
 
-				.nav-primary {
-					padding: 20px 0;
-				}
-
 				.menu-primary {
 					display: -webkit-box;
 					display: -webkit-flex;

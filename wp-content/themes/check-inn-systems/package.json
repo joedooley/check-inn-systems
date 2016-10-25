@@ -8,7 +8,7 @@
     "autoprefixer": "postcss -u autoprefixer -r style.css",
     "eslint": "eslint assets/js",
     "babel": "babel assets/js/** -d dist/js -s --ignore assets/js/custom/packages/slick.js,assets/js/custom/packages/equal-height.js",
-    "serve": "browser-sync start --proxy http://checkinn.kbox",
+    "serve": "browser-sync start --ws --proxy http://checkinn.kbox --logLevel 'info' --no-ghost-mode --no-notify --files 'style.css, !style.css.map, !assets/scss/**, !assets/js/**'",
     "build:css": "npm run scss && npm run autoprefixer",
     "build:js": "npm run eslint && npm run uglify",
     "build:all": "npm run build:css && npm run build:js",
@@ -30,6 +30,7 @@
   "devDependencies": {
     "autoprefixer": "^6.5.1",
     "babel-cli": "^6.18.0",
+    "browser-sync": "^2.17.5",
     "eslint": "^3.8.1",
     "node-sass": "^3.10.1",
     "nodemon": "^1.11.0",
