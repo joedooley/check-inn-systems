@@ -7,7 +7,7 @@
     "scss": "node-sass --source-map true assets/scss/style.scss -o ./",
     "autoprefixer": "postcss -u autoprefixer -r style.css",
     "eslint": "eslint assets/js",
-    "uglify": "mkdir -p dist/js && uglifyjs assets/js/*.js -m -o dist/js/site.js && uglifyjs assets/js/*.js -m -c -o dist/js/site.min.js",
+    "babel": "babel assets/js -w -d dist/js -s --ignore assets/js/custom/packages/slick.js,assets/js/custom/packages/equal-height.js",
     "serve": "browser-sync start --proxy http://checkinn.kbox --files 'assets/scss/**/*, assets/js/*, includes/*'",
     "build:css": "npm run scss && npm run autoprefixer",
     "build:js": "npm run eslint && npm run uglify",
@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^6.5.1",
+    "babel-cli": "^6.18.0",
     "eslint": "^3.8.1",
     "node-sass": "^3.10.1",
     "nodemon": "^1.11.0",
