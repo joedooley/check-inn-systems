@@ -29,8 +29,8 @@ if ( ! function_exists( 'check_inn_systems_fc_check' ) ) {
 			    'genesis-structural-wraps',
                 [
                     'header',
-                    'nav',
-                    'subnav',
+                    //'nav',
+                    //'subnav',
                     // 'site-inner',
                     'footer-widgets',
                     'footer'

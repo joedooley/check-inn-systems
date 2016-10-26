@@ -25,38 +25,41 @@ wp_localize_script(
 ?>
 
 
-<section class="primary-hero <?php the_sub_field( 'css_class' ); ?>" style="background: url( <?php echo $hero_image['url'] ?> ) no-repeat;">
-	<div class="wrap">
+<section class="primary-hero <?php the_sub_field('css_class'); ?>"
+         style="background: url( <?php echo $hero_image['url'] ?> ) no-repeat;">
+    <div class="wrap">
+        <div class="p-hero-overlay">
+            <?php
 
-		<?php
+            if ($add_hero_heading) {
+                the_sub_field('hero_text');
+            } ?>
 
-		if ( $add_hero_heading ) {
-			the_sub_field( 'hero_text' );
-		}
+        </div>
 
-		if ( get_sub_field( 'display_cta_button' ) ) { ?>
+        <?php
 
-			<div class="cta-container">
+        if (get_sub_field('display_cta_button')) { ?>
 
-				<a href="<?php the_sub_field( 'hero_cta_button_url_1' ) ?>"
-				   class="button double-button"
-				   target="blank"><?php the_sub_field( 'hero_cta_button_text_1' ); ?></a>
+        <div class="cta-container">
 
-				<?php
+            <a href="<?php the_sub_field('hero_cta_button_url_1') ?>"
+               class="button double-button"
+               target="blank"><?php the_sub_field('hero_cta_button_text_1'); ?></a>
 
-				if ( $add_two_buttons ) { ?>
+            <?php
 
-					<a href="<?php the_sub_field( 'hero_cta_button_url_2' ) ?>"
-					   class="button double-button"
-					   target="blank"><?php the_sub_field( 'hero_cta_button_text_2' ); ?></a>
+            if ($add_two_buttons) { ?>
 
-				<?php } ?>
+                <a href="<?php the_sub_field('hero_cta_button_url_2') ?>"
+                   class="button double-button"
+                   target="blank"><?php the_sub_field('hero_cta_button_text_2'); ?></a>
 
-			</div>
+            <?php } ?>
 
-		<?php } ?>
-
-	</div>
+            <?php } ?>
+        </div>
+    </div>
 </section>
 
 

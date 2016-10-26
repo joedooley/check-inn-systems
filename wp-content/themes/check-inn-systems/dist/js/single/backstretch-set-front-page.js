@@ -7,8 +7,8 @@
 	let primaryBsHero = PrimaryBackstretchHero;
 	let secondaryBsHero = SecondaryBackstretchHero;
 
-	if (primaryBsHero) $('.primary-hero').backstretch(primaryBsHero.primary_hero);
+	$('.primary-hero').backstretch(primaryBsHero.primary_hero);
 
-	if (secondaryBsHero) $('.secondary-hero').backstretch(secondaryBsHero.secondary_hero);
+	$('.secondary-hero').backstretch(secondaryBsHero.secondary_hero);
 })(document, jQuery);
 //# sourceMappingURL=backstretch-set-front-page.js.map
