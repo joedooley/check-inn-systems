@@ -120,72 +120,37 @@
   }
 
 
+  // ACF Field Product Cats
+  .product-cats {
 
-  // ACF Field - Full Row - Featured Products
-  .featured-products {
-    @include outer-container();
-
-    @include media($xlarge-screen-up) {
-      @include padding(0 1em);
-    }
-
-    ul.products li.product {
-      @include span-columns(3 of 12);
-      @include padding(0.25em);
-      min-height: 300px;
-
-      @include media($xlarge-screen-up) {
-        max-height: 300px;
-      }
-
-      @include media($ipad-screen-up) {
-        @include span-columns(3 of 6);
-        margin-right: 2.41458%;
-        max-height: 400px;
-        padding-bottom: 2em;
-      }
-
-      @include media($small-screen-up) {
-        @include span-columns(12 of 12);
-        max-height: none;
-      }
-    }
-
-    ul.products li.product h3 {
-      @include margin(0);
-      @include padding(0);
-      color: #000;
-      display: inline-block;
-      font-size: 14px;
-      height: 0;
-      line-height: 1;
-      margin: 0;
-      padding: 0;
+    .pcats-heading {
+      @include margin(2em 0);
       text-align: center;
-      text-transform: uppercase;
-      width: 100%;
-    }
 
-    .price {
-      @include padding(5px 5px null null);
-      display: inline-block;
-      float: right;
-    }
-
-    .button {
-      @include margin(null null null 10px);
-      @include padding(6px);
-      background-color: $black1;
-      border-radius: 0;
-      color: $white1;
-      font-size: 16px;
-      margin: 0 0 0 10px;
-      padding: 6px;
-      text-transform: capitalize;
-
-      &:hover {
+      h1 {
+        text-transform: uppercase;
       }
     }
+
+    .product-category {
+      @include span-columns(2 of 10);
+      @include omega(5n);
+      
+      h3 {
+        border-bottom: 3px solid $blue1;
+        color: $blue1;
+        margin-bottom: 1.5em;
+      }
+
+      img {
+        border-radius: 50%;
+      }
+
+      .pcat-description {
+        font-size: 80%;
+      }
+    }
+
   }
 
 
@@ -268,55 +233,6 @@
   }
 
 
-  // ACF Field - Full Row - Four Featured Posts
-  .featured-four-columns {
-    max-height: 280px;
-
-    @include media($xlarge-screen-up) {
-      @include padding(0 1em);
-    }
-
-    @include media($ipad-screen-up) {
-      max-height: 610px;
-    }
-
-    @include media($small-screen-up) {
-      max-height: none;
-    }
-
-    .article-container {
-      @include span-columns(12);
-    }
-
-    .featured-posts {
-      @include span-columns(3 of 12);
-
-      @include media($ipad-screen-up) {
-        @include span-columns(3 of 6);
-        margin-right: 2.41458%;
-        max-height: 240px;
-        text-align: center;
-      }
-
-      @include media($small-screen-up) {
-        @include span-columns(12 of 12);
-        max-height: 260px;
-      }
-    }
-
-    a > h2 {
-      color: $white1;
-      font-size: 3em;
-      margin-bottom: 0;
-      opacity: 0.8;
-      text-align: center;
-      transform: translateY(-90px);
-      z-index: 1;
-
-      &:hover {
-      }
-    }
-  }
 }
 
 

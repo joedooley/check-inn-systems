@@ -1,13 +1,13 @@
-(function (document, $) {
+(function (document, $, undefined) {
 
-	'use strict';
+    'use strict';
 
-	/* global PrimaryBackstretchHero, SecondaryBackstretchHero */
-	let primaryBsHero = PrimaryBackstretchHero;
-	let secondaryBsHero = SecondaryBackstretchHero;
+    var PrimaryBSHero = PrimaryBackstretchHero;
+  //  var SecondaryBSHero = SecondaryBackstretchHero;
 
-    $('.primary-hero').backstretch(primaryBsHero.primary_hero);
 
-    $('.secondary-hero').backstretch(secondaryBsHero.secondary_hero);
+    $('.primary-hero').backstretch(PrimaryBSHero.primary_hero);
+  //  $('.secondary-hero').backstretch(SecondaryBSHero.secondary_hero);
+
 
 })(document, jQuery);

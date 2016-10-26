@@ -53,7 +53,7 @@ add_action( 'wp_enqueue_scripts', function() {
 	);
 
 	wp_enqueue_script(
-		'backstretch-set',
+		'backstretch-set-front-page',
 		get_stylesheet_directory_uri() . '/dist/js/single/backstretch-set-front-page.js',
 		['jquery', 'backstretch'],
 		CHILD_THEME_VERSION,
@@ -61,6 +61,17 @@ add_action( 'wp_enqueue_scripts', function() {
 	);
 
 });
+
+//add_action( 'woocommerce_after_subcategory_title', 'my_theme_woocommerce_taxonomy_archive_description');
+function my_theme_woocommerce_taxonomy_archive_description() {
+    if ( is_front_page() ) {
+        global $post, $product;
+        $categ = $product->get_categories();
+        $term = get_term_by ( 'name' , strip_tags($categ), 'product_cat' );
+        echo $term->description;
+
+    }
+}
 
 
 genesis();

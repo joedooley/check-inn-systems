@@ -1,14 +1,13 @@
-(function (document, $) {
+(function (document, $, undefined) {
 
-	'use strict';
+  'use strict';
 
-	/* global PrimaryBackstretchHero, SecondaryBackstretchHero */
+  var PrimaryBSHero = PrimaryBackstretchHero;
+  //  var SecondaryBSHero = SecondaryBackstretchHero;
 
-	let primaryBsHero = PrimaryBackstretchHero;
-	let secondaryBsHero = SecondaryBackstretchHero;
 
-	$('.primary-hero').backstretch(primaryBsHero.primary_hero);
+  $('.primary-hero').backstretch(PrimaryBSHero.primary_hero);
+  //  $('.secondary-hero').backstretch(SecondaryBSHero.secondary_hero);
 
-	$('.secondary-hero').backstretch(secondaryBsHero.secondary_hero);
 })(document, jQuery);
 //# sourceMappingURL=backstretch-set-front-page.js.map

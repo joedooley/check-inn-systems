@@ -88,7 +88,9 @@
 .before-header-right-container .search-form input[type="search"] {
   background-color: #fff;
   border: 1px solid $black1;
+  border-bottom: 0;
   border-radius: 0;
+  border-top: 0;
   margin-bottom: 0;
   padding: 6px; }
 
