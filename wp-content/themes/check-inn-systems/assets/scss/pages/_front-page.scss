@@ -2,6 +2,7 @@
 --------------------------------- */
 
 .home {
+  background-color: $white1;
 
   @include media($large-screen-up) {
     .wrap {
@@ -11,7 +12,6 @@
   }
 
   .site-inner {
-    background-color: #fff;
     margin-bottom: 0;
     margin-top: 0;
     max-width: none;
@@ -28,17 +28,6 @@
     }
   }
 
-  .content {
-    background-color: #f2f2f2;
-    max-width: none;
-
-    @include media($xxxlarge-screen-up) {
-      @include outer-container(1280px);
-      float: none;
-    }
-  }
-
-
   .row {
     margin: 0 auto;
     max-width: 1280px;
@@ -50,17 +39,6 @@
 
     @include media($ipad-screen-up) {
       @include padding(0);
-    }
-  }
-
-  .section--title {
-    margin-bottom: 0;
-    padding: 1.5rem 0;
-    text-align: center;
-    text-transform: uppercase;
-
-    @include media($ipad-screen-up) {
-      font-size: 1.3em;
     }
   }
 
@@ -91,8 +69,8 @@
   }
 
   .cta-container {
-    display: flex;
-    justify-content: space-between;
+    @include display(flex);
+    @include justify-content(space-between);
     margin-top: 10px;
     max-width: 500px;
     text-align: left;
@@ -122,6 +100,7 @@
 
   // ACF Field Product Cats
   .product-cats {
+    @include padding(null 2.5%);
     margin-bottom: 2em;
 
     .pcats-heading {
@@ -131,18 +110,47 @@
       h1 {
         text-transform: uppercase;
       }
+      
+      p {
+        @include media($small-screen-up) {
+          text-align: left;
+        }
+      }
     }
 
     .product-category {
       @include span-columns(2 of 10);
       @include omega(5n);
-      
+
+      @include media($xxxlarge-screen-up) {
+        @include omega-reset(5n);
+        @include span-columns(3 of 10);
+        @include omega(3n);
+        min-height: 470px;
+      }
+
+      @include media($ipad-screen-up) {
+        @include omega-reset(3n);
+        @include span-columns(5 of 10);
+        @include omega(2n);
+      }
+
+      @include media($small-screen-up) {
+        @include omega-reset(2n);
+        @include span-columns(10 of 10);
+      }
+
       h3 {
         border-bottom: 3px solid $blue1;
         color: $blue1;
+        font-size: 1.1em;
         margin-bottom: 1.5em;
-      }
 
+        @include media($small-screen-up) {
+          font-size: modular-scale(2);
+          text-align: center;
+        }
+      }
       img {
         border-radius: 50%;
       }
@@ -156,11 +164,18 @@
 
   // FAQ Section
   .faqs {
-    margin-bottom: 2em;
+    @include padding(null 2.5%);
+    margin-bottom: 3em;
 
     .faqs-heading {
       @include margin(2em 0);
       text-align: center;
+
+      p {
+        @include media($small-screen-up) {
+          text-align: left;
+        }
+      }
     }
 
     h1 {
@@ -170,11 +185,22 @@
     .left-content,
     .right-content {
       @include span-columns(6 of 12);
+
+      @include media($ipad-screen-up) {
+        @include span-columns(12 of 12);
+      }
+    }
+
+    .left-content {
+      @include media($ipad-screen-up) {
+        @include margin(2em null 3em);
+      }
     }
   }
 
   // Testimonials Section
   .testimonials {
+    @include padding(null 2.5%);
     margin-bottom: 2em;
 
     .testimonials-heading {
@@ -183,6 +209,10 @@
 
       p {
         margin-bottom: 0;
+
+        @include media($small-screen-up) {
+          text-align: left;
+        }
       }
     }
 
@@ -193,6 +223,12 @@
     .testimonials-widget-testimonial .image {
       margin-right: 1.2em;
 
+      @include media($ipad-screen-up) {
+        display: block;
+        float: none;
+        text-align: center;
+      }
+
       img {
         border-radius: 50%;
       }
@@ -201,6 +237,16 @@
     .testimonials-widget-testimonial cite,
     .testimonials-widget-testimonial div.credit {
       text-align: center;
+      
+      @include media($ipad-screen-up) {
+        padding-left: 2em;
+        text-align: left;
+      }
+
+      @include media($small-screen-up) {
+        padding-left: 0;
+        text-align: center;
+      }
     }
   }
 }

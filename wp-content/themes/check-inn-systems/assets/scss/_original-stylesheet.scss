@@ -1326,46 +1326,6 @@ p.entry-meta {
 }
 
 
-/* # Footer Widgets
----------------------------------------------------------------------------------------------------- */
-
-.footer-widgets {
-	background-color: #fbf8f8;
-	font-size: 18px;
-	font-size: 1.8rem;
-	clear: both;
-	padding: 60px 0;
-}
-
-@media only screen and (max-width: 570px) {
-	.footer-widgets {
-		text-align: center;
-	}
-}
-
-@media only screen and (max-width: 1023px) {
-	.footer-widgets .widget-area {
-		margin-bottom: 4em;
-	}
-}
-
-
-/* # Site Footer
----------------------------------------------------------------------------------------------------- */
-
-.site-footer {
-	background-color: #ebebeb;
-	font-size: 1.6rem;
-	line-height: 1;
-	padding: 10px 0;
-	text-align: center;
-}
-
-.site-footer p {
-	margin-bottom: 0;
-}
-
-
 /* # Media Queries
 ---------------------------------------------------------------------------------------------------- */
 

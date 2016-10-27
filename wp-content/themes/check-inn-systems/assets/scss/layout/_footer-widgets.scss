@@ -1,0 +1,19 @@
+/* ## Footer Widgets
+---------------------- */
+
+.footer-widgets {
+  @include padding(60px 0);
+  background-color: $gray1;
+  font-size: 1.8rem;
+  clear: both;
+
+  @include media($medium-screen-up) {
+    text-align: center;
+  }
+
+  .widget-area {
+    @include media($xlarge-screen-up) {
+      margin-bottom: 4em;
+    }
+  }
+}
