@@ -2360,10 +2360,10 @@ p.entry-meta {
 /* # Site Footer
 ------------------- */
 .site-footer {
+  padding: 10px 0;
   background-color: #ebebeb;
   font-size: 1.6rem;
   line-height: 1;
-  padding: 10px 0;
   text-align: center; }
   .site-footer p {
     margin-bottom: 0; }
