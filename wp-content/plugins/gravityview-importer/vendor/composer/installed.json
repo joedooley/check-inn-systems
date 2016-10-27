@@ -1,0 +1,88 @@
+[
+    {
+        "name": "jasonpriem/human-name-parser",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/jasonpriem/HumanNameParser.php.git",
+            "reference": "da339cc2bc17ac19202a6cdd78c9f9f17aae2724"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/jasonpriem/HumanNameParser.php/zipball/da339cc2bc17ac19202a6cdd78c9f9f17aae2724",
+            "reference": "da339cc2bc17ac19202a6cdd78c9f9f17aae2724",
+            "shasum": ""
+        },
+        "time": "2015-05-07 03:41:34",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "classmap": [
+                "Name.php",
+                "Parser.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "description": "Takes human names of arbitrary complexity and various wacky formats and parses them out."
+    },
+    {
+        "name": "goodby/csv",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/goodby/csv.git",
+            "reference": "e71217b8d6110f3d1ac3784ef9b8a2383c3398b9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/goodby/csv/zipball/e71217b8d6110f3d1ac3784ef9b8a2383c3398b9",
+            "reference": "e71217b8d6110f3d1ac3784ef9b8a2383c3398b9",
+            "shasum": ""
+        },
+        "require": {
+            "ext-mbstring": "*",
+            "php": ">=5.3.2"
+        },
+        "require-dev": {
+            "mikey179/vfsstream": ">=1.1.0",
+            "mockery/mockery": ">=0.7.2",
+            "phpunit/phpunit": "3.7.*",
+            "suin/php-expose": ">=1.0"
+        },
+        "time": "2015-06-29 10:28:19",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Goodby\\CSV": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "suin",
+                "email": "suinyeze@gmail.com",
+                "homepage": "https://www.facebook.com/suinyeze",
+                "role": "Developer, Renaming Specialist"
+            },
+            {
+                "name": "reoring",
+                "email": "mori.reo@gmail.com",
+                "homepage": "https://www.facebook.com/reoring",
+                "role": "Developer"
+            }
+        ],
+        "description": "CSV import/export library",
+        "homepage": "https://github.com/goodby/csv",
+        "keywords": [
+            "csv",
+            "export",
+            "import"
+        ]
+    }
+]

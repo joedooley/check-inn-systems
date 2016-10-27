@@ -1,0 +1,33 @@
+// --------------------
+// STARS RATING
+// --------------------
+@import 'rating-stars';
+
+// --------------------
+// VOTE RATING
+// --------------------
+@import 'rating-vote';
+
+// ---------------------------
+// Meta box when editing View.
+// ---------------------------
+#gravityview_ratings_reviews_entry {
+	display: none;
+}
+
+// -----------------------------
+// Meta box when editing review.
+// -----------------------------
+#gravityview_ratings_reviews_edit_review {
+	.form-table {
+		label {
+			display: block;
+			line-height: 1;
+		}
+
+		input[type="text"],
+		textarea {
+			width: 100%;
+		}
+	}
+}

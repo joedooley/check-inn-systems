@@ -1,0 +1,59 @@
+// --------------------
+// COMMON MIXINS
+// --------------------
+@import 'mixins';
+
+.gv-star-rating {
+	width: 100px;
+	white-space: nowrap;
+
+	.gv-star-full:before {
+		content: "\f155";
+	}
+
+	.gv-star-half:before {
+		content: "\f459";
+	}
+
+	.gv-star-empty:before {
+		content: "\f154";
+	}
+
+	.gv-star {
+		color: #0074A2;
+        @include dashicons;
+		text-decoration: inherit;
+	}
+
+	&.gv-star-rate-holder {
+
+		.gv-star-rate {
+			display: inline;
+			font-family: dashicons;
+			font-size: 20px;
+			font-style: normal;
+			font-weight: 400;
+			cursor: pointer;
+			color: #0074A2;
+			position: relative;
+
+			&.gv-rate-mutated:before,
+			&:hover:before {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				left: 0;
+				width: 100%;
+				line-height: 1em;
+				content: "\f155";
+			}
+		}
+	}
+} // .gv-star-rating
+
+.gv-star-rating-text {
+	font-size: 0.857142857rem;
+	font-weight: normal;
+	text-transform: none;
+}

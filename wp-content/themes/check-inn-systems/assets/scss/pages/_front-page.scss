@@ -192,6 +192,10 @@
 
     .testimonials-widget-testimonial .image {
       margin-right: 1.2em;
+
+      img {
+        border-radius: 50%;
+      }
     }
 
     .testimonials-widget-testimonial cite,

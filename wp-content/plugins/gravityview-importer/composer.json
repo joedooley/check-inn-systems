@@ -1,0 +1,22 @@
+{
+	"name": "katzwebservices/GravityView-Import-Entries",
+	"license": "GPL-2.0+",
+	"type": "project",
+	"authors": [
+		{
+            "name": "Zack Katz",
+    	    "email": "zack@katzwebservices.com",
+            "homepage": "https://gravityview.co",
+    	    "role": "Developer"
+        }
+	],
+	"support": {
+		"email": "zack@katz.co"
+    },
+    "require": {
+        "goodby/csv": "dev-master",
+        "jasonpriem/human-name-parser": "dev-master",
+		"php": ">=5.3.0",
+	        "ext-curl": "*"
+	}
+}

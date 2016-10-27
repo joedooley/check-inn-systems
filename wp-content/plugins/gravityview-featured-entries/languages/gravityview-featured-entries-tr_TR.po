@@ -1,0 +1,69 @@
+# Translators:
+# Translators:
+# Süha Karalar <suhakaralar@gmail.com>, 2014-2015
+msgid ""
+msgstr ""
+"Project-Id-Version: GravityView Featured Entries\n"
+"POT-Creation-Date: 2015-03-05 23:32-0700\n"
+"PO-Revision-Date: 2015-05-26 15:51+0000\n"
+"Last-Translator: Süha Karalar <suhakaralar@gmail.com>\n"
+"Language-Team: Turkish (Turkey) (http://www.transifex.com/projects/p/gravityview-featured-entries/language/tr_TR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr_TR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.7.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: class-gravityview-featured-entries.php:115
+#: class-gravityview-featured-entries.php:141
+msgid "Move Featured Entries to Top"
+msgstr "Öneçıkan Kayıtları yukarı taşı"
+
+#: class-gravityview-featured-entries.php:142
+msgid ""
+"Always move Featured (starred) entries to the top of search results. If not "
+"enabled, Featured entries will be shown in the default order, but will be "
+"highlighted."
+msgstr "Öneçıkan (yıldızlı) kayıtları her zaman arama sonuçlarında en üste taşı. Eğer etkinleştirmezseniz Önceçıkan kayıtlar varsayılan sıralama düzeninde gösterilecek fakat vurgulanacaktır."
+
+#: class-gravityview-featured-entries.php:486
+msgid "Only show featured entries:"
+msgstr "Sedace öne çıkan kayıtları göster:"
+
+#: lib/EDD_SL_Plugin_Updater.php:154
+#, php-format
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" "
+"class=\"thickbox\" href=\"%2$s\">View version %3$s details</a>."
+msgstr "Yeni bir %1$s sürümü mevcut. <a target=\"_blank\" class=\"thickbox\" href=\"%2$s\"> %3$s sürümü ayrıntılarını görüntüle</a>."
+
+#: lib/EDD_SL_Plugin_Updater.php:161
+#, php-format
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" "
+"class=\"thickbox\" href=\"%2$s\">View version %3$s details</a> or <a "
+"href=\"%4$s\">update now</a>."
+msgstr "Yeni bir %1$s sürümü mevcut. <a target=\"_blank\" class=\"thickbox\" href=\"%2$s\"> %3$s sürümü ayrıntılarını görüntüle</a> yada <a href=\"%4$s\">şimdi güncelle</a>.."
+
+#: lib/EDD_SL_Plugin_Updater.php:301
+msgid "You do not have permission to install plugin updates"
+msgstr "Eklenti güncellemelerini yükleme yetkiniz yok"
+
+#: lib/EDD_SL_Plugin_Updater.php:301
+msgid "Error"
+msgstr "Hata"
+
+#: lib/class-gravityview-extension.php:182
+#, php-format
+msgid "Could not activate the %s Extension; GravityView is not active."
+msgstr "%s eklentisi etkinleştirilemiyor; GravityView etkin değil."
+
+#: lib/class-gravityview-extension.php:192
+#, php-format
+msgid "The %s Extension requires GravityView Version %s or newer."
+msgstr "%s eklentisi en az GravityView %s sürümü yada daha yenisini gerektirmektedir."

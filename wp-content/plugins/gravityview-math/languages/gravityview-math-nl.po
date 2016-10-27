@@ -1,0 +1,143 @@
+# Copyright (C) 2016 GravityView
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Math by GravityView 1.0-beta\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gravityview-math\n"
+"POT-Creation-Date: 2016-08-23 22:36:28+00:00\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Language-Team: Dutch (https://www.transifex.com/katzwebservices/teams/18775/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: grunt-wp-i18n 0.5.4\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Textdomain-Support: yes\n"
+
+#: gravityview-math.php:93
+msgid ""
+"%s requires PHP Version %s or newer. Please ask your host to upgrade your "
+"server's PHP."
+msgstr ""
+
+#: includes/class-gravityview-math-gfaddon.php:54
+msgid "Default Entry Value"
+msgstr ""
+
+#: includes/class-gravityview-math-gfaddon.php:54
+msgid ""
+"Choose a default value shown when an calculations are impossible because an "
+"entry value is empty. Calculations with empty fields are skipped by default."
+msgstr ""
+
+#: includes/class-gravityview-math-gravityforms.php:86
+msgid "No ID provided"
+msgstr ""
+
+#: includes/class-gravityview-math-gravityforms.php:183
+msgid "Field not valid for calculation"
+msgstr ""
+
+#: includes/class-gravityview-math-gravityforms.php:201
+#: includes/class-gravityview-math-gravityforms.php:314
+#: includes/class-gravityview-math-gravityforms.php:385
+#: includes/class-gravityview-math-gravityforms.php:647
+msgid "A field in the calculation did not contain a value"
+msgstr ""
+
+#: includes/class-gravityview-math-gravityforms.php:349
+#: includes/class-gravityview-math-gravityforms.php:611
+msgid "No View was found"
+msgstr ""
+
+#: includes/class-gravityview-math-gravityforms.php:361
+#: includes/class-gravityview-math-gravityforms.php:623
+msgid "The following View does not currently contain any entries"
+msgstr ""
+
+#: includes/class-gravityview-math-report.php:244
+msgid ""
+"You can only see this message because you are logged in and have "
+"permissions."
+msgstr ""
+
+#: includes/class-gravityview-math-report.php:255
+msgid "* Results may not be accurate."
+msgstr ""
+
+#: includes/class-gravityview-math-report.php:265
+msgid "** No Results Currently Available."
+msgstr ""
+
+#: includes/class-gravityview-math-report.php:384
+msgid "in entries"
+msgstr ""
+
+#: includes/class-gravityview-math-report.php:385
+msgid "The supplied default value was used"
+msgstr ""
+
+#: includes/class-gravityview-math-report.php:425
+msgid "formula"
+msgstr ""
+
+#: includes/class-gravityview-math-report.php:425
+msgid "content"
+msgstr ""
+
+#: includes/class-gravityview-math-report.php:429
+msgid "%s scope requires an ID to process the formula."
+msgstr ""
+
+#: includes/class-gravityview-math-report.php:564
+msgid "(Additional info)"
+msgstr ""
+
+#: includes/class-gravityview-math-report.php:716
+msgid "Math by GravityView Notice"
+msgstr ""
+
+#: includes/class-gravityview-math-shortcode.php:270
+msgid "The [gv_math] formula was empty"
+msgstr ""
+
+#: includes/class-gravityview-math-shortcode.php:325
+#: lib/EDD_SL_Plugin_Updater.php:301
+msgid "Error"
+msgstr ""
+
+#: lib/EDD_SL_Plugin_Updater.php:154
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" "
+"class=\"thickbox\" href=\"%2$s\">View version %3$s details</a>."
+msgstr ""
+
+#: lib/EDD_SL_Plugin_Updater.php:161
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" "
+"class=\"thickbox\" href=\"%2$s\">View version %3$s details</a> or <a "
+"href=\"%4$s\">update now</a>."
+msgstr ""
+
+#: lib/EDD_SL_Plugin_Updater.php:301
+msgid "You do not have permission to install plugin updates"
+msgstr ""
+
+#: lib/class-gravityview-extension.php:157
+msgid "Could not activate the %s Extension; GravityView is not active."
+msgstr ""
+
+#: lib/class-gravityview-extension.php:167
+msgid "The %s Extension requires GravityView Version %s or newer."
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://gravityview.co"
+msgstr ""

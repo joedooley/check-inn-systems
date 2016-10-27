@@ -1,0 +1,22 @@
+#tab_import_entries {
+
+  .subtitle {
+    padding-left: 0;
+  }
+
+  h3, ul {
+    margin: 20px 0;
+  }
+
+  ul {
+    -moz-columns: 3;
+    -webkit-columns: 3;
+    -ie-columns: 3;
+    columns: 3;
+  }
+  
+  ul li {
+    display: list-item;
+    list-style: disc;
+  }
+}

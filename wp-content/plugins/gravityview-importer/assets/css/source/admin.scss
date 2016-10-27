@@ -1,0 +1,222 @@
+@import "export-page";
+
+@mixin icon-size( $size ) {
+  width: $size;
+  height: $size;
+  font-size: $size;
+}
+
+.gravityview-importer-status.complete {
+  color: green;
+}
+
+.gravityview-importer-console {
+  max-height: 300px;
+  overflow-y: auto;
+  background: #191e23;
+  font-family: "courier new", courier, monospace;
+  padding: .5em 20px;
+  margin: 10px 0;
+  border: 3px green double;
+  color: limegreen;
+
+  p {
+    margin: 0;
+    padding: .25em 0;
+    font-size: 14px;
+    &.success {
+      border-top: 1px solid #1f252a;
+    }
+  }
+
+  .import-error {
+    color: lightcoral;
+  }
+  .import-warning {
+    color: #ebff93;
+  }
+}
+
+#tab_gravityview-importer {
+  ul {
+    margin: 0.5em 0 0;
+    padding: 2px;
+  }
+
+  li {
+    display:list-item;
+    list-style: square;
+    margin-left: 1.5em;
+  }
+
+  .subtitle {
+    padding-left: 0;
+    margin-bottom: 20px;
+  }
+
+  .inline {
+    display: inline !important;
+  }
+
+  .gaddon-section-description p {
+    font-size: 16px;
+  }
+
+  .three-col {
+    > div {
+      width: 33%;
+      float: left;
+      text-align: center;
+    }
+    margin-top: 10px;
+    &:after {
+      clear: both;
+      content: '';
+      display: block;
+    }
+  }
+
+  .gv-import-icon {
+    $size: 90px;
+    @include icon-size( $size );
+
+    display: inline-block;
+
+    color: #464b50;
+
+    &.dashicons-migrate {
+      color: #a0a5aa;
+      margin-top: 10px;
+      @include icon-size( 70px );
+    }
+
+    // Gravity Forms icon more narrow
+    &.svg {
+      width: $size * .9;
+    }
+  }
+
+  .gforms_form_settings {
+
+    th {
+      font-size: 15px;
+    }
+
+    th,td {
+      padding: 15px 0;
+      border-bottom: 1px solid #f0f0f3;
+
+      tr:first-child &,
+      tr:last-child & {
+        border-bottom: none;
+      }
+    }
+
+    button {
+      margin-top: 10px;
+    }
+
+    .gaddon-setting-radio {
+      margin-bottom: .5em;
+    }
+
+    code {
+      background: none;
+      font-size: 16px;
+    }
+
+    #gaddon-setting-row-overwrite_entry,
+    //#gaddon-setting-row-skip_empty_overwrite_entry,
+    #gaddon-setting-row-overwrite_post_data {
+      display: none;
+
+      th {
+        display: none;
+      }
+      td {
+        width: 100%;
+        max-width: 100%;
+      }
+      .gaddon-setting-checkbox {
+        margin-top: 1em;
+      }
+    }
+
+    #gaddon-setting-row-remove-file .dashicons-media-spreadsheet {
+      font-size: 30px;
+      height: 30px;
+      width: 30px;
+      color: #82878c;
+      margin-bottom: 5px;
+    }
+
+    #gaddon-setting-row-file td input {
+      background: #fafafa;
+      border: 1px solid #e5e5e5;
+      padding: 30px;
+      max-width: 380px;
+    }
+  }
+
+  // Improve the look of the field map table
+  .settings-field-map-table {
+    width: 100%;
+    min-width: 400px;
+    table-layout: fixed;
+
+    // Make it easier to read the mapping labels
+    th {
+      max-width: 50%;
+      font-size: 18px;
+      font-weight: 200;
+      text-align: left;
+      padding: 0 0 10px 0;
+    }
+    td {
+      padding: 10px;
+      max-width: 50%;
+
+      select {
+        width: 100%;
+        float:left;
+      }
+    }
+
+    tr.alt {
+      background: #fcfeff;
+    }
+  }
+
+  // Fix cramped conditional fields
+  .gfield_rule_select {
+    width: auto;
+    max-width: 30%;
+  }
+}
+
+.gravityview-importer-report {
+
+//  display: none;
+  margin-top: 20px;
+  
+  .two-col {
+    width: 48%;
+    margin-right: 2%;
+    box-sizing: border-box;
+    float: left;
+  }
+
+  .error,
+  .updated {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  strong {
+    font-weight: normal;
+    color: #804f4e;
+  }
+  .import-warning {
+    color: #82878c;
+  }
+}

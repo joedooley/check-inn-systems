@@ -1,0 +1,82 @@
+// --------------------
+// COMMON MIXINS
+// --------------------
+@import 'mixins';
+
+// Set the height for the voting bar
+$rating_height: 25px;
+
+.gv-vote-rating {
+	height: $rating_height;
+	text-align: left;
+	display: block;
+
+	.gv-vote-up,
+	.gv-vote-down {
+		@include dashicons( $rating_height );
+        margin-right: 1px;
+		color: #ccc;
+		background-color: #eee;
+	}
+
+	.gv-vote-up {
+		&:before {
+			content: "\f142";
+		}
+		&.gv-rate-mutated {
+			color: green;
+		}
+	}
+	.gv-vote-down {
+		&:before {
+			content: "\f140";
+		}
+		&.gv-rate-mutated {
+			color: red;
+		}
+	}
+
+	.gv-vote-rating-text {
+		display: inline-block;
+		height: $rating_height;
+		padding: 0 15px;
+		overflow: hidden;
+		white-space: nowrap;
+		vertical-align: top;
+		font-size: 12px;
+		font-weight: 700;
+		text-align: right;
+		line-height: $rating_height;
+		background-color: #efefef;
+	}
+
+	&.gv-vote-rate-holder {
+
+		.gv-vote-up,
+		.gv-vote-down {
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		.gv-vote-up {
+			&:hover,
+			&.gv-rate-mutated {
+				color: green;
+			}
+		}
+
+		.gv-vote-down {
+			&:hover,
+			&.gv-rate-mutated {
+				color: red;
+			}
+		}
+	}
+} // .gv-vote-rating
+
+.gv-vote-average-rating {
+	font-size: 12px;
+	font-weight: normal;
+	text-transform: none;
+	display: block;
+}

@@ -1,0 +1,12 @@
+{
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/gravityview/Math"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "hoa/math": "dev-master"
+  }
+}

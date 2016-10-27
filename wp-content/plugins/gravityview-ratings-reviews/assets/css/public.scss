@@ -1,0 +1,95 @@
+// --------------------
+// STARS RATING
+// --------------------
+@import 'rating-stars';
+
+// --------------------
+// VOTE RATING
+// --------------------
+@import 'rating-vote';
+
+// --------------------
+// HIDE SCREEN READER TEXT
+// --------------------
+.gv-container .screen-reader-text,
+.gv-reviews-area .screen-reader-text {
+	position: absolute !important;
+	clip: rect(1px, 1px, 1px, 1px);
+}
+
+// --------------------
+// REVIEWS AREA
+// --------------------
+.gv-reviews-area {
+
+	.gv-review-list-header {
+		padding: 0.5em 1em;
+		border-bottom: 1px solid #ddd;
+
+		.gv-review-list-title {
+			display: table;
+			font-size: 16px/1.5;
+			font-weight: 900;
+			margin: 0;
+			text-transform: uppercase;
+			width: 100%;
+
+			.gv-review-num-of-reviews {
+				padding-right: 1em;
+			}
+
+			.gv-review-num-of-reviews,
+			.gv-review-rating-aggregate {
+				display: table-cell;
+			}
+
+			.gv-review-rating-aggregate {
+				text-align: right;
+
+				// Allow it to be flush right
+				.gv-star-rating {
+					width: auto;
+				}
+			}
+		}
+	} // .gv-review-list-header
+
+	.gv-review-list-body {
+
+		.gravityview.comment {
+			.comment-meta {
+				position: relative;
+
+				.edit-link {
+					display: inline-block;
+				}
+
+				.gv-review-rate {
+					position: absolute;
+					top: 0;
+					right: 0;
+					margin: 5px;
+				}
+			}
+		}
+	} // .gv-review-list-body
+
+	.gv-review-list-footer {
+		padding: 0.5em 1em;
+		background-color: #eee;
+
+		#respond {
+			width: 100%;
+			margin: 0;
+			padding: 0;
+			border: none;
+			background: #eee;
+			background-color: #eee;
+
+			.comment-reply-title {
+				margin: 1em 0;
+			}
+		}
+
+	} // .gv-review-list-footer
+} // ..gv-reviews-area

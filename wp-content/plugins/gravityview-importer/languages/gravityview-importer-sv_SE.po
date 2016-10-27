@@ -1,0 +1,840 @@
+# Copyright (C) 2016 Katz Web Services, Inc.
+# This file is distributed under the GPLv2 or later.
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: GravityView Importer\n"
+"Report-Msgid-Bugs-To: https://gravityview.co/support/\n"
+"POT-Creation-Date: 2015-04-20 20:34:13+00:00\n"
+"PO-Revision-Date: 2016-03-25 23:35+0000\n"
+"Last-Translator: Zachary Katz <zack@katz.co>\n"
+"Language-Team: Swedish (http://www.transifex.com/katzwebservices/gravityview-importer/language/sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: grunt-wp-i18n 0.5.4\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Textdomain-Support: yes\n"
+
+#: class-gravityview-entry-exporter.php:61
+msgid "Errors"
+msgstr ""
+
+#: class-gravityview-entry-exporter.php:115
+msgid "There was an error generating an export file."
+msgstr ""
+
+#: class-gravityview-entry-importer.php:173
+msgid "GravityView Import (Starting with Entry #%d)"
+msgstr ""
+
+#: class-gravityview-entry-importer.php:291
+msgid "Row %d was skipped because the mapped fields were empty."
+msgstr ""
+
+#: class-gravityview-entry-importer.php:860
+#: class-gravityview-entry-importer.php:871
+msgid "Setting default value for %s: %s"
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1085
+msgid "Quiz answer could not be found."
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1235
+msgid "File upload failed: %s"
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1236
+msgid "Field: %s"
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1433
+msgid "A user cannot be found with the following %s: %s"
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1648 gravityview-importer.php:1019
+msgid "Entry Note Creator"
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1651 gravityview-importer.php:957
+msgid "Post Author"
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1679
+msgid ""
+"Row #%d - The Entry ID was empty. Based on import settings, this row has "
+"been skipped."
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1690
+msgid "Row #%d - Entry ID #%s does not exist"
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1716
+msgid ""
+"A Post ID was specified to update, but the \"Overwrite Post Data\" setting "
+"is not enabled. It must be checked to overwrite existing post data."
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1719
+msgid "Post ID must be a number: %s"
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1722
+msgid ""
+"Post ID #%d could not be updated; it does not exist. The entry will not be "
+"imported."
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1746
+msgid "%s cannot be set: this User ID does not exist: \"%d\""
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1764
+msgid "An invalid post status was defined: \"%s\""
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1859
+#: class-gravityview-entry-importer.php:1861
+msgid "A required field was empty: %s"
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1864
+msgid "Row %d was not imported. %s"
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1930
+msgid "Invalid choice value: %s"
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1962
+msgid ""
+"Expected field format: (###) ###-####. Try updating field to use "
+"\"International\" Phone Format."
+msgstr ""
+
+#: class-gravityview-entry-importer.php:2000
+msgid "The %s field (ID #%d) was empty, and is required."
+msgstr ""
+
+#: class-gravityview-entry-importer.php:2025
+msgid "the \"%s\" %s field was empty, and is required"
+msgstr ""
+
+#: class-gravityview-entry-importer.php:2082
+msgid "This field is required."
+msgstr ""
+
+#: class-gravityview-entry-importer.php:2099
+msgid "The value was not one of the defined radio field Choices: \"%s\""
+msgstr ""
+
+#: class-gravityview-entry-importer.php:2111
+msgid ""
+"The number of rows (%d) was greater than the Maximum Rows field setting "
+"allows (%d)."
+msgstr ""
+
+#: class-gravityview-entry-importer.php:2144
+msgid "An price was not set for Option \"%s\""
+msgstr ""
+
+#: class-gravityview-entry-importer.php:2211
+msgid "The uploaded file type is not allowed."
+msgstr ""
+
+#: class-gravityview-entry-importer.php:2216
+msgid ""
+"The uploaded file type is not allowed. Must be one of the following: %s"
+msgstr ""
+
+#: class-gravityview-handle-import.php:140
+msgid "Empty (Column %d)"
+msgstr ""
+
+#: class-gravityview-import-license.php:84
+msgid "Support License Key"
+msgstr ""
+
+#: class-gravityview-import-license.php:85
+msgid ""
+"Enter the license key that was sent to you on purchase. This enables plugin "
+"updates &amp; support."
+msgstr "Lägg in licensnyckeln som du fick i samband med ditt köp. Detta ger dig tillgång till uppdateringar &amp; support."
+
+#: class-gravityview-import-license.php:104
+msgid ""
+"For support and how-to articles, please visit the %sPlugin Support site%s."
+msgstr ""
+
+#: class-gravityview-import-license.php:143
+#: class-gravityview-import-license.php:422
+msgid "Activate License"
+msgstr "Aktivera licens"
+
+#: class-gravityview-import-license.php:144
+#: class-gravityview-import-license.php:158
+#: class-gravityview-import-license.php:421
+msgid "Verifying license&hellip;"
+msgstr "Verifierar licens&hellip;"
+
+#: class-gravityview-import-license.php:150
+#: class-gravityview-import-license.php:423
+msgid "Deactivate License"
+msgstr "Avaktivera licens"
+
+#: class-gravityview-import-license.php:151
+msgid "Deactivating license&hellip;"
+msgstr ""
+
+#: class-gravityview-import-license.php:157
+msgid "Check License"
+msgstr ""
+
+#: class-gravityview-import-license.php:410
+msgid "Status"
+msgstr "Status"
+
+#: class-gravityview-import-license.php:411
+msgid "There was an error processing the request."
+msgstr "Ett fel uppstod när begäran behandlades."
+
+#: class-gravityview-import-license.php:412
+msgid ""
+"Could not deactivate the license. The license key you attempted to "
+"deactivate may not be active or valid."
+msgstr ""
+
+#: class-gravityview-import-license.php:413
+msgid "The license key is valid, but it has not been activated for this site."
+msgstr ""
+
+#: class-gravityview-import-license.php:414
+msgid "Invalid: this license has reached its activation limit."
+msgstr ""
+
+#: class-gravityview-import-license.php:415
+msgid "The license has been deactivated."
+msgstr ""
+
+#: class-gravityview-import-license.php:416
+msgid "The license key is valid and active."
+msgstr ""
+
+#: class-gravityview-import-license.php:417
+msgid "The license key entered is invalid."
+msgstr ""
+
+#: class-gravityview-import-license.php:418
+msgid "The license key was not defined."
+msgstr ""
+
+#: class-gravityview-import-license.php:419
+msgid "This license key has been revoked."
+msgstr ""
+
+#: class-gravityview-import-license.php:420
+msgid ""
+"This license key has expired. %sRenew your license on the GravityView "
+"website%s"
+msgstr ""
+
+#: class-gravityview-import-license.php:424
+msgid "Verify License"
+msgstr "Verifiera licens"
+
+#: class-gravityview-import-report.php:108 gravityview-importer.php:1572
+msgid "Entry #%s"
+msgstr ""
+
+#: class-gravityview-import-report.php:111 gravityview-importer.php:1572
+msgid "Created %s from Row %s"
+msgstr ""
+
+#: class-gravityview-import-report.php:113
+msgid "Updated %s from Row %s"
+msgstr ""
+
+#: class-gravityview-import-report.php:120
+msgid "Post #%d"
+msgstr ""
+
+#: class-gravityview-import-report.php:166
+msgid "Additional info:"
+msgstr ""
+
+#: class-gravityview-wp-import-screen.php:32
+msgid "Gravity Forms Entries"
+msgstr ""
+
+#: class-gravityview-wp-import-screen.php:32
+msgid "Import entries into Gravity Forms, by GravityView."
+msgstr ""
+
+#: gravityview-import-export-page.php:36 gravityview-import-export-page.php:60
+#: gravityview-importer.php:543
+msgid "Import Entries"
+msgstr ""
+
+#: gravityview-importer.php:22
+msgid ""
+"GravityView Importer requires PHP Version 5.3 or higher. Please contact your"
+" web host and ask them to upgrade your server."
+msgstr ""
+
+#: gravityview-importer.php:339
+msgid "Data Mapping"
+msgstr ""
+
+#: gravityview-importer.php:340
+msgid ""
+"For each row of your uploaded file, choose what form field in Gravity Forms "
+"where the data should be added. If the file were a person, choose how the "
+"file would fill its own form (what data would go where)."
+msgstr ""
+
+#: gravityview-importer.php:343
+msgid "The Import File"
+msgstr ""
+
+#: gravityview-importer.php:344
+msgid "The import file must be a CSV file (.csv) or TSV file (.tsv)"
+msgstr ""
+
+#: gravityview-importer.php:347
+msgid "Yes, use the field's Default Values"
+msgstr ""
+
+#: gravityview-importer.php:348
+msgid ""
+"If a value is empty when importing an entry, use the field Default Value "
+"instead. For field types with Choices, this is the selected choices in the "
+"\"General\" tab. Otherwise, Default Values are otherwise set in a Field's "
+"\"Advanced\" tab."
+msgstr ""
+
+#: gravityview-importer.php:351
+msgid "Yes, Download and Save Files"
+msgstr ""
+
+#: gravityview-importer.php:352
+msgid ""
+"The importer will attempt to download the file specified and save it to "
+"Gravity Forms. If the upload fails, file URLs will be used as a backup."
+msgstr ""
+
+#: gravityview-importer.php:355
+msgid "Just Save the File Link"
+msgstr ""
+
+#: gravityview-importer.php:356
+msgid "No files will be downloaded; the previous file URLs will be imported."
+msgstr ""
+
+#: gravityview-importer.php:359
+msgid "Process Connected Feeds"
+msgstr ""
+
+#: gravityview-importer.php:360
+msgid ""
+"When the entry is created, should all the connected feeds be run? Be "
+"careful: this may trigger hundreds of users being created or being added to "
+"newsletters."
+msgstr ""
+
+#: gravityview-importer.php:473 gravityview-importer.php:1325
+msgid "Begin Import"
+msgstr ""
+
+#: gravityview-importer.php:545
+msgid " to \"%s\""
+msgstr ""
+
+#: gravityview-importer.php:548
+msgid "Import Results"
+msgstr ""
+
+#: gravityview-importer.php:567
+msgid ""
+"The form did not process properly. You may have Javascript disabled. If so, "
+"please enable and try again."
+msgstr ""
+
+#: gravityview-importer.php:702
+msgid "The file was cleared."
+msgstr ""
+
+#: gravityview-importer.php:706
+msgid "The file was not able to be deleted."
+msgstr ""
+
+#: gravityview-importer.php:723
+msgid "You do not have permission to import entries."
+msgstr ""
+
+#: gravityview-importer.php:727
+msgid "The request was invalid; please try again (the \"nonce\" was invalid)."
+msgstr ""
+
+#: gravityview-importer.php:851
+msgid "%s (Full)"
+msgstr ""
+
+#: gravityview-importer.php:857
+msgid "Column %d"
+msgstr ""
+
+#: gravityview-importer.php:858
+msgid "Column %d \"%s\""
+msgstr ""
+
+#: gravityview-importer.php:914
+msgid "Entry Details"
+msgstr ""
+
+#: gravityview-importer.php:917
+msgid "Entry ID (Update Existing Entries)"
+msgstr ""
+
+#: gravityview-importer.php:918
+msgid "Entry Status"
+msgstr ""
+
+#: gravityview-importer.php:919
+msgid "Entry Date"
+msgstr "Inläggsdatum"
+
+#: gravityview-importer.php:920
+msgid "User IP"
+msgstr "Användar-IP"
+
+#: gravityview-importer.php:921
+msgid "Source URL"
+msgstr "Käll-URL"
+
+#: gravityview-importer.php:922
+msgid "User Agent"
+msgstr ""
+
+#: gravityview-importer.php:923
+msgid "Is Starred? (1 or 0)"
+msgstr ""
+
+#: gravityview-importer.php:924
+msgid "Is Read? (1 or 0)"
+msgstr ""
+
+#: gravityview-importer.php:929
+msgid "Entry Creator"
+msgstr "Inläggets skapare"
+
+#: gravityview-importer.php:933
+msgid "Created By (User ID)"
+msgstr ""
+
+#: gravityview-importer.php:937
+msgid "Created By (User Login)"
+msgstr ""
+
+#: gravityview-importer.php:949
+msgid "Update Post Field Details"
+msgstr ""
+
+#: gravityview-importer.php:953
+msgid "Post ID (Update Existing Posts)"
+msgstr ""
+
+#: gravityview-importer.php:961
+msgid "Post Status"
+msgstr ""
+
+#: gravityview-importer.php:971
+msgid "Payment Details"
+msgstr ""
+
+#: gravityview-importer.php:975
+msgid "Payment Status"
+msgstr "Betalningsstatus"
+
+#: gravityview-importer.php:979
+msgid "Payment Date"
+msgstr "Betalningsdatum"
+
+#: gravityview-importer.php:983
+msgid "Payment Amount"
+msgstr "Summa"
+
+#: gravityview-importer.php:987
+msgid "Currency"
+msgstr ""
+
+#: gravityview-importer.php:991
+msgid "Payment Method"
+msgstr "Betalningsmetod"
+
+#: gravityview-importer.php:995
+msgid "Is Fulfilled"
+msgstr "Är uppfyllt"
+
+#: gravityview-importer.php:999
+msgid "Transaction ID"
+msgstr "Transaktions-ID"
+
+#: gravityview-importer.php:1003
+msgid "Transaction Type"
+msgstr "Transaktionstyp"
+
+#: gravityview-importer.php:1011
+msgid "Entry Notes"
+msgstr ""
+
+#: gravityview-importer.php:1015
+msgid "Entry Note"
+msgstr ""
+
+#: gravityview-importer.php:1034
+msgid "The data from this file column&hellip;"
+msgstr ""
+
+#: gravityview-importer.php:1047 gravityview-importer.php:1563
+msgid "&hellip;will be added to this form field"
+msgstr ""
+
+#: gravityview-importer.php:1136
+msgid "No active feeds were found."
+msgstr ""
+
+#: gravityview-importer.php:1155
+msgid "Upload Import File"
+msgstr ""
+
+#: gravityview-importer.php:1156
+msgid ""
+"Select your .csv or .tsv import file. You will specify how to import the "
+"data in the next step."
+msgstr ""
+
+#: gravityview-importer.php:1165
+msgid "Current Import File"
+msgstr ""
+
+#: gravityview-importer.php:1166
+msgid "Clear uploaded file"
+msgstr ""
+
+#: gravityview-importer.php:1171
+msgid ""
+"Are you sure you want to clear the uploaded file? The import process will "
+"start over and any field mapping will be lost."
+msgstr ""
+
+#: gravityview-importer.php:1177
+msgid "Map Fields"
+msgstr ""
+
+#: gravityview-importer.php:1178
+msgid "Map Exact Matches"
+msgstr ""
+
+#: gravityview-importer.php:1179
+msgid "Reset Configuration"
+msgstr ""
+
+#: gravityview-importer.php:1189
+msgid "Upload Files"
+msgstr ""
+
+#: gravityview-importer.php:1195
+msgid "Upload files mapped to \"File Upload\" fields."
+msgstr ""
+
+#: gravityview-importer.php:1201
+msgid "Don't upload, just link to the file."
+msgstr ""
+
+#: gravityview-importer.php:1210
+msgid "Ignore Required"
+msgstr ""
+
+#: gravityview-importer.php:1216
+msgid "Should an entry be imported even if it is missing required fields?"
+msgstr ""
+
+#: gravityview-importer.php:1224
+msgid "Use Default Field Values"
+msgstr ""
+
+#: gravityview-importer.php:1230
+msgid ""
+"If a field has Default Values and the mapped value is empty, use the "
+"default."
+msgstr ""
+
+#: gravityview-importer.php:1240
+msgid "Overwrite Post Data"
+msgstr ""
+
+#: gravityview-importer.php:1246
+msgid ""
+"Confirm that the existing post content will be overwritten by the imported "
+"data?"
+msgstr ""
+
+#: gravityview-importer.php:1270
+msgid "Overwrite Entry Data"
+msgstr ""
+
+#: gravityview-importer.php:1276
+msgid ""
+"Warning: the existing entry will be completely replaced by the imported "
+"entry, not updated. Confirm you want this."
+msgstr ""
+
+#: gravityview-importer.php:1285
+msgid "Process Feeds"
+msgstr ""
+
+#: gravityview-importer.php:1292
+msgid "Run these actions for each entry: %s"
+msgstr ""
+
+#: gravityview-importer.php:1301
+msgid "Conditional Import"
+msgstr ""
+
+#: gravityview-importer.php:1303
+msgid "Only import rows if they match certain conditions"
+msgstr ""
+
+#: gravityview-importer.php:1304
+msgid "Import the row if"
+msgstr ""
+
+#: gravityview-importer.php:1308 gravityview-importer.php:1311
+#: gravityview-importer.php:1353
+msgid "Upload File"
+msgstr ""
+
+#: gravityview-importer.php:1315
+msgid "Save this configuration"
+msgstr ""
+
+#: gravityview-importer.php:1316 gravityview-importer.php:1320
+#: gravityview-importer.php:1360
+msgid "Save Configuration"
+msgstr ""
+
+#: gravityview-importer.php:1317
+msgid ""
+"You can save your field mapping and come back later before you Begin Import."
+msgstr ""
+
+#: gravityview-importer.php:1355
+msgid "File successfully uploaded"
+msgstr ""
+
+#: gravityview-importer.php:1362
+msgid "The configuration has been saved."
+msgstr ""
+
+#: gravityview-importer.php:1368
+msgid "The configuration has been updated successfully."
+msgstr ""
+
+#: gravityview-importer.php:1401
+msgid "Update Settings"
+msgstr ""
+
+#: gravityview-importer.php:1456
+msgid "The file does not exist. It may have been deleted."
+msgstr ""
+
+#: gravityview-importer.php:1560 partials/import-screen.php:1
+msgid "Complete"
+msgstr ""
+
+#: gravityview-importer.php:1561
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: gravityview-importer.php:1562
+msgid "Updated"
+msgstr ""
+
+#: gravityview-importer.php:1564 partials/import-screen.php:5
+msgid "Hide Console"
+msgstr ""
+
+#: gravityview-importer.php:1565
+msgid "Show Console"
+msgstr ""
+
+#: gravityview-importer.php:1566
+msgid "Wrapping up&hellip;"
+msgstr ""
+
+#: gravityview-importer.php:1567
+msgid "This field has already been mapped."
+msgstr ""
+
+#: gravityview-importer.php:1568
+msgid ""
+"Warning: Existing post content will be overwritten by the imported data. "
+"Proceed?"
+msgstr ""
+
+#: gravityview-importer.php:1569
+msgid ""
+"Warning: Existing entry values will be overwritten by the imported data. "
+"Proceed?"
+msgstr ""
+
+#: gravityview-importer.php:1570
+msgid ""
+"No fields have been mapped. Please configure the field mapping before "
+"starting the import."
+msgstr ""
+
+#: gravityview-importer.php:1571
+msgid "There was an error on row %s."
+msgstr ""
+
+#: lib/EDD_SL_Plugin_Updater.php:181
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" "
+"class=\"thickbox\" href=\"%2$s\">View version %3$s details</a>."
+msgstr ""
+
+#: lib/EDD_SL_Plugin_Updater.php:188
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" "
+"class=\"thickbox\" href=\"%2$s\">View version %3$s details</a> or <a "
+"href=\"%4$s\">update now</a>."
+msgstr ""
+
+#: lib/EDD_SL_Plugin_Updater.php:332
+msgid "You do not have permission to install plugin updates"
+msgstr ""
+
+#: lib/EDD_SL_Plugin_Updater.php:332
+msgid "Error"
+msgstr "Fel"
+
+#: partials/download-errors-file.php:7
+msgid "A file has been generated with the error-generating rows."
+msgstr ""
+
+#: partials/download-errors-file.php:15
+msgid "Download %s"
+msgstr ""
+
+#: partials/export-page-import-entries.php:9
+msgid "Where should entries be imported?"
+msgstr ""
+
+#: partials/export-page-import-entries.php:11
+msgid ""
+"Select the Gravity Forms form where you would like the entries to be "
+"imported."
+msgstr ""
+
+#: partials/export-page-import-entries.php:21
+msgid "Untitled Form #%d"
+msgstr ""
+
+#: partials/import-screen.php:1
+msgid "Importer Status:"
+msgstr ""
+
+#: partials/import-screen.php:1
+msgid "Importing&hellip;"
+msgstr ""
+
+#: partials/import-screen.php:3
+msgid "No entries have been imported."
+msgstr ""
+
+#: partials/message-list.php:16
+msgid ", with warnings:"
+msgstr ""
+
+#: partials/report-after-empty.php:3 partials/report-after-errors.php:8
+msgid "No entries were imported."
+msgstr ""
+
+#: partials/report-after-empty.php:7
+msgid "Don&rsquo;t give up!"
+msgstr ""
+
+#: partials/report-after-empty.php:10
+msgid "Return to the Import Configuration"
+msgstr ""
+
+#: partials/report-after-empty.php:12 partials/report-after-errors.php:13
+#: partials/report-after-errors.php:23 partials/report-after-success.php:4
+msgid "Start a New Import"
+msgstr ""
+
+#: partials/report-after-errors.php:11
+msgid "Modify the Import Settings"
+msgstr ""
+
+#: partials/report-after-errors.php:20
+msgid "There were errors with the import."
+msgstr ""
+
+#: partials/report-after-errors.php:25 partials/report-after-success.php:6
+msgid "I&rsquo;m done - Show Me the Entries!"
+msgstr ""
+
+#: partials/report-after-success.php:1
+msgid "The import processed without errors."
+msgstr ""
+
+#: partials/report-main.php:21
+msgid "Skipped Rows"
+msgstr ""
+
+#: partials/report-main.php:42
+msgid "Entries Added"
+msgstr ""
+
+#: partials/settings-description.php:27
+msgid ""
+"You&rsquo;re about to move data from the uploaded file to the Gravity Forms form \"%s\". If you have any questions about how to format the data  in your file upload, please read the %sFormatting Guide%s.\n"
+"\n"
+"If using a file generated by Gravity Forms, you won&rsquo;t need to modify anything."
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1419
+msgctxt "the type of method used to search for a User. ID or Login"
+msgid "ID"
+msgstr ""
+
+#: class-gravityview-entry-importer.php:1425
+msgctxt "the type of method used to search for a User. ID or username"
+msgid "username"
+msgstr ""
+
+#: class-gravityview-import-report.php:121
+msgctxt "and Post #"
+msgid "and %s"
+msgstr ""
+
+#: gravityview-importer.php:860
+msgctxt "%1$s is the List field label, %2$s is the list field column detail"
+msgid "%1$s (%2$s)"
+msgstr ""
+
+#: partials/report-main.php:44
+msgctxt "The number of entries that were imported"
+msgid "%d %s been imported."
+msgstr ""

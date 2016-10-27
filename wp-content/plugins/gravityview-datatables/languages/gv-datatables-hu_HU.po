@@ -1,0 +1,184 @@
+# Copyright (C) 2016 Katz Web Services, Inc.
+# This file is distributed under the GPLv2 or later.
+# Translators:
+# dbalage <balazs@magonc.org>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: GravityView DataTables\n"
+"Report-Msgid-Bugs-To: https://gravityview.co/support/\n"
+"POT-Creation-Date: 2016-04-04 21:06:01+00:00\n"
+"PO-Revision-Date: 2016-04-04 21:08+0000\n"
+"Last-Translator: Zachary Katz <zack@katz.co>\n"
+"Language-Team: Hungarian (Hungary) (http://www.transifex.com/katzwebservices/gravityview-datatables/language/hu_HU/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hu_HU\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: grunt-wp-i18n 0.5.4\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Textdomain-Support: yes\n"
+
+#: includes/class-admin-datatables.php:41
+msgid "DataTables"
+msgstr ""
+
+#: includes/class-datatables-data.php:701
+msgid "Loading data&hellip;"
+msgstr "Adatok betöltése&hellip;"
+
+#: includes/class-datatables-data.php:702
+msgid "No entries match your request."
+msgstr "Nincs egyező találat."
+
+#: includes/class-datatables-template.php:31
+msgid "DataTables Table"
+msgstr "DataTables táblázat"
+
+#: includes/class-datatables-template.php:32
+msgid "Display items in a dynamic table powered by DataTables."
+msgstr "Elemek megjelenítése DataTables dinamikus táblázatban."
+
+#: includes/class-datatables-template.php:50
+msgid "Link to single entry"
+msgstr "Link egyedi bejegyzéshez"
+
+#: includes/class-datatables-template.php:61
+msgid "Visible Table Columns"
+msgstr "Táblázat látható oszlopai"
+
+#: includes/extensions/class-datatables-buttons.php:29
+#: includes/extensions/class-datatables-buttons.php:57
+msgid "Export Buttons"
+msgstr ""
+
+#: includes/extensions/class-datatables-buttons.php:30
+msgid ""
+"Display buttons that allow users to print or export the current results."
+msgstr ""
+
+#: includes/extensions/class-datatables-buttons.php:47
+msgid "Enable Buttons"
+msgstr ""
+
+#: includes/extensions/class-datatables-buttons.php:87
+msgid "Copy"
+msgstr "Másolás"
+
+#: includes/extensions/class-datatables-buttons.php:91
+msgid "Print"
+msgstr "Nyomtatás"
+
+#: includes/extensions/class-datatables-fixedheader.php:21
+msgid "Keep headers or columns in place and visible while scrolling a table."
+msgstr "A táblázat görgetése esetén is helyén tartja a címsort vagy az első oszlopot."
+
+#: includes/extensions/class-datatables-fixedheader.php:27
+msgid "Enable FixedHeader"
+msgstr "Rögzített címsor bekapcsolása"
+
+#: includes/extensions/class-datatables-fixedheader.php:39
+msgid "Enable FixedColumns"
+msgstr "Rögzített oszlopok bekapcsolása"
+
+#: includes/extensions/class-datatables-fixedheader.php:59
+msgid "FixedColumns"
+msgstr "Rögzített oszlopok"
+
+#: includes/extensions/class-datatables-fixedheader.php:60
+msgid ""
+"Fix the first column in place while horizontally scrolling a table. The "
+"first column and its contents will remain visible at all times."
+msgstr "Rögzíti az első oszlopot, amikor oldalra görgetünk a táblázatban. Így az első oszlop tartalma mindig látható marad."
+
+#: includes/extensions/class-datatables-fixedheader.php:64
+msgid "FixedHeader"
+msgstr "Rögzített címsor"
+
+#: includes/extensions/class-datatables-fixedheader.php:65
+msgid ""
+"Float the column headers above the table to keep the column titles visible "
+"at all times."
+msgstr "Az oszlopok címsorát mindig a táblázat tetején tartja, így a címek mindig láthatóak lesznek"
+
+#: includes/extensions/class-datatables-responsive.php:35
+msgid "Responsive Tables"
+msgstr "Reszponzív táblázatok"
+
+#: includes/extensions/class-datatables-responsive.php:36
+msgid ""
+"Optimize table layout for different screen sizes through the dynamic "
+"insertion and removal of columns from the table."
+msgstr "Különböző méretű képernyőhöz optimalizálja a megjelenést az oszlopok dinamikus hozzáadásával és eltávolításával."
+
+#: includes/extensions/class-datatables-responsive.php:62
+msgid "Enable Responsive Tables"
+msgstr "Reszponzív táblázatok bekapcsolása"
+
+#: includes/extensions/class-datatables-scroller.php:29
+msgid "Scroller"
+msgstr "Görgetés"
+
+#: includes/extensions/class-datatables-scroller.php:30
+msgid ""
+"Allow large datasets to be drawn on screen in one continuous page. The aim of Scroller for DataTables is to make rendering large data sets fast.\n"
+"\n"
+"\t\t\t\tNote: Scroller will not work well if your View has columns of varying height."
+msgstr "Lehetővé teszi nagy adatállományok görgetés közbeni folyamatos megjelenítését egy oldalon. Így a sok adatot tartalmazó táblázatok is gyorsan feldolgozásra és megjelenítésre kerülhetnek.\n\n                Megjegyzés: A görgetés nem fog jól működni, ha a Nézetben különböző magasságú oszlopok vannak. "
+
+#: includes/extensions/class-datatables-scroller.php:46
+msgid "Enable Scroller"
+msgstr "Görgetés bekapcsolása"
+
+#: includes/extensions/class-datatables-scroller.php:56
+msgid "Table Height"
+msgstr "Táblázat magassága"
+
+#: lib/EDD_SL_Plugin_Updater.php:179
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" "
+"class=\"thickbox\" href=\"%2$s\">View version %3$s details</a>."
+msgstr "Új verzió elérhető a következő számára: %1$s. <a target=\"_blank\" class=\"thickbox\" href=\"%2$s\">Tekintsd meg a %3$s verzió részleteit</a>."
+
+#: lib/EDD_SL_Plugin_Updater.php:186
+msgid ""
+"There is a new version of %1$s available. <a target=\"_blank\" "
+"class=\"thickbox\" href=\"%2$s\">View version %3$s details</a> or <a "
+"href=\"%4$s\">update now</a>."
+msgstr "Új verzió elérhető a következő számára: %1$s. <a target=\"_blank\" class=\"thickbox\" href=\"%2$s\">Tekintsd meg %3$s details</a> vagy <a href=\"%4$s\">frissítsd most</a>."
+
+#: lib/EDD_SL_Plugin_Updater.php:334
+msgid "You do not have permission to install plugin updates"
+msgstr "Nincs jogosultságod a bővítmények frissítéséhez"
+
+#: lib/EDD_SL_Plugin_Updater.php:334
+msgid "Error"
+msgstr "Hiba"
+
+#: lib/class-gravityview-extension.php:349
+msgid "Could not activate the %s Extension; GravityView is not active."
+msgstr "Nem lehet aktiválni a %s Bővítményt; a GravityView nem aktív."
+
+#: lib/class-gravityview-extension.php:353
+msgid "The %s Extension requires GravityView Version %s or newer."
+msgstr "A %s bővítménynek szüksége van a GravitView %s vagy újabb verziójára."
+
+#: lib/class-gravityview-extension.php:357
+msgid ""
+"The %s Extension requires PHP Version %s or newer. Please ask your host to "
+"upgrade your server's PHP."
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://gravityview.co/extensions/datatables/"
+msgstr ""
+
+#: includes/class-datatables-data.php:635
+msgctxt "Menu label to show all results in DataTables template."
+msgid "All"
+msgstr "Mind"
