@@ -20,6 +20,8 @@ include_once __DIR__ . '/includes/woocommerce.php';
 include_once __DIR__ . '/lib/output.php';
 require_once __DIR__ . '/lib/customize.php';
 include_once __DIR__ . '/includes/layout.php';
+include_once __DIR__ . '/includes/shortcodes.php';
+
 
 
 /**
