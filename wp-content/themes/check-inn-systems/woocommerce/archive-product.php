@@ -35,7 +35,6 @@ remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wra
  * Enqueue single page script accordion.js
  *
  * @return void
- * @todo Find JavaScript bug in scroll-to-fixed.js tomorrow
  */
 add_action( 'wp_enqueue_scripts', function() {
 
@@ -43,7 +42,7 @@ add_action( 'wp_enqueue_scripts', function() {
 		wp_enqueue_script(
 			'equal-height-js',
 			get_stylesheet_directory_uri() . '/dist/js/packages/equal-height.js',
-			array( 'jquery' ),
+			[ 'jquery' ],
 			CHILD_THEME_VERSION,
 			true
 		);
@@ -51,12 +50,29 @@ add_action( 'wp_enqueue_scripts', function() {
 		wp_enqueue_script(
 			'equal-height-init-js',
 			get_stylesheet_directory_uri() . '/dist/js/single/equal-height-init.js',
-			array( 'equal-height-js', 'jquery' ),
+			[ 'equal-height-js', 'jquery' ],
+			CHILD_THEME_VERSION,
+			true
+		);
+
+		wp_enqueue_script(
+			'backstretch',
+			get_stylesheet_directory_uri() . '/dist/js/packages/jquery.backstretch.min.js',
+			['jquery'],
+			'2.0.4',
+			true
+		);
+
+		wp_enqueue_script(
+			'backstretch-set-product-category-js',
+			get_stylesheet_directory_uri() . '/dist/js/single/backstretch-set-product-category.js',
+			[ 'jquery', 'backstretch' ],
 			CHILD_THEME_VERSION,
 			true
 		);
 	}
 });
+
 
 
 
