@@ -2469,81 +2469,66 @@ p.entry-meta {
     min-width: 230px;
     text-align: center; }
 
-.home .product-cats .pcats-heading {
-  margin: 2em 0;
-  text-align: center; }
-  .home .product-cats .pcats-heading h1 {
-    text-transform: uppercase; }
+.home .product-cats {
+  margin-bottom: 2em; }
+  .home .product-cats .pcats-heading {
+    margin: 2em 0;
+    text-align: center; }
+    .home .product-cats .pcats-heading h1 {
+      text-transform: uppercase; }
+  .home .product-cats .product-category {
+    float: left;
+    display: block;
+    margin-right: 2.84259%;
+    width: 17.72593%; }
+    .home .product-cats .product-category:last-child {
+      margin-right: 0; }
+    .home .product-cats .product-category:nth-child(5n) {
+      margin-right: 0; }
+    .home .product-cats .product-category:nth-child(5n+1) {
+      clear: left; }
+    .home .product-cats .product-category h3 {
+      border-bottom: 3px solid #2525c3;
+      color: #2525c3;
+      margin-bottom: 1.5em; }
+    .home .product-cats .product-category img {
+      border-radius: 50%; }
+    .home .product-cats .product-category .pcat-description {
+      font-size: 80%; }
 
-.home .product-cats .product-category {
-  float: left;
-  display: block;
-  margin-right: 2.84259%;
-  width: 17.72593%; }
-  .home .product-cats .product-category:last-child {
-    margin-right: 0; }
-  .home .product-cats .product-category:nth-child(5n) {
-    margin-right: 0; }
-  .home .product-cats .product-category:nth-child(5n+1) {
-    clear: left; }
-  .home .product-cats .product-category h3 {
-    border-bottom: 3px solid #2525c3;
-    color: #2525c3;
-    margin-bottom: 1.5em; }
-  .home .product-cats .product-category img {
-    border-radius: 50%; }
-  .home .product-cats .product-category .pcat-description {
-    font-size: 80%; }
+.home .faqs {
+  margin-bottom: 2em; }
+  .home .faqs .faqs-heading {
+    margin: 2em 0;
+    text-align: center; }
+  .home .faqs h1 {
+    text-align: center; }
+  .home .faqs .left-content,
+  .home .faqs .right-content {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 48.82117%; }
+    .home .faqs .left-content:last-child,
+    .home .faqs .right-content:last-child {
+      margin-right: 0; }
 
-.home .mini-quote-section {
-  padding: 30px 60px;
-  max-width: 100%;
-  text-align: center; }
-  @media screen and (max-width: 1023px) {
-    .home .mini-quote-section {
-      padding: 0; } }
-  .home .mini-quote-section .mini-quote-wrapper {
-    margin-top: 2em; }
-  .home .mini-quote-section blockquote {
-    color: #fff;
-    font-size: 2em;
-    text-transform: uppercase; }
-    @media screen and (max-width: 1200px) {
-      .home .mini-quote-section blockquote {
-        font-size: 1.75em; } }
-    @media screen and (max-width: 1023px) {
-      .home .mini-quote-section blockquote {
-        font-size: 1.4em; } }
-    @media screen and (max-width: 768px) {
-      .home .mini-quote-section blockquote {
-        font-size: 1.3em; } }
-    @media screen and (max-width: 480px) {
-      .home .mini-quote-section blockquote {
-        padding: 0; } }
-
-.home .secondary-hero {
-  padding: 300px 0;
-  color: #fff;
-  text-align: center; }
-  .home .secondary-hero .secondary-hero-overlay {
-    padding-bottom: 2em;
-    background-color: #000;
-    border: 1px solid #fff;
-    float: right;
-    max-width: 350px;
-    transform: translateY(-230px); }
-    @media screen and (max-width: 768px) {
-      .home .secondary-hero .secondary-hero-overlay {
-        margin: 0 auto;
-        float: none; } }
-  .home .secondary-hero .collection-wrap {
-    padding: 0 2.5em; }
-  .home .secondary-hero .collection-wrap-heading {
-    margin-top: 2em; }
-  .home .secondary-hero .button {
-    padding: 1.5em 3em;
-    background-color: transparent;
-    border: 2px solid #fff; }
+.home .testimonials {
+  margin-bottom: 2em; }
+  .home .testimonials .testimonials-heading {
+    margin-top: 2em;
+    margin-right: 0;
+    margin-left: 0;
+    text-align: center; }
+    .home .testimonials .testimonials-heading p {
+      margin-bottom: 0; }
+  .home .testimonials .entry {
+    background-color: transparent; }
+  .home .testimonials .testimonials-widget-testimonial .image {
+    margin-right: 1.2em; }
+  .home .testimonials .testimonials-widget-testimonial cite,
+  .home .testimonials .testimonials-widget-testimonial div.credit {
+    text-align: center; }
 
 /*! single-product.php - WooCommerce Product Page
 ------------------------------------------------- */

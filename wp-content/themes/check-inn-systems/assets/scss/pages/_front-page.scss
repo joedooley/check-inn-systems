@@ -122,6 +122,7 @@
 
   // ACF Field Product Cats
   .product-cats {
+    margin-bottom: 2em;
 
     .pcats-heading {
       @include margin(2em 0);
@@ -153,86 +154,51 @@
 
   }
 
+  // FAQ Section
+  .faqs {
+    margin-bottom: 2em;
 
-
-  // ACF Field - Full Row - Mini Quote section
-  .mini-quote-section {
-    @include padding(30px 60px);
-    max-width: 100%;
-    text-align: center;
-
-    @include media($xlarge-screen-up) {
-      @include padding(0);
+    .faqs-heading {
+      @include margin(2em 0);
+      text-align: center;
     }
 
-    .mini-quote-wrapper {
-      margin-top: 2em;
+    h1 {
+      text-align: center;
     }
 
-    blockquote {
-      color: $white1;
-      font-size: 2em;
-      text-transform: uppercase;
-
-      @include media($xxxlarge-screen-up) {
-        font-size: 1.75em;
-      }
-
-      @include media($xlarge-screen-up) {
-        font-size: 1.4em;
-      }
-
-      @include media($ipad-screen-up) {
-        font-size: 1.3em;
-      }
-
-      @include media($small-screen-up) {
-        @include padding(0);
-      }
+    .left-content,
+    .right-content {
+      @include span-columns(6 of 12);
     }
   }
 
+  // Testimonials Section
+  .testimonials {
+    margin-bottom: 2em;
 
-  // ACF Field - Secondary Hero
-  .secondary-hero {
-    @include padding(300px 0);
-    color: $white1;
-    text-align: center;
+    .testimonials-heading {
+      @include margin(2em 0 null);
+      text-align: center;
 
-    .secondary-hero-overlay {
-      @include padding(null null 2em);
-      background-color: $black1;
-      border: 1px solid $white1;
-      float: right;
-      max-width: 350px;
-      transform: translateY(-230px);
-
-      @include media($ipad-screen-up) {
-        @include margin(0 auto);
-        float: none;
+      p {
+        margin-bottom: 0;
       }
     }
 
-    .collection-wrap {
-      @include padding(0 2.5em);
-    }
-
-    .collection-wrap-heading {
-      margin-top: 2em;
-    }
-
-    .button {
-      @include padding(1.5em 3em);
+    .entry {
       background-color: transparent;
-      border: 2px solid $white1;
-
-      &:hover {
-      }
     }
 
+    .testimonials-widget-testimonial .image {
+      margin-right: 1.2em;
+    }
+
+    .testimonials-widget-testimonial cite,
+    .testimonials-widget-testimonial div.credit {
+      text-align: center;
+    }
   }
-
-
 }
 
 

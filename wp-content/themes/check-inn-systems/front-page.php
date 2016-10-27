@@ -60,18 +60,17 @@ add_action( 'wp_enqueue_scripts', function() {
 		true
 	);
 
+    wp_enqueue_script(
+        'accordion-js',
+        get_stylesheet_directory_uri() . '/dist/js/single/accordion.js',
+        ['jquery'],
+        CHILD_THEME_VERSION,
+        true
+    );
+
+
+
 });
-
-//add_action( 'woocommerce_after_subcategory_title', 'my_theme_woocommerce_taxonomy_archive_description');
-function my_theme_woocommerce_taxonomy_archive_description() {
-    if ( is_front_page() ) {
-        global $post, $product;
-        $categ = $product->get_categories();
-        $term = get_term_by ( 'name' , strip_tags($categ), 'product_cat' );
-        echo $term->description;
-
-    }
-}
 
 
 genesis();

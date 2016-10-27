@@ -6,8 +6,8 @@
 
 	// Grab the accordion items from the page
 
-	var accordionItems = document.querySelectorAll('.accordion-item'),
-	    accordionContent = document.querySelectorAll('.accordion-content');
+	var accordionItems = document.querySelectorAll('.accordion-item');
+	var accordionContent = document.querySelectorAll('.accordion-content');
 
 	// Assign onclick events to the accordion item headings
 	for (var i = 0; i < accordionItems.length; i++) {

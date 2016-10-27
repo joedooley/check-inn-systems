@@ -108,6 +108,10 @@ function check_inn_systems_acf_flexible_content() {
 
             get_template_part( 'partials/acf', 'secondary-hero' );
 
+        } elseif ( get_row_layout() === 'faq' ) {
+
+            get_template_part( 'partials/acf', 'faq-row' );
+
         }
 
     endwhile;
