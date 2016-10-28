@@ -2866,9 +2866,6 @@ body.woocommerce div.product form.cart .woocommerce-variation-description p:firs
   border-radius: 4px;
   padding: 10px 20px; }
 
-#gform_wrapper_1 label {
-  display: none; }
-
 #gform_wrapper_1,
 #gform_wrapper_1.field_description_below + li.gfield {
   margin-top: 0; }
@@ -2945,5 +2942,11 @@ body.woocommerce-cart .quantity .qty {
     @media screen and (max-width: 480px) {
       .archive .product-cat-hero h1 {
         font-size: 2.36859em; } }
+
+/* ## Support Tickets Gravityview
+---------------------------------- */
+.single-gravityview a {
+  color: #21759b;
+  text-decoration: underline; }
 
 /*# sourceMappingURL=style.css.map */
