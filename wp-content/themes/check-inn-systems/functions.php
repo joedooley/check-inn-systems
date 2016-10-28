@@ -36,3 +36,7 @@ define( 'CHILD_THEME_VERSION', '1.0.0' );
  * Add theme support for Genesis Connect WocCommerce
  */
 add_theme_support( 'genesis-connect-woocommerce' );
+
+
+
+

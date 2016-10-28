@@ -2,8 +2,8 @@
 
     'use strict';
 
-    var productCatHero = BackStretchImg;
+    var productCatHero = BackStretchImgUrl;
 
-    $('.product-cat-hero').backstretch(productCatHero.src);
+    $('.product-cat-hero').backstretch(productCatHero.hero_src);
 })(document, jQuery);
 //# sourceMappingURL=backstretch-set-product-category.js.map

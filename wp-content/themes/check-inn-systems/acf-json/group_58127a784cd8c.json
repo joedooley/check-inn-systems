@@ -4,8 +4,8 @@
     "fields": [
         {
             "key": "field_58127a8bce332",
-            "label": "Hero",
-            "name": "hero",
+            "label": "Hero Image",
+            "name": "hero_image",
             "type": "image",
             "instructions": "",
             "required": 0,
@@ -65,5 +65,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1477608036
+    "modified": 1477620508
 }

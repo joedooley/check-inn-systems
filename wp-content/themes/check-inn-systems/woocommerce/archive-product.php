@@ -54,22 +54,6 @@ add_action( 'wp_enqueue_scripts', function() {
 			CHILD_THEME_VERSION,
 			true
 		);
-
-		wp_enqueue_script(
-			'backstretch',
-			get_stylesheet_directory_uri() . '/dist/js/packages/jquery.backstretch.min.js',
-			['jquery'],
-			'2.0.4',
-			true
-		);
-
-		wp_enqueue_script(
-			'backstretch-set-product-category-js',
-			get_stylesheet_directory_uri() . '/dist/js/single/backstretch-set-product-category.js',
-			[ 'jquery', 'backstretch' ],
-			CHILD_THEME_VERSION,
-			true
-		);
 	}
 });
 

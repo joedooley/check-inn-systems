@@ -162,38 +162,4 @@ function check_inn_systems_woo_remove_product_tabs( $tabs ) {
 add_filter( 'loop_shop_per_page', create_function( '$cols', 'return 18;' ), 20 );
 
 
-add_action( 'genesis_after_header', 'check_inn_systems_show_prod_cat_image_as_bg' );
-function check_inn_systems_show_prod_cat_image_as_bg() {
-	if ( is_product_taxonomy() ) {
 
-		$image = get_field( 'hero' );
-
-
-		wp_localize_script( 'backstretch-set-product-category-js', 'BackStretchImg', [
-			'src' => $image['url']
-		] );
-		?>
-
-		<section class = "product-cat-hero"
-		         style = "background: url( <?php echo $image['url'] ?> ) no-repeat;">
-			<div class = "wrap">
-
-				<?php
-
-				if ( apply_filters( 'woocommerce_show_page_title', true ) ) {
-
-					remove_action( 'genesis_before_loop', 'genesis_do_taxonomy_title_description', 15 );
-
-					echo '<h1 class = "page-title">' . woocommerce_page_title() . '</h1>';
-
-
-				} ?>
-
-
-			</div>
-		</section>
-
-		<?php
-
-	}
-}

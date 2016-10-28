@@ -2,10 +2,10 @@
 
     'use strict';
 
-    var productCatHero = BackStretchImg;
+    var catHero = BackStretchImgUrl;
 
 
-    $('.product-cat-hero').backstretch(productCatHero.src);
+    $('.product-cat-hero').backstretch(catHero.primary_hero);
 
 
 })(document, jQuery);
