@@ -110,7 +110,7 @@
       h1 {
         text-transform: uppercase;
       }
-      
+
       p {
         @include media($small-screen-up) {
           text-align: left;
@@ -199,7 +199,7 @@
   }
 
   // Testimonials Section
-  .testimonials {
+  .row.testimonials {
     @include padding(null 2.5%);
     margin-bottom: 2em;
 
@@ -237,7 +237,7 @@
     .testimonials-widget-testimonial cite,
     .testimonials-widget-testimonial div.credit {
       text-align: center;
-      
+
       @include media($ipad-screen-up) {
         padding-left: 2em;
         text-align: left;

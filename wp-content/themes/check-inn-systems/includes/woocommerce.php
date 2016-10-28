@@ -162,3 +162,4 @@ function check_inn_systems_woo_remove_product_tabs( $tabs ) {
 add_filter( 'loop_shop_per_page', create_function( '$cols', 'return 18;' ), 20 );
 
 
+

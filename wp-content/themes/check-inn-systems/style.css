@@ -2567,42 +2567,42 @@ p.entry-meta {
       .home .faqs .left-content {
         margin-top: 2em;
         margin-bottom: 3em; } }
-  .home .testimonials {
+  .home .row.testimonials {
     padding-right: 2.5%;
     padding-left: 2.5%;
     margin-bottom: 2em; }
-    .home .testimonials .testimonials-heading {
+    .home .row.testimonials .testimonials-heading {
       margin-top: 2em;
       margin-right: 0;
       margin-left: 0;
       text-align: center; }
-      .home .testimonials .testimonials-heading p {
+      .home .row.testimonials .testimonials-heading p {
         margin-bottom: 0; }
         @media screen and (max-width: 480px) {
-          .home .testimonials .testimonials-heading p {
+          .home .row.testimonials .testimonials-heading p {
             text-align: left; } }
-    .home .testimonials .entry {
+    .home .row.testimonials .entry {
       background-color: transparent; }
-    .home .testimonials .testimonials-widget-testimonial .image {
+    .home .row.testimonials .testimonials-widget-testimonial .image {
       margin-right: 1.2em; }
       @media screen and (max-width: 768px) {
-        .home .testimonials .testimonials-widget-testimonial .image {
+        .home .row.testimonials .testimonials-widget-testimonial .image {
           display: block;
           float: none;
           text-align: center; } }
-      .home .testimonials .testimonials-widget-testimonial .image img {
+      .home .row.testimonials .testimonials-widget-testimonial .image img {
         border-radius: 50%; }
-    .home .testimonials .testimonials-widget-testimonial cite,
-    .home .testimonials .testimonials-widget-testimonial div.credit {
+    .home .row.testimonials .testimonials-widget-testimonial cite,
+    .home .row.testimonials .testimonials-widget-testimonial div.credit {
       text-align: center; }
       @media screen and (max-width: 768px) {
-        .home .testimonials .testimonials-widget-testimonial cite,
-        .home .testimonials .testimonials-widget-testimonial div.credit {
+        .home .row.testimonials .testimonials-widget-testimonial cite,
+        .home .row.testimonials .testimonials-widget-testimonial div.credit {
           padding-left: 2em;
           text-align: left; } }
       @media screen and (max-width: 480px) {
-        .home .testimonials .testimonials-widget-testimonial cite,
-        .home .testimonials .testimonials-widget-testimonial div.credit {
+        .home .row.testimonials .testimonials-widget-testimonial cite,
+        .home .row.testimonials .testimonials-widget-testimonial div.credit {
           padding-left: 0;
           text-align: center; } }
 
@@ -2930,5 +2930,20 @@ body.woocommerce-cart .quantity .qty {
   .archive.woocommerce-page.sidebar-content ul.products li.product {
     margin-right: 0;
     width: 100%; } }
+
+/* ## Product Taxonomy Pages
+--------------------------------------- */
+.archive .product-cat-hero {
+  padding: 150px 0; }
+  @media screen and (max-width: 480px) {
+    .archive .product-cat-hero {
+      padding: 75px 0; } }
+  .archive .product-cat-hero h1 {
+    font-size: 5.61023em;
+    text-align: center;
+    text-transform: uppercase; }
+    @media screen and (max-width: 480px) {
+      .archive .product-cat-hero h1 {
+        font-size: 2.36859em; } }
 
 /*# sourceMappingURL=style.css.map */

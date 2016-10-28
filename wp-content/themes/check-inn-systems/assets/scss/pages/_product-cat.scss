@@ -1,0 +1,24 @@
+/* ## Product Taxonomy Pages
+--------------------------------------- */
+
+.archive {
+
+	.product-cat-hero {
+		@include padding(150px 0);
+
+		@include media($small-screen-up) {
+			@include padding(75px 0);
+		}
+
+		h1 {
+			font-size: modular-scale(6);
+			text-align: center;
+			text-transform: uppercase;
+
+			@include media($small-screen-up) {
+				font-size: modular-scale(3);
+			}
+		}
+	}
+
+}
