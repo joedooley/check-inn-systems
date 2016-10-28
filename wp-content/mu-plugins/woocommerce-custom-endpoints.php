@@ -23,7 +23,6 @@
  * You should have received a copy of the GNU General Public License
  * along with WooCommerce Custom Endpoints. If not, see <http://www.gnu.org/licenses/>.
  *
- * @package    JD_WooCommerce_Custom_Endpoints
  * @author     Joe Dooley <hello@developingdesigns.com>
  * @license    GPL-2.0+
  * @copyright  2015 Joe Dooley, Developing Designs
