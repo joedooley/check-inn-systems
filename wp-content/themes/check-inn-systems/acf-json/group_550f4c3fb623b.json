@@ -356,22 +356,12 @@
                             "maxlength": "",
                             "readonly": 0,
                             "disabled": 0
-                        }
-                    ],
-                    "min": "",
-                    "max": ""
-                },
-                {
-                    "key": "57f7f89fcdf4a",
-                    "name": "secondary_hero",
-                    "label": "Secondary Hero",
-                    "display": "block",
-                    "sub_fields": [
+                        },
                         {
-                            "key": "field_57f7f89fcdf4b",
-                            "label": "Hero Image",
-                            "name": "sec_hero_image",
-                            "type": "image",
+                            "key": "field_5815178361b03",
+                            "label": "Background Color",
+                            "name": "background_color",
+                            "type": "color_picker",
                             "instructions": "",
                             "required": 0,
                             "conditional_logic": 0,
@@ -380,181 +370,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "return_format": "array",
-                            "preview_size": "large",
-                            "library": "all",
-                            "min_width": "",
-                            "min_height": "",
-                            "min_size": "",
-                            "max_width": "",
-                            "max_height": "",
-                            "max_size": "",
-                            "mime_types": ""
-                        },
-                        {
-                            "key": "field_57f7f89fcdf4c",
-                            "label": "Add Overlay Content?",
-                            "name": "add_overlay_content",
-                            "type": "true_false",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "message": "",
-                            "default_value": 0
-                        },
-                        {
-                            "key": "field_57f7f89fcdf4d",
-                            "label": "Hero Overlay",
-                            "name": "hero_overlay",
-                            "type": "wysiwyg",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": [
-                                [
-                                    {
-                                        "field": "field_57f7f89fcdf4c",
-                                        "operator": "==",
-                                        "value": "1"
-                                    }
-                                ]
-                            ],
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "tabs": "all",
-                            "toolbar": "full",
-                            "media_upload": 1
-                        },
-                        {
-                            "key": "field_57f7f89fcdf54",
-                            "label": "CSS Class",
-                            "name": "css_class",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "maxlength": "",
-                            "readonly": 0,
-                            "disabled": 0
-                        }
-                    ],
-                    "min": "",
-                    "max": ""
-                },
-                {
-                    "key": "56ef403c76523",
-                    "name": "four_featured_posts",
-                    "label": "Four Featured Posts",
-                    "display": "block",
-                    "sub_fields": [
-                        {
-                            "key": "field_57f7e66cd5d2d",
-                            "label": "Add Section Heading?",
-                            "name": "add_section_heading",
-                            "type": "true_false",
-                            "instructions": "",
-                            "required": "",
-                            "conditional_logic": "",
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "message": "",
-                            "default_value": 0
-                        },
-                        {
-                            "key": "field_56ef49baad0ed",
-                            "label": "Section Heading",
-                            "name": "section_heading",
-                            "type": "wysiwyg",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": [
-                                [
-                                    {
-                                        "field": "field_57f7e66cd5d2d",
-                                        "operator": "==",
-                                        "value": "1"
-                                    }
-                                ]
-                            ],
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "tabs": "all",
-                            "toolbar": "full",
-                            "media_upload": 1
-                        },
-                        {
-                            "key": "field_56ef403c76524",
-                            "label": "Featured Posts",
-                            "name": "featured_posts",
-                            "type": "relationship",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "post_type": [
-                                "post"
-                            ],
-                            "taxonomy": [],
-                            "filters": [
-                                "search",
-                                "post_type",
-                                "taxonomy"
-                            ],
-                            "elements": [
-                                "featured_image"
-                            ],
-                            "min": 4,
-                            "max": 4,
-                            "return_format": "object"
-                        },
-                        {
-                            "key": "field_56ef403c76528",
-                            "label": "CSS Class",
-                            "name": "css_class",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "maxlength": "",
-                            "readonly": 0,
-                            "disabled": 0
+                            "default_value": ""
                         }
                     ],
                     "min": "",
@@ -702,11 +518,27 @@
                             "prepend": "",
                             "append": "",
                             "maxlength": ""
+                        },
+                        {
+                            "key": "field_581517a761b04",
+                            "label": "Background Color",
+                            "name": "background_color",
+                            "type": "color_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": ""
                         }
                     ],
                     "min": "",
                     "max": ""
-                }
+                },
+
             ]
         }
     ],
@@ -740,5 +572,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1477583921
+    "modified": 1477777634
 }

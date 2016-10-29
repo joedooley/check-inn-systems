@@ -90,31 +90,23 @@ function check_inn_systems_svg_size() {
  */
 function check_inn_systems_acf_flexible_content() {
 
-    while ( have_rows( 'flexible_content' ) ) : the_row();
+	while ( have_rows( 'flexible_content' ) ) : the_row();
 
-        if ( get_row_layout() === 'hero' ) {
+		if ( get_row_layout() === 'hero' ) {
 
-            get_template_part( 'partials/acf', 'primary-hero' );
+			get_template_part( 'partials/acf', 'primary-hero' );
 
-        } elseif ( get_row_layout() === 'four_featured_posts' ) {
+		} elseif ( get_row_layout() === 'full_row' ) {
 
-            get_template_part( 'partials/acf', 'featured-posts' );
+			get_template_part( 'partials/acf', 'full-row' );
 
-        } elseif ( get_row_layout() === 'full_row' ) {
+		} elseif ( get_row_layout() === 'faq' ) {
 
-            get_template_part( 'partials/acf', 'full-row' );
+			get_template_part( 'partials/acf', 'faq-row' );
 
-        } elseif ( get_row_layout() === 'secondary_hero' ) {
+		}
 
-            get_template_part( 'partials/acf', 'secondary-hero' );
-
-        } elseif ( get_row_layout() === 'faq' ) {
-
-            get_template_part( 'partials/acf', 'faq-row' );
-
-        }
-
-    endwhile;
+	endwhile;
 
 }
 
