@@ -52,7 +52,7 @@ add_action( 'wp_enqueue_scripts', function() {
 		wp_enqueue_script(
 			'accordion-js',
 			get_stylesheet_directory_uri() . '/dist/js/single/accordion.js',
-			['jquery'],
+			[ 'jquery' ],
 			CHILD_THEME_VERSION,
 			true
 		);
@@ -60,7 +60,7 @@ add_action( 'wp_enqueue_scripts', function() {
 		wp_enqueue_script(
 			'slick-js',
 			get_stylesheet_directory_uri() . '/dist/js/packages/slick.js',
-			['jquery'],
+			[ 'jquery' ],
 			CHILD_THEME_VERSION,
 			true
 		);
@@ -69,7 +69,7 @@ add_action( 'wp_enqueue_scripts', function() {
 		wp_enqueue_script(
 			'slick-init-js',
 			get_stylesheet_directory_uri() . '/dist/js/single/slick-init.js',
-			['jquery', 'slick-js'],
+			[ 'jquery', 'slick-js' ],
 			CHILD_THEME_VERSION,
 			true
 		);
@@ -77,7 +77,7 @@ add_action( 'wp_enqueue_scripts', function() {
 		wp_enqueue_script(
 			'increment-decrement-js',
 			get_stylesheet_directory_uri() . '/dist/js/input-increment-decrement.js',
-			['jquery'],
+			[ 'jquery' ],
 			CHILD_THEME_VERSION,
 			true
 		);
@@ -158,7 +158,7 @@ function gencwooc_single_product_loop() {
 	// Added a hook for developers in case they need to modify the query
 	$wc_query = apply_filters( 'gencwooc_custom_query', $wc_query );
 
-	if ( ! $wc_query) {
+	if ( ! $wc_query ) {
 
 		global $wp_query;
 
