@@ -1566,12 +1566,6 @@ img.alignright,
   min-height: 80px;
   width: 100%; }
 
-.site-description {
-  font-size: 16px;
-  font-size: 1.6rem;
-  font-weight: 400;
-  line-height: 1.5; }
-
 .site-description,
 .site-title {
   margin-bottom: 0; }
@@ -1580,13 +1574,6 @@ img.alignright,
 .header-image .site-title {
   display: block;
   text-indent: -9999px; }
-
-/* ## Widget Area
---------------------------------------------- */
-.site-header .widget-area {
-  float: right;
-  text-align: right;
-  width: 800px; }
 
 /* # Site Navigation
 ---------------------------------------------------------------------------------------------------- */
@@ -1680,14 +1667,6 @@ img.alignright,
 --------------------------------------------- */
 .site-header .genesis-nav-menu li li {
   margin-left: 0; }
-
-/* ## Footer Navigation
---------------------------------------------- */
-.site-footer .genesis-nav-menu {
-  padding-bottom: 20px; }
-
-.site-footer .genesis-nav-menu a {
-  padding: 0 20px 10px; }
 
 /* # Content Area
 ---------------------------------------------------------------------------------------------------- */
@@ -2367,6 +2346,10 @@ p.entry-meta {
   text-align: center; }
   .site-footer p {
     margin-bottom: 0; }
+  .site-footer .genesis-nav-menu {
+    padding-bottom: 20px; }
+    .site-footer .genesis-nav-menu a {
+      padding: 0 20px 10px; }
 
 /* ## front-page.php
 --------------------------------- */
@@ -2948,5 +2931,10 @@ body.woocommerce-cart .quantity .qty {
 .single-gravityview a {
   color: #21759b;
   text-decoration: underline; }
+
+/* ## WooCommerce My Account
+------------------------------ */
+.woocommerce-account .entry-content a {
+  color: #1565c0; }
 
 /*# sourceMappingURL=style.css.map */
