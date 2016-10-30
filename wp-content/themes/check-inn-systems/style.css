@@ -2879,7 +2879,7 @@ body.woocommerce-cart .quantity .qty {
 
 /* ## Support Tickets Gravityview
 ---------------------------------- */
-.single-gravityview a {
+.single-gravityview .entry-content a {
   color: #21759b;
   text-decoration: underline; }
 

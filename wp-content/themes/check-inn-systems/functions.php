@@ -23,7 +23,6 @@ include_once __DIR__ . '/includes/layout.php';
 include_once __DIR__ . '/includes/shortcodes.php';
 
 
-
 /**
  * Define child theme constants
  */
