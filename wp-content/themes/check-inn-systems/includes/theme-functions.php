@@ -84,29 +84,3 @@ function check_inn_systems_svg_size() {
   </style>';
 }
 
-
-/**
- * Function displaying Flexible Content Fields on homepage.
- */
-function check_inn_systems_acf_flexible_content() {
-
-	while ( have_rows( 'flexible_content' ) ) : the_row();
-
-		if ( get_row_layout() === 'hero' ) {
-
-			get_template_part( 'partials/acf', 'primary-hero' );
-
-		} elseif ( get_row_layout() === 'full_row' ) {
-
-			get_template_part( 'partials/acf', 'full-row' );
-
-		} elseif ( get_row_layout() === 'faq' ) {
-
-			get_template_part( 'partials/acf', 'faq-row' );
-
-		}
-
-	endwhile;
-
-}
-

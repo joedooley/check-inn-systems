@@ -1,0 +1,11 @@
+{
+    "name": "joedooley/check-inn-systems",
+    "description": "Genesis child theme for Check Inn Systems",
+    "authors": [
+        {
+            "name": "Joe Dooley",
+            "email": "hello@developingdesigns.com"
+        }
+    ],
+    "require": {}
+}

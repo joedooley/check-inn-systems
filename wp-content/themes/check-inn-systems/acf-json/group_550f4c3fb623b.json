@@ -15,7 +15,7 @@
                 "class": "",
                 "id": ""
             },
-            "button_label": "Add Section",
+            "button_label": "Add Another Section",
             "min": "",
             "max": "",
             "layouts": [
@@ -342,10 +342,10 @@
                             "name": "css_class",
                             "type": "text",
                             "instructions": "",
-                            "required": "",
-                            "conditional_logic": "",
+                            "required": 0,
+                            "conditional_logic": 0,
                             "wrapper": {
-                                "width": "",
+                                "width": "50",
                                 "class": "",
                                 "id": ""
                             },
@@ -353,9 +353,7 @@
                             "placeholder": "",
                             "prepend": "",
                             "append": "",
-                            "maxlength": "",
-                            "readonly": 0,
-                            "disabled": 0
+                            "maxlength": ""
                         },
                         {
                             "key": "field_5815178361b03",
@@ -366,11 +364,11 @@
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "",
+                                "width": "50",
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": ""
+                            "default_value": "#f8f8f8"
                         }
                     ],
                     "min": "",
@@ -380,7 +378,7 @@
                     "key": "58113f938c0d7",
                     "name": "faq",
                     "label": "FAQ",
-                    "display": "block",
+                    "display": "row",
                     "sub_fields": [
                         {
                             "key": "field_58113f938c0d8",
@@ -509,7 +507,7 @@
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "",
+                                "width": "50",
                                 "class": "",
                                 "id": ""
                             },
@@ -528,17 +526,132 @@
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "",
+                                "width": "50",
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": ""
+                            "default_value": "#f8f8f8"
                         }
                     ],
                     "min": "",
                     "max": ""
                 },
-
+                {
+                    "key": "58151a41616e3",
+                    "name": "call_to_action",
+                    "label": "Call To Action",
+                    "display": "row",
+                    "sub_fields": [
+                        {
+                            "key": "field_58151a9c616e5",
+                            "label": "CTA Heading",
+                            "name": "cta_heading",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_58151b08616e6",
+                            "label": "CTA Button Text",
+                            "name": "cta_button_text",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "Shop Now",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_58151b41616e7",
+                            "label": "CTA Button URL",
+                            "name": "cta_button_url",
+                            "type": "page_link",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "post_type": [],
+                            "taxonomy": [],
+                            "allow_null": 0,
+                            "allow_archives": 1,
+                            "multiple": 0
+                        },
+                        {
+                            "key": "field_58151dcd25e50",
+                            "label": "CTA Button Background Color",
+                            "name": "cta_bg_color",
+                            "type": "color_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "30",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "#333333"
+                        },
+                        {
+                            "key": "field_58151da525e4e",
+                            "label": "Section Background Color",
+                            "name": "section_bgcolor",
+                            "type": "color_picker",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "#f8f8f8"
+                        },
+                        {
+                            "key": "field_58151db725e4f",
+                            "label": "CSS Class",
+                            "name": "css_class",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                }
             ]
         }
     ],
@@ -572,5 +685,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1477777634
+    "modified": 1477791205
 }

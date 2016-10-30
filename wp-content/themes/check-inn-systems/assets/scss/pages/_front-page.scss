@@ -4,13 +4,6 @@
 .home {
   background-color: $white1;
 
-  @include media($large-screen-up) {
-    .wrap {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
-
   .site-inner {
     margin-bottom: 0;
     margin-top: 0;
@@ -30,12 +23,7 @@
 
   .row {
     margin: 0 auto;
-    max-width: 1280px;
     overflow: hidden;
-
-    @include media($xxxlarge-screen-up) {
-      max-width: none;
-    }
 
     @include media($ipad-screen-up) {
       @include padding(0);
@@ -249,6 +237,32 @@
       }
     }
   }
+
+	// ACF Field CTA
+	.mini-cta {
+
+		.cta-heading {
+			@include margin(5px);
+			@include span-columns(9 of 12);
+
+			@include media($ipad-screen-up) {
+				@include span-columns(12 of 12);
+				text-align: center;
+			}
+		}
+
+		.cta-button {
+			@include span-columns(3 of 12);
+			padding-bottom: 40px;
+
+			@include media($ipad-screen-up) {
+				@include span-columns(12 of 12);
+				text-align: center;
+			}
+		}
+
+	}
+
 }
 
 
